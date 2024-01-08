@@ -1,7 +1,7 @@
 ﻿namespace SwiftLink.Domain.Entities;
 
 /// <summary>
-/// Only these subscribers can insert a Url to get shorter one.
+/// Only these subscribers are allowed to insert a URL to obtain a shorter one.
 /// </summary>
 [Entity]
 public class Subscriber

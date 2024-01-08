@@ -1,7 +1,7 @@
 ﻿namespace SwiftLink.Domain.Entities;
 
 /// <summary>
-/// This class is aimed for storing Original Url for each subscriber plus Link code and expiration time.
+/// This class is designed to store the original URL for each subscriber along with the link code and expiration time.
 /// </summary>
 [Entity]
 public class Link

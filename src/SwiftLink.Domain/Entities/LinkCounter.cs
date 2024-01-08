@@ -1,7 +1,7 @@
 ﻿namespace SwiftLink.Domain.Entities;
 
 /// <summary>
-/// this class is aimed for analytics and viewing how many users clicked on a shorter link.
+/// This class is intended for analytics, providing insights into the number of users who clicked on a shortened link.
 /// </summary>
 [Entity]
 public class LinkCounter

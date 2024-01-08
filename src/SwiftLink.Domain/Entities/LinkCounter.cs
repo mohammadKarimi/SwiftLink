@@ -1,10 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace SwiftLink.Domain.Entities;
 
-namespace SwiftLink.Domain.Entities;
-internal class LinkCounter
+/// <summary>
+/// this class is aimed for analytics and viewing how many users clicked on a shorter link.
+/// </summary>
+[Entity]
+public class LinkCounter
 {
+    public long Id { get; set; }
+
+    public int LinkId { get; set; }
+    public Link Link { get; set; }
+
+    public DateTime Date { get; set; }
 }

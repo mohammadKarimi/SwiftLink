@@ -3,6 +3,7 @@
 /// <summary>
 /// Only these subscribers can insert a Url to get shorter one.
 /// </summary>
+[Entity]
 public class Subscriber
 {
     public int Id { get; set; }

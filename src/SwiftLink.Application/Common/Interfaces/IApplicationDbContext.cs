@@ -5,4 +5,10 @@
 /// </summary>
 public interface IApplicationDbContext
 {
+    /// <summary>
+    /// Save all entities in to database.
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public Task<Result> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace SwiftLink.Application.Common.Interfaces;
 
-namespace SwiftLink.Application.Common.Interfaces;
-internal interface IShortCodeGenerator
+/// <summary>
+/// 
+/// </summary>
+public interface IShortCodeGenerator
 {
+    Task<string> GenerateAsync(string originalUrl, CancellationToken cancellationToken = default);
 }

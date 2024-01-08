@@ -4,7 +4,7 @@
 /// This class is intended for analytics, providing insights into the number of users who clicked on a shortened link.
 /// </summary>
 [Entity]
-public class LinkCounter
+public class LinkVisit
 {
     public long Id { get; set; }
 
@@ -12,4 +12,6 @@ public class LinkCounter
     public Link Link { get; set; }
 
     public DateTime Date { get; set; }
+
+    public string ClientMetaData { get; set; }
 }

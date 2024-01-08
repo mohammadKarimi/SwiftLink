@@ -11,5 +11,8 @@ public class Link
     public Subscriber Subscriber { get; set; }
     public string ShortCode { get; set; }
     public string OriginalUrl { get; set; }
+    public string Description { get; set; }
     public DateTime ExpirationDate { get; set; }
+    public bool IsBanned { get; set; }
+    public string Password { get; set; }
 }

@@ -1,4 +1,6 @@
-﻿namespace SwiftLink.Application.Common.Interfaces;
+﻿using SwiftLink.Domain.Common;
+
+namespace SwiftLink.Application.Common.Interfaces;
 
 /// <summary>
 /// This interface facilitates communication between the application layer, infrastructure, and the DbContext.
@@ -11,4 +13,6 @@ public interface IApplicationDbContext
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public Task<Result> SaveChangesAsync(CancellationToken cancellationToken = default);
+
+    DbSet<TEntity> Set<TEntity>() where TEntity : class, IEntity;
 }

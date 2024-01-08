@@ -4,7 +4,7 @@
 /// Only these subscribers are allowed to insert a URL to obtain a shorter one.
 /// </summary>
 [Entity]
-public class Subscriber
+public class Subscriber: IEntity
 {
     public int Id { get; set; }
     public Guid Token { get; set; }

@@ -36,6 +36,4 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         }
     }
 
-    public new DbSet<TEntity> Set<TEntity>() where TEntity : class, IEntity
-        => base.Set<TEntity>();
 }

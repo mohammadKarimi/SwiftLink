@@ -14,5 +14,5 @@ public interface IApplicationDbContext
     /// <returns></returns>
     public Task<Result> SaveChangesAsync(CancellationToken cancellationToken = default);
 
-    DbSet<TEntity> Set<TEntity>() where TEntity : class, IEntity;
+    DbSet<TEntity> Set<TEntity>() where TEntity : class;
 }

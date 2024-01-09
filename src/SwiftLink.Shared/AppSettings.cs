@@ -1,5 +1,10 @@
-﻿namespace SwiftLink.Shared;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SwiftLink.Shared;
 public record AppSettings
 {
-    public Uri DefaultUrlOnNotFound { get; set; }
+    public static string ConfigurationSectionName => "AppSettings";
+
+    [Url]
+    public string DefaultUrlOnNotFound { get; set; }
 }

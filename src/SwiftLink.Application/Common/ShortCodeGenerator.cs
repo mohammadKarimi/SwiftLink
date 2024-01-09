@@ -4,6 +4,9 @@ using System.Text;
 
 namespace SwiftLink.Application.Common;
 
+/// <summary>
+/// Concatenate timestamp, random number, and hash of the original URL.
+/// </summary>
 public class TimeBasedShortCodeGenerator : IShortCodeGenerator
 {
     private static readonly object _lockObject = new();

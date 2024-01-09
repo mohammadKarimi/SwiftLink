@@ -34,8 +34,14 @@ public class Result<T> : Result
     private Result(T data, string message) : base(message)
          => Data = data;
 
-    public static Result<T> Success(T result, string message = Error.DefaultMessage)
+    public static Result<T> Success(T result)
+       => new(result, string.Empty);
+
+    public static Result<T> Success(T result, string message)
         => new(result, message);
+
+    public static Result<T> Failure()
+      => new(default!, string.Empty);
 
     public new static Result<T> Failure(string errorMessage = Error.DefaultMessage)
         => new(default!, errorMessage);

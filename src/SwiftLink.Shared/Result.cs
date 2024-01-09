@@ -43,6 +43,6 @@ public class Result<T> : Result
     public static Result<T> Failure()
       => new(default!, string.Empty);
 
-    public new static Result<T> Failure(string errorMessage = Error.DefaultMessage)
+    public new static Result<T> Failure(string errorMessage)
         => new(default!, errorMessage);
 }

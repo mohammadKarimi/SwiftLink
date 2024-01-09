@@ -22,7 +22,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             relationship.DeleteBehavior = DeleteBehavior.NoAction;
     }
 
-    public new async Task<Result> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public async Task<Result> SaveChangesAsync()
+        => await SaveChangesAsync(default);
+
+    public new async Task<Result> SaveChangesAsync(CancellationToken cancellationToken)
     {
         try
         {

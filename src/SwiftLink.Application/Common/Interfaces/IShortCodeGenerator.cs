@@ -5,5 +5,5 @@
 /// </summary>
 public interface IShortCodeGenerator
 {
-    Task<string> GenerateAsync(string originalUrl, CancellationToken cancellationToken = default);
+    string Generate(string originalUrl);
 }

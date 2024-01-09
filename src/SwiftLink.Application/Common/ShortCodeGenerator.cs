@@ -20,11 +20,8 @@ public class TimeBasedShortCodeGenerator : IShortCodeGenerator
     /// <param name="originalUrl">the original link which must be shorted.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<string> GenerateAsync(string originalUrl, CancellationToken cancellationToken = default)
-    {
-        var shortCode = $"{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{GetRandomString(COUNT_OF_RANDOM_NUMBER)}{GetHash(originalUrl)}";
-        return await Task.FromResult(shortCode);
-    }
+    public string Generate(string originalUrl)
+        => $"{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{GetRandomString(COUNT_OF_RANDOM_NUMBER)}{GetHash(originalUrl)}";
 
     private static string GetRandomString(int length)
     {

@@ -8,6 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddOptions<AppSettings>()
                     .Bind(builder.Configuration.GetSection(AppSettings.ConfigurationSectionName))
                     .ValidateDataAnnotations();
+
+    builder.Services.AddStackExchangeRedisCache(options =>
+    {
+        options.Configuration = builder.Configuration["AppSettings:RedisCacheUrl"];
+    });
 }
 
 var app = builder.Build();

@@ -38,5 +38,4 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             return Result.Failure(ex.InnerException.Message);
         }
     }
-
 }

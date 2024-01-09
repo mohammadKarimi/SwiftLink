@@ -7,4 +7,7 @@ public record AppSettings
 
     [Url]
     public string DefaultUrlOnNotFound { get; set; }
+
+    [Url]
+    public string RedisCacheUrl { get; set; }
 }

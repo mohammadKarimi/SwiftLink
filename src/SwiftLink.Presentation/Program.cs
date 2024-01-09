@@ -30,10 +30,16 @@ var builder = WebApplication.CreateBuilder(args);
         options.GroupNameFormat = "'v'V";
         options.SubstituteApiVersionInUrl = true;
     });
+    builder.Services.AddHealthChecks();
 }
+
+
+
+
 
 var app = builder.Build();
 {
+    app.MapHealthChecks("/health");
     app.UseExceptionHandler(error =>
     {
         error.Run(async context =>

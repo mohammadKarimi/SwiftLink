@@ -15,4 +15,6 @@ public class Link: IEntity
     public DateTime ExpirationDate { get; set; }
     public bool IsBanned { get; set; }
     public string Password { get; set; }
+
+    public ICollection<LinkVisit> LinkVisits { get; set; }
 }

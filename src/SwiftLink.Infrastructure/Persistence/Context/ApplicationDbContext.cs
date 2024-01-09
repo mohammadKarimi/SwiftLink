@@ -1,8 +1,8 @@
 ﻿using SwiftLink.Domain.Common;
-using SwiftLink.Infrastructure.Extensions;
+using SwiftLink.Infrastructure.Persistence.Extensions;
 using System.Reflection;
 
-namespace SwiftLink.Infrastructure.Context;
+namespace SwiftLink.Infrastructure.Persistence.Context;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options), IApplicationDbContext
 {

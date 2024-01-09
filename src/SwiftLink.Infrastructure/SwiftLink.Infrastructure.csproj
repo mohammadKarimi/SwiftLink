@@ -15,8 +15,4 @@
     <ProjectReference Include="..\SwiftLink.Application\SwiftLink.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Config\" />
-  </ItemGroup>
-
 </Project>

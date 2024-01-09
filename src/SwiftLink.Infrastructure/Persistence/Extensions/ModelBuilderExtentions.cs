@@ -1,7 +1,7 @@
 ﻿using SwiftLink.Domain.Common;
 using System.Reflection;
 
-namespace SwiftLink.Infrastructure.Extensions;
+namespace SwiftLink.Infrastructure.Persistence.Extensions;
 
 /// <summary>
 /// This extention is programmed for registering Entities that are defined the EntityAttribute .

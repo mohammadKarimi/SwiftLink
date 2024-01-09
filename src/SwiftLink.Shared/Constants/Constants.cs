@@ -1,5 +1,5 @@
 ﻿namespace SwiftLink.Shared;
-public class Error
+public class Constants
 {
     public static string DefaultMessage = "عملیات با خطا مواجه شد";
 }

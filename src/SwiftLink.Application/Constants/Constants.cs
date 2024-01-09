@@ -1,6 +1,6 @@
-﻿namespace SwiftLink.Application.Resources;
+﻿namespace SwiftLink.Application;
 
-public static class ApplicationMessage
+internal static class Constants
 {
     public static class Link
     {

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using SwiftLink.Application;
 using SwiftLink.Infrastructure;
 using SwiftLink.Shared;
+using SwiftLink.Shared.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 {

@@ -14,4 +14,5 @@ public class LinkVisit: IEntity
     public DateTime Date { get; set; }
 
     public string ClientMetaData { get; set; }
+
 }

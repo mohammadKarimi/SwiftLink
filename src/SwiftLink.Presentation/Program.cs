@@ -2,8 +2,8 @@ using Asp.Versioning;
 using Microsoft.AspNetCore.Diagnostics;
 using SwiftLink.Application;
 using SwiftLink.Infrastructure;
+using SwiftLink.Presentation;
 using SwiftLink.Shared;
-using SwiftLink.Shared.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -42,7 +42,7 @@ var app = builder.Build();
             context.Response.ContentType = "application/json";
             var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
             var exception = exceptionHandlerPathFeature?.Error;
-            await context.Response.WriteAsync(Result.Failure(Error.DefaultMessage).ToString()!);
+            await context.Response.WriteAsync(Result.Failure(Constants.UnHandledExceptions).ToString()!);
         });
     });
 

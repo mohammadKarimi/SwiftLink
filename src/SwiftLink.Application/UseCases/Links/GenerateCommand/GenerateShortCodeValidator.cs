@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using SwiftLink.Application.Resources;
 
 namespace SwiftLink.Application.UseCases.Links.GenerateCommand;
 
@@ -8,6 +7,6 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
     public GenerateShortCodeValidator()
     {
         RuleFor(x => x.Url).NotNull()
-                           .WithMessage(ApplicationMessage.Link.UrlMustBeSent);
+                           .WithMessage(Constants.Link.UrlMustBeSent);
     }
 }

@@ -17,8 +17,6 @@ public record AppSettings
 
 public record Redis
 {
-    public int DefaultExpirationDateByDay { get; set; }
-
     public int SlidingExpirationHour { get; set; }
 
     [Url]

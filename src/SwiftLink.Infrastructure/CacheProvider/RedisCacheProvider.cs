@@ -14,7 +14,7 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
          => _cache.RemoveAsync(key);
 
     public async Task<bool> Set(string key, string value)
-        => await Set(key, value, DateTime.Now.AddDays(_options.Redis.DefaultExpirationDateByDay));
+        => await Set(key, value, DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays));
 
     public async Task<bool> Set(string key, string value, DateTime expirationDate)
     {

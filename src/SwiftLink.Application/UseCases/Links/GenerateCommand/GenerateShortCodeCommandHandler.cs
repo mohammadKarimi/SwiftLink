@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Options;
+using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
 
 namespace SwiftLink.Application.UseCases.Links.GenerateCommand;
@@ -20,7 +21,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
         var link = new Link()
         {
             OriginalUrl = request.Url,
-            Password = request.Password,
+            Password = PasswordHasher.HashPassword(request.Password),
             ShortCode = _codeGenerator.Generate(request.Url),
             ExpirationDate = request.ExpirationDate is null ? DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays) : request.ExpirationDate.Value,
             Description = request.Description,

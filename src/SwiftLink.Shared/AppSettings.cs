@@ -11,6 +11,16 @@ public record AppSettings
     [Url]
     public string DefaultUrlOnNotFound { get; set; }
 
+    public Redis Redis { get; set; }
+
+}
+
+public record Redis
+{
+    public int DefaultExpirationDateByDay { get; set; }
+
+    public int SlidingExpirationHour { get; set; }
+
     [Url]
     public string RedisCacheUrl { get; set; }
 }

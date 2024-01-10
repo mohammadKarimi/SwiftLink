@@ -19,23 +19,18 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
 
     public async Task<Result<object>> Handle(GenerateShortCodeCommand request, CancellationToken cancellationToken)
     {
-        var link = new Link()
+        var link = new Link
         {
             OriginalUrl = request.Url,
             ShortCode = _codeGenerator.Generate(request.Url),
             Description = request.Description,
-            SubscriberId = 1
+            SubscriberId = 1,
+            ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays),
+            Password = request.Password is not null ? PasswordHasher.HashPassword(request.Password) : null
         };
 
-        if (request.ExpirationDate is null)
-            link.ExpirationDate = DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays);
-        else
-            link.ExpirationDate = request.ExpirationDate.Value;
-
-        if (link.Password is not null)
-            link.Password = PasswordHasher.HashPassword(request.Password);
-
         _dbContext.Set<Link>().Add(link);
+
         var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
         if (dbResult.IsFailure)
             return Result<object>.Failure();

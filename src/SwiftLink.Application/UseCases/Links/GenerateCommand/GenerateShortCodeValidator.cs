@@ -6,7 +6,11 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
 {
     public GenerateShortCodeValidator()
     {
-        RuleFor(x => x.Url).NotNull()
-                           .WithMessage(Constants.Link.UrlMustBeSent);
+        RuleFor(x => x.Url)
+            .NotNull().WithMessage(Constants.Link.UrlMustBeSent)
+            .Must(BeAValidUrl).WithMessage(Constants.Link.InvalidUrlFormat);
     }
+
+    private bool BeAValidUrl(string url)
+        => UrlFormatChecker.UrlRegex().IsMatch(url);
 }

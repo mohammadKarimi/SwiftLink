@@ -2,6 +2,16 @@
 
 public interface ICacheProvider
 {
+
+    /// <summary>
+    /// Sets a string value in the cache with a specified expiration date.
+    /// </summary>
+    /// <param name="key">The key under which the value will be stored.</param>
+    /// <param name="value">The string value to be stored in the cache.</param>
+    /// <param name="expirationDate">The expiration date for the cached item.</param>
+    /// <returns>A task representing the asynchronous operation, returning true if the operation was successful.</returns>
+    public Task<bool> Set(string key, string value, DateTime expirationDate);
+
     /// <summary>
     /// Associate a value with a key in the Cache such as Redis.
     /// </summary>

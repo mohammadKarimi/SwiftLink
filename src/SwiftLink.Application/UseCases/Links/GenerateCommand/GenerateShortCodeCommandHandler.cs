@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
+using System.Text.Json;
 
 namespace SwiftLink.Application.UseCases.Links.GenerateCommand;
 
@@ -21,19 +22,25 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
         var link = new Link()
         {
             OriginalUrl = request.Url,
-            Password = PasswordHasher.HashPassword(request.Password),
             ShortCode = _codeGenerator.Generate(request.Url),
-            ExpirationDate = request.ExpirationDate is null ? DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays) : request.ExpirationDate.Value,
             Description = request.Description,
             SubscriberId = 1
         };
+
+        if (request.ExpirationDate is null)
+            link.ExpirationDate = DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays);
+        else
+            link.ExpirationDate = request.ExpirationDate.Value;
+
+        if (link.Password is not null)
+            link.Password = PasswordHasher.HashPassword(request.Password);
 
         _dbContext.Set<Link>().Add(link);
         var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
         if (dbResult.IsFailure)
             return Result<object>.Failure();
 
-        await _cache.Set(request.Url, link.ShortCode);
+        await _cache.Set(request.Url, JsonSerializer.Serialize(link), link.ExpirationDate);
         return Result<object>.Success(link);
     }
 }

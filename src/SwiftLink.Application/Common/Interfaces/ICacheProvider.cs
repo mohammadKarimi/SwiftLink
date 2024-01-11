@@ -1,5 +1,11 @@
 ﻿namespace SwiftLink.Application.Common.Interfaces;
 
+/// <summary>
+/// RedisCacheService implements the ICacheProvider interface and provides caching functionality using a distributed cache.
+/// </summary>
+/// <remarks>
+/// Initializes a new instance of the RedisCacheService class.
+/// </remarks>
 public interface ICacheProvider
 {
 

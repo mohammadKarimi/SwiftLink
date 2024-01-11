@@ -11,7 +11,7 @@ public class TimeBasedShortCodeGenerator : IShortCodeGenerator
 {
     private static readonly object _lockObject = new();
     private static readonly Random _random = new();
-    private const byte COUNT_OF_RANDOM_NUMBER = 4;
+    private const byte COUNT_OF_RANDOM_NUMBER = 8;
     private const byte COUNT_OF_HASH_SPLITTER = 8;
 
     /// <summary>
@@ -21,7 +21,7 @@ public class TimeBasedShortCodeGenerator : IShortCodeGenerator
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public string Generate(string originalUrl)
-        => $"{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{GetRandomString(COUNT_OF_RANDOM_NUMBER)}{GetHash(originalUrl)}";
+        => $"{GetRandomString(COUNT_OF_RANDOM_NUMBER)}{GetHash(originalUrl)}";
 
     private static string GetRandomString(int length)
     {

@@ -1,13 +1,11 @@
-﻿using System.Text.Json.Serialization;
-
-namespace SwiftLink.Shared;
+﻿namespace SwiftLink.Shared;
 
 public class Result
 {
     public bool IsSuccess { get; init; }
 
-    [JsonIgnore]
-    public bool IsFailure => !IsSuccess;
+    public bool IsFailure
+        => !IsSuccess;
 
     public string Message { get; init; }
 

@@ -8,15 +8,9 @@ public interface IApplicationDbContext
     /// <summary>
     /// Save all entities in to database.
     /// </summary>
-    /// <returns></returns>
-    public Task<Result> SaveChangesAsync();
-
-    /// <summary>
-    /// Save all entities in to database.
-    /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public Task<Result> SaveChangesAsync(CancellationToken cancellationToken);
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
     DbSet<TEntity> Set<TEntity>() where TEntity : class;
 }

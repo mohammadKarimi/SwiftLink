@@ -1,10 +1,12 @@
-﻿using SwiftLink.Domain.Common;
+﻿using Azure;
+using SwiftLink.Domain.Common;
 using SwiftLink.Infrastructure.Persistence.Extensions;
 using System.Reflection;
 
 namespace SwiftLink.Infrastructure.Persistence.Context;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options), IApplicationDbContext
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    : DbContext(options), IApplicationDbContext
 {
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
@@ -22,16 +24,11 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             relationship.DeleteBehavior = DeleteBehavior.NoAction;
     }
 
-    public async Task<Result> SaveChangesAsync()
-        => await SaveChangesAsync(default);
-
-    public new async Task<Result> SaveChangesAsync(CancellationToken cancellationToken)
+    public new async Task<Result> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         try
         {
-            return await base.SaveChangesAsync(cancellationToken) is 0 ?
-                            Result.Failure("Faile On Save into Database.") :
-                            Result.Success();
+            return await base.SaveChangesAsync(cancellationToken) is 0 ? Result.Failure("Database operation failed :(") : Result.Success();
         }
         catch (Exception ex)
         {

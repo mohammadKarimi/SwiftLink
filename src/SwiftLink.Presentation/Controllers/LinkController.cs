@@ -10,8 +10,6 @@ public class LinkController : BaseController
 {
     [HttpPost]
     [ShortenEndpointFilter]
-    public JsonResult Shorten([FromBody] GenerateShortCodeCommand command)
-    {
-        return Json(MediatR.Send(command));
-    }
+    public async Task<IActionResult> Shorten([FromBody] GenerateShortCodeCommand command,CancellationToken cancellationToken=default)
+        =>Ok(await MediatR.Send(command, cancellationToken));
 }

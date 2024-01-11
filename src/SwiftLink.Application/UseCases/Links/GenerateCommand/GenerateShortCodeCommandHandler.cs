@@ -17,7 +17,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
     private readonly IShortCodeGenerator _codeGenerator = codeGenerator;
     private readonly AppSettings _options = options.Value;
 
-    public async Task<Result<object>> Handle(GenerateShortCodeCommand request, CancellationToken cancellationToken)
+    public async Task<Result<object>> Handle(GenerateShortCodeCommand request, CancellationToken cancellationToken = default)
     {
         var link = new Link
         {
@@ -32,7 +32,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
         _dbContext.Set<Link>().Add(link);
 
         var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
-        if (dbResult.IsFailure)
+        if (dbResult > 1)
             return Result<object>.Failure(Constants.Database.InsertFailed);
 
         await _cache.Set(request.Url, JsonSerializer.Serialize(link), link.ExpirationDate);

@@ -5,13 +5,13 @@ using SwiftLink.Presentation.Filters;
 
 namespace SwiftLink.Presentation.Controllers;
 
-[ApiVersion("1.0")]
+[ApiVersion("1")]
 public class LinkController : BaseController
 {
     [HttpPost]
     [ShortenEndpointFilter]
-    public IActionResult Shorten([FromBody] GenerateShortCodeCommand command)
+    public JsonResult Shorten([FromBody] GenerateShortCodeCommand command)
     {
-        return Ok(MediatR.Send(command));
+        return Json(MediatR.Send(command));
     }
 }

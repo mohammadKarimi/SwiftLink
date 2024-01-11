@@ -1,6 +1,19 @@
-@SwiftLink.Presentation_HostAddress = http://localhost:5185
+@SwiftLink.Presentation_HostAddress = http://localhost:56453
 
-GET {{SwiftLink.Presentation_HostAddress}}/weatherforecast/
+
+GET {{SwiftLink.Presentation_HostAddress}}/Health
 Accept: application/json
+
+###
+
+
+POST {{SwiftLink.Presentation_HostAddress}}/api/v1/link/Shorten
+Content-Type: application/json
+
+{
+    "Url": "http://",
+    "Description": "Description",
+    "Password": "Pass@123"
+}
 
 ###

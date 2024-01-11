@@ -1,0 +1,10 @@
+﻿@SwiftLink.Presentation_HostAddress = https://localhost:44314
+
+POST {{SwiftLink.Presentation_HostAddress}}/api/v{v:apiVersion}/link/Shorten
+Content-Type: application/json
+
+{
+  //GenerateShortCodeCommand
+}
+
+###

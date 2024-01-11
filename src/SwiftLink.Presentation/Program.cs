@@ -1,13 +1,12 @@
 using Asp.Versioning;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using SwiftLink.Application;
 using SwiftLink.Infrastructure;
+using SwiftLink.Infrastructure.Persistence.Context;
 using SwiftLink.Presentation;
 using SwiftLink.Shared;
-using HealthChecks;
-using SwiftLink.Infrastructure.Persistence.Context;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using HealthChecks.UI.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -56,7 +55,7 @@ var app = builder.Build();
         });
     });
 
-    app.UseHttpsRedirection();
+   // app.UseHttpsRedirection();
     app.UseAuthorization();
     app.MapControllers();
     app.UseRouting()

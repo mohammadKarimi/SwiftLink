@@ -43,5 +43,5 @@ public class ValidationBehavior<TRequest, TResult>(IEnumerable<IValidator<TReque
     }
 
     private static TResult GenerateResponse(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
-       => (TResult)Activator.CreateInstance(typeof(Response<object>), false, message, statusCode);
+       => (TResult)Activator.CreateInstance(typeof(Result<object>), false, message, statusCode);
 }

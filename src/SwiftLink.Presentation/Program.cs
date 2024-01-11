@@ -23,19 +23,18 @@ var builder = WebApplication.CreateBuilder(args);
         options.DefaultApiVersion = new ApiVersion(1);
         options.ReportApiVersions = true;
         options.AssumeDefaultVersionWhenUnspecified = true;
-        options.ApiVersionReader = ApiVersionReader.Combine(
-            new UrlSegmentApiVersionReader(),
-            new HeaderApiVersionReader("X-Api-Version"));
+        options.ApiVersionReader = new UrlSegmentApiVersionReader();
+
     }).AddApiExplorer(options =>
     {
         options.GroupNameFormat = "'v'V";
         options.SubstituteApiVersionInUrl = true;
     });
 
-    builder.Services
-           .AddHealthChecks()
-           .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)))
-           .AddRedis(builder.Configuration["AppSettings:RedisCacheUrl"]);
+    //builder.Services
+    //       .AddHealthChecks()
+    //       .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)))
+    //       .AddRedis(builder.Configuration["AppSettings:Redis:RedisCacheUrl"]);
 }
 
 var app = builder.Build();
@@ -55,14 +54,14 @@ var app = builder.Build();
     // app.UseHttpsRedirection();
     app.UseAuthorization();
     app.MapControllers();
-    app.UseRouting()
-       .UseEndpoints(config =>
-             {
-                 config.MapHealthChecks("/health", new HealthCheckOptions
-                 {
-                     Predicate = _ => true,
-                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                 });
-             });
+    //app.UseRouting()
+    //   .UseEndpoints(config =>
+    //         {
+    //             config.MapHealthChecks("/health", new HealthCheckOptions
+    //             {
+    //                 Predicate = _ => true,
+    //                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    //             });
+    //         });
     app.Run();
 }

@@ -5,7 +5,7 @@ using SwiftLink.Presentation.Filters;
 
 namespace SwiftLink.Presentation.Controllers;
 
-[ApiVersion("1")]
+[ApiVersion("1.0")]
 public class LinkController : BaseController
 {
     [HttpPost]

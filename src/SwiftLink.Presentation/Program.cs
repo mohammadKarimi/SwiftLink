@@ -7,6 +7,7 @@ using SwiftLink.Shared;
 using HealthChecks;
 using SwiftLink.Infrastructure.Persistence.Context;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -37,9 +38,8 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services
            .AddHealthChecks()
-
-           .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)));
-          // .AddRedis(builder.Configuration["AppSettings:RedisCacheUrl"]);
+           .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)))
+           .AddRedis(builder.Configuration["AppSettings:RedisCacheUrl"]);
 }
 
 var app = builder.Build();
@@ -64,8 +64,8 @@ var app = builder.Build();
              {
                  config.MapHealthChecks("/health", new HealthCheckOptions
                  {
-                     Predicate = _ => true
-                     //ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                     Predicate = _ => true,
+                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                  });
              });
     app.Run();

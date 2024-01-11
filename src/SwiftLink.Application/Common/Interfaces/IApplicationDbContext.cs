@@ -10,7 +10,7 @@ public interface IApplicationDbContext
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    public Task<Result> SaveChangesAsync(CancellationToken cancellationToken);
 
     DbSet<TEntity> Set<TEntity>() where TEntity : class;
 }

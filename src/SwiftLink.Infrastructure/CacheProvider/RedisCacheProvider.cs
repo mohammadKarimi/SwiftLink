@@ -4,7 +4,6 @@ using System.Text;
 
 namespace SwiftLink.Infrastructure.CacheProvider;
 
-
 public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> options)
     : ICacheProvider
 {
@@ -19,12 +18,14 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
 
     public async Task<bool> Set(string key, string value, DateTime expirationDate)
     {
-        DistributedCacheEntryOptions options = new DistributedCacheEntryOptions()
-            .SetAbsoluteExpiration(expirationDate)
-            .SetSlidingExpiration(TimeSpan.FromHours(_options.Redis.SlidingExpirationHour));
+        DistributedCacheEntryOptions cacheEntryOptions = new()
+        {
+            SlidingExpiration = TimeSpan.FromHours(_options.Redis.SlidingExpirationHour),
+            AbsoluteExpiration = expirationDate,
+        };
 
         var dataToCache = Encoding.UTF8.GetBytes(value);
-        await _cache.SetAsync(key, dataToCache, options);
+        await _cache.SetAsync(key, dataToCache, cacheEntryOptions);
         return true;
     }
 

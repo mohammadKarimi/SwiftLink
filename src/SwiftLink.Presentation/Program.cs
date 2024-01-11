@@ -31,10 +31,10 @@ var builder = WebApplication.CreateBuilder(args);
         options.SubstituteApiVersionInUrl = true;
     });
 
-    //builder.Services
-    //       .AddHealthChecks()
-    //       .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)))
-    //       .AddRedis(builder.Configuration["AppSettings:Redis:RedisCacheUrl"]);
+    builder.Services
+           .AddHealthChecks()
+           .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)))
+           .AddRedis(builder.Configuration["AppSettings:Redis:RedisCacheUrl"]);
 }
 
 var app = builder.Build();
@@ -54,14 +54,14 @@ var app = builder.Build();
     // app.UseHttpsRedirection();
     app.UseAuthorization();
     app.MapControllers();
-    //app.UseRouting()
-    //   .UseEndpoints(config =>
-    //         {
-    //             config.MapHealthChecks("/health", new HealthCheckOptions
-    //             {
-    //                 Predicate = _ => true,
-    //                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-    //             });
-    //         });
+    app.UseRouting()
+       .UseEndpoints(config =>
+             {
+                 config.MapHealthChecks("/health", new HealthCheckOptions
+                 {
+                     Predicate = _ => true,
+                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                 });
+             });
     app.Run();
 }

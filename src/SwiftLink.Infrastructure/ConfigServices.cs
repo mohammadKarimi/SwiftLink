@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 using SwiftLink.Infrastructure.CacheProvider;
 using SwiftLink.Infrastructure.Persistence.Context;
 
@@ -25,9 +27,10 @@ public static class ConfigureServices
         services.AddSingleton<ICacheProvider, RedisCacheService>();
         services.AddStackExchangeRedisCache(opt =>
         {
-            opt.Configuration = configuration["AppSettings:RedisCacheUrl"];
+            opt.Configuration = configuration["AppSettings:Redis:RedisCacheUrl"];
         });
-
+       
+        
         return services;
     }
 }

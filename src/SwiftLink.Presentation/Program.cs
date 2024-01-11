@@ -4,6 +4,9 @@ using SwiftLink.Application;
 using SwiftLink.Infrastructure;
 using SwiftLink.Presentation;
 using SwiftLink.Shared;
+using HealthChecks;
+using SwiftLink.Infrastructure.Persistence.Context;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -31,11 +34,16 @@ var builder = WebApplication.CreateBuilder(args);
         options.SubstituteApiVersionInUrl = true;
     });
     builder.Services.AddHealthChecks();
+
+    builder.Services
+           .AddHealthChecks()
+
+           .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)));
+          // .AddRedis(builder.Configuration["AppSettings:RedisCacheUrl"]);
 }
 
 var app = builder.Build();
 {
-    app.MapHealthChecks("/health");
     app.UseExceptionHandler(error =>
     {
         error.Run(async context =>
@@ -51,5 +59,14 @@ var app = builder.Build();
     app.UseHttpsRedirection();
     app.UseAuthorization();
     app.MapControllers();
+    app.UseRouting()
+       .UseEndpoints(config =>
+             {
+                 config.MapHealthChecks("/health", new HealthCheckOptions
+                 {
+                     Predicate = _ => true
+                     //ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                 });
+             });
     app.Run();
 }

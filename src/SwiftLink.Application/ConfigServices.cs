@@ -16,7 +16,7 @@ public static class ConfigServices
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-           // config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         });
 
         services.AddScoped<IShortCodeGenerator, TimeBasedShortCodeGenerator>();

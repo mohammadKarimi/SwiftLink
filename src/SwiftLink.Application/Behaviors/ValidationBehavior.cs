@@ -1,47 +1,35 @@
-﻿using Azure;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
-using System.Net;
+using SwiftLink.Application.Common;
+using SwiftLink.Application.Common.Exceptions;
 
 namespace SwiftLink.Application.Behaviors;
 
-/// <summary>
-/// Pipie line for Validation.
-/// </summary>
-/// <typeparam name="TRequest"></typeparam>
-/// <typeparam name="TResult"></typeparam>
-public class ValidationBehavior<TRequest, TResult>(IEnumerable<IValidator<TRequest>> validators)
-    : IPipelineBehavior<TRequest, TResult> where TRequest : notnull
+public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
+    : IPipelineBehavior<TRequest, TResponse>
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators = validators;
-
-    public async Task<TResult> Handle(TRequest request, RequestHandlerDelegate<TResult> next,
-        CancellationToken ct = default)
+    public async Task<TResponse> Handle(
+        TRequest request,
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
-        if (!_validators.Any())
-            return await next();
+        var context = new ValidationContext<TRequest>(request);
 
-        var validationContext = new ValidationContext<TRequest>(request);
+        var validationFailures = await Task.WhenAll(_validators.Select(validator => validator.ValidateAsync(context)));
 
-        var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(validationContext, ct)));
+        var errors = validationFailures
+            .Where(validationResult => !validationResult.IsValid)
+            .SelectMany(validationResult => validationResult.Errors)
+            .Select(validationFailure => new ValidationError(
+                validationFailure.PropertyName,
+                validationFailure.ErrorMessage))
+            .ToList();
 
-        var errorList = validationResults.Where(r => r.Errors.Count != 0)
-                                         .SelectMany(x => x.Errors)
-                                         .ToList();
+        if (errors.Count != 0)
+            throw new BusinessValidationException(errors);
 
-        if (errorList.Count > 0)
-        {
-            var message = string.Join(" | ", errorList.Select(e => e.ErrorMessage));
-
-            if (Enum.TryParse(errorList.First().ErrorCode, out HttpStatusCode statusCode))
-                return GenerateResponse(message, statusCode);
-
-            return GenerateResponse(message);
-        }
-
-        return await next();
+        var response = await next();
+        return response;
     }
-
-    private static TResult GenerateResponse(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
-       => (TResult)Activator.CreateInstance(typeof(Result<object>), false, message, statusCode);
 }

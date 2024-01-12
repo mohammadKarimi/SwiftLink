@@ -6,6 +6,7 @@ using SwiftLink.Application;
 using SwiftLink.Infrastructure;
 using SwiftLink.Infrastructure.Persistence.Context;
 using SwiftLink.Presentation;
+using SwiftLink.Presentation.Middleware;
 using SwiftLink.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +42,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
+    app.UseMiddleware<BusinessValidationExceptionHandlingMiddleware>();
     app.UseExceptionHandler(error =>
     {
         error.Run(async context =>

@@ -9,6 +9,10 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
         RuleFor(x => x.Url)
             .NotNull().WithMessage(Constants.Link.UrlMustBeSent)
             .Must(BeAValidUrl).WithMessage(Constants.Link.InvalidUrlFormat);
+
+        RuleFor(x => x.Token)
+            .NotNull().WithMessage(Constants.Link.UrlMustBeSent)
+            .Must(BeAValidUrl).WithMessage(Constants.Link.InvalidUrlFormat);
     }
 
     private bool BeAValidUrl(string url)

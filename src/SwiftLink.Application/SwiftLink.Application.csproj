@@ -19,8 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Links\Queries\" />
-    <Folder Include="UseCases\Links\Commands\" />
+    <Folder Include="UseCases\Links\Queries\VisitShortCode\" />
   </ItemGroup>
 
 </Project>

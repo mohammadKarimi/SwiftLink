@@ -18,4 +18,9 @@
     <ProjectReference Include="..\SwiftLink.Shared\SwiftLink.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\Links\Queries\" />
+    <Folder Include="UseCases\Links\Commands\" />
+  </ItemGroup>
+
 </Project>

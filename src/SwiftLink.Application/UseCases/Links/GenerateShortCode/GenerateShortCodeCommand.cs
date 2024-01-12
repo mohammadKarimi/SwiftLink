@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace SwiftLink.Application.UseCases.Links.GenerateCommand;
+namespace SwiftLink.Application.UseCases.Links.Commmands;
 
 public record GenerateShortCodeCommand : IRequest<Result<object>>
 {

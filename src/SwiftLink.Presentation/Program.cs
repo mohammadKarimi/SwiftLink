@@ -1,9 +1,11 @@
 using Asp.Versioning;
 using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using SwiftLink.Application;
 using SwiftLink.Infrastructure;
 using SwiftLink.Infrastructure.Persistence.Context;
+using SwiftLink.Presentation;
 using SwiftLink.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,17 +41,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
-    //app.UseExceptionHandler(error =>
-    //{
-    //    error.Run(async context =>
-    //    {
-    //        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-    //        context.Response.ContentType = "application/json";
-    //        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
-    //        var exception = exceptionHandlerPathFeature?.Error;
-    //        await context.Response.WriteAsync(Result.Failure(Constants.UnHandledExceptions).ToString()!);
-    //    });
-    //});
+    app.UseExceptionHandler(error =>
+    {
+        error.Run(async context =>
+        {
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            context.Response.ContentType = "application/json";
+            var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+            var exception = exceptionHandlerPathFeature?.Error;
+            await context.Response.WriteAsync(Result.Failure(Constants.UnHandledExceptions).ToString()!);
+        });
+    });
 
     // app.UseHttpsRedirection();
     app.UseAuthorization();

@@ -1,6 +1,6 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
-using SwiftLink.Application.UseCases.Links.GenerateCommand;
+using SwiftLink.Application.UseCases.Links.Commmands;
 using SwiftLink.Presentation.Filters;
 
 namespace SwiftLink.Presentation.Controllers;

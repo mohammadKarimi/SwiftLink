@@ -1,11 +1,9 @@
-﻿namespace SwiftLink.Presentation;
+﻿using SwiftLink.Shared;
 
-internal static  class Constants
+namespace SwiftLink.Presentation;
+
+internal static class Constants
 {
-    public const string UnHandledExceptions = "oops! something went wrong :(";
-
-    public static class EndPointFilterMessages
-    {
-        public const string InvalidUrl = "Url is not valid! :(";
-    }
+    public static Error UnHandledExceptions(string exception = "")
+        => Error.Failure("oops! something went wrong :(", exception);
 }

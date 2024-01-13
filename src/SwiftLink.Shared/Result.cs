@@ -7,40 +7,43 @@ public class Result
     public bool IsFailure
         => !IsSuccess;
 
-    public string Message { get; init; }
+    public Error Error { get; init; }
 
     public Result()
-      => IsSuccess = true;
-
-    public Result(string message)
     {
-        IsSuccess = false;
-        Message = message;
+        IsSuccess = true;
+        Error = Error.None;
     }
 
-    public static Result Failure(string message)
-        => new(message);
+    public Result(Error error)
+    {
+        IsSuccess = false;
+        Error = error;
+    }
+
+    public static Result Failure(Error error)
+        => new(error);
 
     public static Result Success()
         => new();
 
-    public static Result Failure<T>(string message)
-        => Result<T>.Failure(message);
+    public static Result<T> Failure<T>(Error error)
+        => Result<T>.Failure(error);
 
-    public static Result Success<T>()
-        => Success();
+    public static Result<T> Success<T>(T data)
+        => Result<T>.Success(data);
 }
 
 public class Result<T> : Result
 {
     public T Data { get; }
 
-    private Result(T data, string message) : base(message)
+    private Result(T data, Error error) : base(error)
          => Data = data;
 
     public static Result<T> Success(T result)
-       => new(result, string.Empty);
+       => new(result, Error.None);
 
-    public new static Result<T> Failure(string errorMessage)
-        => new(default!, errorMessage);
+    public new static Result<T> Failure(Error error)
+        => new(default!, error);
 }

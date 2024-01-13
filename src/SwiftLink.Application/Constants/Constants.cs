@@ -10,8 +10,8 @@ internal static class Constants
 
     public static class Subscriber
     {
-        public static Error TokenMustBeSent = Error.Validation("UnAuthorized", "Token must be sent!");
+        public static readonly Error TokenMustBeSent = Error.Validation("UnAuthorized", "Token must be sent!");
 
-        public static Error InvalidToken = Error.NotFound("UnAuthorized", "Invalid User!");
+        public static readonly Error InvalidToken = Error.NotFound("UnAuthorized", "Invalid User!");
     }
 }

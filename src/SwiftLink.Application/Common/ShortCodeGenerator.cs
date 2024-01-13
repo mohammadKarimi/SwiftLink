@@ -4,9 +4,6 @@ using System.Text;
 
 namespace SwiftLink.Application.Common;
 
-/// <summary>
-/// Concatenate timestamp, random number, and hash of the original URL.
-/// </summary>
 public class TimeBasedShortCodeGenerator : IShortCodeGenerator
 {
     private static readonly object _lockObject = new();
@@ -14,12 +11,6 @@ public class TimeBasedShortCodeGenerator : IShortCodeGenerator
     private const byte COUNT_OF_RANDOM_NUMBER = 8;
     private const byte COUNT_OF_HASH_SPLITTER = 8;
 
-    /// <summary>
-    /// Concatenate timestamp, random number, and hash of the original URL
-    /// </summary>
-    /// <param name="originalUrl">the original link which must be shorted.</param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     public string Generate(string originalUrl)
         => $"{GetRandomString(COUNT_OF_RANDOM_NUMBER)}{GetHash(originalUrl)}";
 

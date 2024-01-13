@@ -19,7 +19,6 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
 
     public async Task<Result<object>> Handle(GenerateShortCodeCommand request, CancellationToken cancellationToken = default)
     {
-       
         var link = new Link
         {
             OriginalUrl = request.Url,

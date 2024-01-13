@@ -18,7 +18,7 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
 
         RuleFor(x => x.Token)
             .NotNull().WithMessage(SubscriberMessage.SubscriberMustBeSent.Message)
-            .MustAsync(BeAValidSubscriber);
+            .MustAsync(BeAValidSubscriber).WithMessage(SubscriberMessage.SubscriberMustBeSent.Message);
     }
 
     private bool BeAValidUrl(string url)

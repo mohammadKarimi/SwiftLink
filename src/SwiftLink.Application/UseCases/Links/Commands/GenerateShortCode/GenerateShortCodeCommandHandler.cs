@@ -34,7 +34,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
 
         var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
         if (dbResult.IsFailure)
-            return Result.Failure<object>(dbResult.Message);
+            return Result.Failure<object>(Constants.Database.InsertFailed);
 
         await _cache.Set(request.Url, JsonSerializer.Serialize(link), link.ExpirationDate);
         return Result.Success<object>(link);

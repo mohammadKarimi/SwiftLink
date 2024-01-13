@@ -1,7 +1,4 @@
-﻿
-using System.Net.Http.Headers;
-
-namespace SwiftLink.Shared;
+﻿namespace SwiftLink.Shared;
 public sealed record Error
 {
 
@@ -27,8 +24,6 @@ public sealed record Error
 
     public static Error Validation(string code, string message)
        => new(code, message, ErrorType.Validation);
-
-   
 }
 
 public enum ErrorType : byte

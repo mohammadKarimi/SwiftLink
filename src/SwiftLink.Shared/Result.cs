@@ -32,11 +32,6 @@ public class Result
 
     public static Result<T> Success<T>(T data)
         => Result<T>.Success(data);
-
-    public static ProblemDetail Problem(int status, string type, string title, string detail)
-    {
-        throw new NotImplementedException();
-    }
 }
 
 public class Result<T> : Result

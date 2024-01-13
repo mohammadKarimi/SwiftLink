@@ -1,5 +1,4 @@
-﻿using Azure;
-using SwiftLink.Domain.Common;
+﻿using SwiftLink.Domain.Common;
 using SwiftLink.Infrastructure.Persistence.Extensions;
 using System.Reflection;
 
@@ -28,11 +27,11 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         try
         {
-            return await base.SaveChangesAsync(cancellationToken) is 0 ? Result.Failure("Database operation failed :(") : Result.Success();
+            return await base.SaveChangesAsync(cancellationToken) is 0 ? Constants.SaveChangesFailed : Result.Success();
         }
         catch (Exception ex)
         {
-            return Result.Failure(ex.InnerException.Message);
+            return Constants.SaveChangesFailed;
         }
     }
 }

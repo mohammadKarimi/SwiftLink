@@ -1,10 +1,11 @@
-﻿using SwiftLink.Shared;
+﻿using Microsoft.AspNetCore.Mvc;
+using SwiftLink.Shared;
 
 namespace SwiftLink.Presentation.Extensions;
 
 public static class MapToProblemDetailsExtension
 {
-    public static Result MapToProblemDetails(this Result result)
+    public static ProblemDetails MapToProblemDetails(this Result result)
     {
         static int GetStatusCode(ErrorType type)
             => type switch
@@ -26,11 +27,12 @@ public static class MapToProblemDetailsExtension
                _ => "Internal Server Error"
            };
 
-        return Result.Problem(
-            status: GetStatusCode(result.Error.Type),
-            type: result.Error.Type.ToString(),
-            title: GetTitle(result.Error.Type),
-            detail: result.Error.Message
-        );
+        return new()
+        {
+            Status = GetStatusCode(result.Error.Type),
+            Type = result.Error.Type.ToString(),
+            Title = GetTitle(result.Error.Type),
+            Detail = result.Error.Message
+        };
     }
 }

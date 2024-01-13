@@ -43,17 +43,17 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 {
     app.UseMiddleware<BusinessValidationExceptionHandlingMiddleware>();
-    app.UseExceptionHandler(error =>
-    {
-        error.Run(async context =>
-        {
-            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            context.Response.ContentType = "application/json";
-            var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
-            var exception = exceptionHandlerPathFeature?.Error;
-            await context.Response.WriteAsync(Result.Failure(Constants.UnHandledExceptions).ToString()!);
-        });
-    });
+    //app.UseExceptionHandler(error =>
+    //{
+    //    error.Run(async context =>
+    //    {
+    //        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+    //        context.Response.ContentType = "application/json";
+    //        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+    //        var exception = exceptionHandlerPathFeature?.Error;
+    //        await context.Response.WriteAsync(Result.Failure(Constants.UnHandledExceptions).ToString()!);
+    //    });
+    //});
 
     // app.UseHttpsRedirection();
     app.UseAuthorization();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SwiftLink.Application.Common.Exceptions;
+using SwiftLink.Shared;
 using System;
 
 namespace SwiftLink.Presentation.Middleware;
@@ -27,6 +28,8 @@ public sealed class BusinessValidationExceptionHandlingMiddleware(RequestDelegat
 
             if (exception.Errors is not null)
                 problemDetails.Extensions["errors"] = exception.Errors;
+
+            Result.Failure
 
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
             await context.Response.WriteAsJsonAsync(problemDetails);

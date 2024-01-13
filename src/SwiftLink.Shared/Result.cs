@@ -23,6 +23,12 @@ public class Result
 
     public static Result Success()
         => new();
+
+    public static Result Failure<T>(string message)
+        => Result<T>.Failure(message);
+
+    public static Result Success<T>()
+        => Success();
 }
 
 public class Result<T> : Result
@@ -34,12 +40,6 @@ public class Result<T> : Result
 
     public static Result<T> Success(T result)
        => new(result, string.Empty);
-
-    public static Result<T> Success(T result, string message)
-        => new(result, message);
-
-    public static Result<T> Failure()
-      => new(default!, string.Empty);
 
     public new static Result<T> Failure(string errorMessage)
         => new(default!, errorMessage);

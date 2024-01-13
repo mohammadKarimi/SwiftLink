@@ -38,16 +38,23 @@ public class Result<T> : Result
 {
     public T Data { get; }
 
-    private Result(T data, Error error, bool success)
+    private Result(Error error)
+    {
+        Data = default!;
+        Error = error;
+        IsSuccess = false;
+    }
+
+    private Result(T data)
     {
         Data = data;
-        Error = error;
-        IsSuccess = success;
+        Error = Error.None;
+        IsSuccess = true;
     }
 
     public static Result<T> Success(T result)
-       => new(result, Error.None, true);
+       => new(result);
 
     public new static Result<T> Failure(Error error)
-        => new(default!, error, false);
+        => new(error);
 }

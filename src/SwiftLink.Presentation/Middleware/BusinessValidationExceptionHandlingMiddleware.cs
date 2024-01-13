@@ -26,13 +26,18 @@ public sealed class BusinessValidationExceptionHandlingMiddleware(RequestDelegat
                 Detail = "One or more validation errors has occurred"
             };
 
-            if (exception.Errors is not null)
-                problemDetails.Extensions["errors"] = exception.Errors;
+            //if (exception.Errors is not null)
+            //    problemDetails.Extensions["errors"] = exception.Errors;
 
-            Result.Failure
+            //Result.Failure<ProblemDetails>(problemDetails);
 
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            //context.Response.StatusCode = StatusCodes.Status400BadRequest;
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
+
+
+
     }
+
+  
 }

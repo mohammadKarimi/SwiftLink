@@ -34,9 +34,9 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
 
         var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
         if (dbResult.IsFailure)
-            return Result<object>.Failure(dbResult.Message);
+            return Result.Failure<object>(dbResult.Message);
 
         await _cache.Set(request.Url, JsonSerializer.Serialize(link), link.ExpirationDate);
-        return Result<object>.Success(link);
+        return Result.Success<object>(link);
     }
 }

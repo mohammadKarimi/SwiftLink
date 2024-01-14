@@ -37,8 +37,10 @@ var builder = WebApplication.CreateBuilder(args);
            .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)))
            .AddRedis(builder.Configuration["AppSettings:Redis:RedisCacheUrl"]);
 
-    builder.Services.AddExceptionHandler<GlobalExceptionHandling>()
-                    .AddExceptionHandler<BusinessValidationExceptionHandling>();
+    builder.Services
+           .AddExceptionHandler<BusinessValidationExceptionHandling>()
+           .AddExceptionHandler<GlobalExceptionHandling>();
+    builder.Services.AddProblemDetails();
 }
 
 var app = builder.Build();

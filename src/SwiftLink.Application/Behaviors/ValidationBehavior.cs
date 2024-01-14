@@ -1,9 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
-using Microsoft.IdentityModel.Tokens;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Exceptions;
-using System.ComponentModel.DataAnnotations;
 
 namespace SwiftLink.Application.Behaviors;
 
@@ -22,8 +20,8 @@ public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidat
            .Select(validationFailure => new ValidationError(validationFailure.PropertyName, validationFailure.ErrorMessage))
            .ToList();
 
-        //if (errors.Count != 0)
-        //    throw new BusinessValidationException(errors);
+        if (errors.Count != 0)
+            throw new BusinessValidationException(errors);
 
         var response = await next();
         return response;

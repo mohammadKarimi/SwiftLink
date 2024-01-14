@@ -1,16 +1,11 @@
 using Asp.Versioning;
 using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using SwiftLink.Application;
 using SwiftLink.Infrastructure;
 using SwiftLink.Infrastructure.Persistence.Context;
-using SwiftLink.Presentation;
-using SwiftLink.Presentation.Extensions;
 using SwiftLink.Presentation.Middleware;
 using SwiftLink.Shared;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -41,27 +36,14 @@ var builder = WebApplication.CreateBuilder(args);
            .AddHealthChecks()
            .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)))
            .AddRedis(builder.Configuration["AppSettings:Redis:RedisCacheUrl"]);
+
+    builder.Services.AddExceptionHandler<GlobalExceptionHandling>()
+                    .AddExceptionHandler<BusinessValidationExceptionHandling>();
 }
 
 var app = builder.Build();
 {
-    app.UseExceptionHandler(error =>
-    {
-        error.Run(async context =>
-        {
-            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            context.Response.ContentType = "application/json";
-            var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
-            var exception = exceptionHandlerPathFeature?.Error;
-            var response = JsonSerializer.Serialize(Result.Failure(Constants.UnHandledExceptions(exception.Message))
-                                         .MapToProblemDetails());
-            await context.Response.WriteAsync(response);
-        });
-    });
-
-    app.UseMiddleware<BusinessValidationExceptionHandlingMiddleware>();
-
-    // app.UseHttpsRedirection();
+    app.UseExceptionHandler();
     app.UseAuthorization();
     app.MapControllers();
     app.UseRouting()

@@ -7,7 +7,7 @@ namespace SwiftLink.Presentation.Controllers;
 [ApiController]
 public abstract class BaseController : Controller
 {
-    private ISender? _mediatR;
+    private ISender _mediatR;
     protected ISender MediatR => _mediatR ??= HttpContext.RequestServices.GetRequiredService<ISender>();
 
 }

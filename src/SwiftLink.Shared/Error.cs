@@ -1,9 +1,9 @@
 ﻿namespace SwiftLink.Shared;
 public record Error
 {
-
     public static readonly Error None = new(string.Empty, string.Empty, ErrorType.Failure);
-    public static implicit operator Result(Error error) => Result.Failure(error);
+    public static implicit operator Result(Error error) 
+        => Result.Failure(error);
 
     private Error(string code, string message, ErrorType type)
     {

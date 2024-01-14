@@ -15,9 +15,7 @@ public class PasswordHasher
 
         Buffer.BlockCopy(passwordBytes, 0, saltedPassword, 0, passwordBytes.Length);
         Buffer.BlockCopy(salt, 0, saltedPassword, passwordBytes.Length, salt.Length);
-
-        using SHA256 sha256 = SHA256.Create();
-        byte[] hashedBytes = sha256.ComputeHash(saltedPassword);
+        byte[] hashedBytes = SHA256.HashData(saltedPassword);
 
         byte[] hashedPasswordWithSalt = new byte[hashedBytes.Length + salt.Length];
         Buffer.BlockCopy(hashedBytes, 0, hashedPasswordWithSalt, 0, hashedBytes.Length);

@@ -1,6 +1,8 @@
 using Asp.Versioning;
+using HealthChecks.SqlServer;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.DependencyInjection;
 using SwiftLink.Application;
 using SwiftLink.Infrastructure;
 using SwiftLink.Infrastructure.Persistence.Context;

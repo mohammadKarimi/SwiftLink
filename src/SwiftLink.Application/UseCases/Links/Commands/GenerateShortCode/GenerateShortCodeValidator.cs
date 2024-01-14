@@ -21,7 +21,6 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
         RuleFor(x => x.Token)
             .NotNull().WithMessage(SubscriberMessage.SubscriberMustBeSent.Message)
             .MustAsync(BeAValidSubscriber).WithMessage(SubscriberMessage.SubscriberMustBeSent.Message);
-
     }
 
     private bool BeAValidUrl(string url)
@@ -30,7 +29,10 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
     private async Task<bool> BeAValidSubscriber(Guid token, CancellationToken cancellationToken)
     {
         var result = await _dbContext.Set<Subscriber>().FirstOrDefaultAsync(x => x.Token == token, cancellationToken);
+        if (result is null)
+            return false;
 
-        return result is null;
+        _sharedContext.Set(nameof(result.Id), result.Id);
+        return true;
     }
 }

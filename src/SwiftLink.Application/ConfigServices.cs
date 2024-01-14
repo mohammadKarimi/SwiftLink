@@ -19,7 +19,7 @@ public static class ConfigServices
             config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         });
 
-        services.AddScoped<IShortCodeGenerator, TimeBasedShortCodeGenerator>();
+        services.AddScoped<IShortCodeGenerator, HashBasedShortCodeGenerator>();
         return services;
     }
 }

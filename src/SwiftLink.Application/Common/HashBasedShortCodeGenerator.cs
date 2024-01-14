@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SwiftLink.Application.Common;
 
-public class TimeBasedShortCodeGenerator : IShortCodeGenerator
+public class HashBasedShortCodeGenerator : IShortCodeGenerator
 {
     private static readonly object _lockObject = new();
     private static readonly Random _random = new();

@@ -9,12 +9,14 @@ namespace SwiftLink.Application.UseCases.Links.Commmands;
 public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
                                              ICacheProvider cacheProvider,
                                              IShortCodeGenerator codeGenerator,
-                                             IOptions<AppSettings> options)
+                                             IOptions<AppSettings> options,
+                                             ISharedContext sharedContext)
     : IRequestHandler<GenerateShortCodeCommand, Result<object>>
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
     private readonly ICacheProvider _cache = cacheProvider;
     private readonly IShortCodeGenerator _codeGenerator = codeGenerator;
+    private readonly ISharedContext _sharedContext = sharedContext;
     private readonly AppSettings _options = options.Value;
 
     public async Task<Result<object>> Handle(GenerateShortCodeCommand request, CancellationToken cancellationToken = default)
@@ -24,7 +26,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
             OriginalUrl = request.Url,
             ShortCode = _codeGenerator.Generate(request.Url),
             Description = request.Description,
-            SubscriberId = 1,
+            SubscriberId =int.Parse(_sharedContext.Get("SubscriberId")),
             ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays),
             Password = request.Password is not null ? PasswordHasher.HashPassword(request.Password) : null
         };

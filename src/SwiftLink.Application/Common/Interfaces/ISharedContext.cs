@@ -3,8 +3,15 @@
 /// <summary>
 /// This is a shared context between MediatR Behaviors and RequestHandlers.
 /// </summary>
-internal interface ISharedContext
+public interface ISharedContext
 {
+    /// <summary>
+    /// Get Value From Shared Context.
+    /// </summary>
+    /// <param name="key">key</param>
+    /// <returns></returns>
+    string Get(string key);
+
     /// <summary>
     /// Set value in Shared Context.
     /// </summary>

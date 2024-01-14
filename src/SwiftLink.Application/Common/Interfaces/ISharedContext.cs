@@ -8,9 +8,7 @@ internal interface ISharedContext
     /// <summary>
     /// Set value in Shared Context.
     /// </summary>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TValue"></typeparam>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
-    void Set<TKey, TValue>(TKey key, TValue value);
+    /// <param name="key">Key</param>
+    /// <param name="value">Value</param>
+    void Set(string key, string value);
 }

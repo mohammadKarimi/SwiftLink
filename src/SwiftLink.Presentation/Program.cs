@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Prometheus;
 using SwiftLink.Application;
 using SwiftLink.Infrastructure;
 using SwiftLink.Infrastructure.Persistence.Context;
@@ -32,8 +33,6 @@ var builder = WebApplication.CreateBuilder(args);
         options.SubstituteApiVersionInUrl = true;
     });
 
-
-
     builder.Services
            .AddHealthChecks()
            .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)))
@@ -43,6 +42,11 @@ var builder = WebApplication.CreateBuilder(args);
            .AddExceptionHandler<BusinessValidationExceptionHandling>()
            .AddExceptionHandler<GlobalExceptionHandling>();
     builder.Services.AddProblemDetails();
+
+    builder.Services.AddMetricServer(options =>
+    {
+        options.Port = 6789;
+    });
 }
 
 var app = builder.Build();
@@ -59,5 +63,12 @@ var app = builder.Build();
                      ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                  });
              });
+
+    app.UseHttpMetrics(options =>
+    {
+        options.ReduceStatusCodeCardinality();
+        options.AddCustomLabel("Host_IP", context => context.Request.Host.Host);
+    });
+
     app.Run();
 }

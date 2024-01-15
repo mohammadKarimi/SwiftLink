@@ -38,6 +38,12 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
             return Result.Failure<object>(ConstantMessages.Database.InsertFailed);
 
         await _cache.Set(request.Url, JsonSerializer.Serialize(link), link.ExpirationDate);
-        return Result.Success<object>(link);
+        return Result.Success<object>(new
+        {
+            link.ExpirationDate,
+            link.IsBanned,
+            link.ShortCode,
+            link.OriginalUrl,
+        });
     }
 }

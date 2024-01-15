@@ -28,9 +28,11 @@ var builder = WebApplication.CreateBuilder(args);
 
     }).AddApiExplorer(options =>
     {
-        options.GroupNameFormat = "'v'V";
+        options.GroupNameFormat = "'v'VVV";
         options.SubstituteApiVersionInUrl = true;
     });
+
+
 
     builder.Services
            .AddHealthChecks()

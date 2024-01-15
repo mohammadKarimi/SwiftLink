@@ -15,10 +15,11 @@ public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidat
         var validationFailures = await Task.WhenAll(_validators.Select(validator => validator.ValidateAsync(context)));
 
         var errors = validationFailures
-           .Where(validationResult => !validationResult.IsValid)
-           .SelectMany(validationResult => validationResult.Errors)
-           .Select(validationFailure => new ValidationError(validationFailure.PropertyName, validationFailure.ErrorMessage))
-           .ToList();
+                            .Where(validationResult => !validationResult.IsValid)
+                            .SelectMany(validationResult => validationResult.Errors)
+                            .Select(validationFailure => new ValidationError(validationFailure.PropertyName, validationFailure.ErrorMessage))
+                            .Distinct()
+                            .ToList();
 
         if (errors.Count != 0)
             throw new BusinessValidationException(errors);

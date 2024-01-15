@@ -26,7 +26,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
             OriginalUrl = request.Url,
             ShortCode = _codeGenerator.Generate(request.Url),
             Description = request.Description,
-            SubscriberId =int.Parse(_sharedContext.Get("Id").ToString()),
+            SubscriberId = int.Parse(_sharedContext.Get("Id").ToString()),
             ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays),
             Password = request.Password is not null ? PasswordHasher.HashPassword(request.Password) : null
         };

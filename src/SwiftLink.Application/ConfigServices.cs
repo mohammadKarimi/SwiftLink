@@ -20,6 +20,7 @@ public static class ConfigServices
         });
 
         services.AddScoped<IShortCodeGenerator, HashBasedShortCodeGenerator>();
+        services.AddScoped<ISharedContext, SharedContext>();
         return services;
     }
 }

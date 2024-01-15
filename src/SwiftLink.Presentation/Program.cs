@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddOptions<AppSettings>()
                  .Bind(builder.Configuration.GetSection(AppSettings.ConfigurationSectionName))
                  .ValidateDataAnnotations();
-
+    
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
 
@@ -61,7 +61,7 @@ var app = builder.Build();
                  {
                      Predicate = _ => true,
                      ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                 });
+                 }).RequireHost("*:5001");
              });
 
     app.UseHttpMetrics(options =>

@@ -4,57 +4,35 @@ public class Result
 {
     public bool IsSuccess { get; init; }
 
-    public bool IsFailure
-        => !IsSuccess;
+    public bool IsFailure => !IsSuccess;
 
     public Error Error { get; init; }
 
-    public Result()
+    protected Result(bool isSuccess, Error error)
     {
-        IsSuccess = true;
-        Error = Error.None;
-    }
-
-    public Result(Error error)
-    {
-        IsSuccess = false;
+        IsSuccess = isSuccess;
         Error = error;
     }
 
-    public static Result Failure(Error error)
-        => new(error);
+    public static Result Failure(Error error) => new(false, error);
 
-    public static Result Success()
-        => new();
+    public static Result Success() => new(true, Error.None);
 
-    public static Result<T> Failure<T>(Error error)
-        => Result<T>.Failure(error);
+    public static Result<T> Failure<T>(Error error) => Result<T>.Failure(error);
 
-    public static Result<T> Success<T>(T data)
-        => Result<T>.Success(data);
+    public static Result<T> Success<T>(T data) => Result<T>.Success(data);
 }
 
 public class Result<T> : Result
 {
     public T Data { get; }
 
-    private Result(Error error)
-    {
-        Data = default!;
-        Error = error;
-        IsSuccess = false;
-    }
-
-    private Result(T data)
+    private Result(bool isSuccess, T data, Error error) : base(isSuccess, error)
     {
         Data = data;
-        Error = Error.None;
-        IsSuccess = true;
     }
 
-    public static Result<T> Success(T result)
-       => new(result);
+    public static Result<T> Success(T result) => new(true, result, Error.None);
 
-    public new static Result<T> Failure(Error error)
-        => new(error);
+    public new static Result<T> Failure(Error error) => new(false, default!, error);
 }

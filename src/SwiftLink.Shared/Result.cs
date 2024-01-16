@@ -1,9 +1,12 @@
-﻿namespace SwiftLink.Shared;
+﻿using System.Text.Json.Serialization;
+
+namespace SwiftLink.Shared;
 
 public class Result
 {
     public bool IsSuccess { get; init; }
 
+    [JsonIgnore]
     public bool IsFailure => !IsSuccess;
 
     public Error Error { get; init; }

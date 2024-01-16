@@ -21,23 +21,30 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
 
     public async Task<Result<object>> Handle(GenerateShortCodeCommand request, CancellationToken cancellationToken = default)
     {
-        var link = new Link
+        var _linkTable = _dbContext.Set<Link>();
+
+        var link = await _linkTable.FirstOrDefaultAsync(x => x.OriginalUrl == request.Url, cancellationToken);
+        if (link is null)
         {
-            OriginalUrl = request.Url,
-            ShortCode = _codeGenerator.Generate(request.Url),
-            Description = request.Description,
-            SubscriberId = int.Parse(_sharedContext.Get(nameof(Subscriber.Id)).ToString()),
-            ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays),
-            Password = request.Password is not null ? PasswordHasher.HashPassword(request.Password) : null
-        };
+            link = new Link
+            {
+                OriginalUrl = request.Url,
+                ShortCode = _codeGenerator.Generate(request.Url),
+                Description = request.Description,
+                SubscriberId = int.Parse(_sharedContext.Get(nameof(Subscriber.Id)).ToString()),
+                ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays),
+                Password = request.Password is not null ? PasswordHasher.HashPassword(request.Password, request.Url) : null
+            };
 
-        _dbContext.Set<Link>().Add(link);
+            _linkTable.Add(link);
+            var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
 
-        var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
-        if (dbResult.IsFailure)
-            return Result.Failure<object>(ConstantMessages.Database.InsertFailed);
+            if (dbResult.IsFailure)
+                return Result.Failure<object>(ConstantMessages.Database.InsertFailed);
+        }
 
-        await _cache.Set(request.Url, JsonSerializer.Serialize(link), link.ExpirationDate);
+        await _cache.Set(link.ShortCode, JsonSerializer.Serialize(link), link.ExpirationDate);
+
         return Result.Success<object>(new
         {
             link.ExpirationDate,

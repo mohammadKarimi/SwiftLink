@@ -33,24 +33,16 @@ public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
         }
 
         if (link.IsBanned)
-        {
-            //return error for banned Url
-        }
+            return Result.Failure<string>(LinkMessages.LinkIsBanned);
 
         if (link.ExpirationDate <= DateTime.Now)
-        {
-            //return error for expiration
-        }
+            return Result.Failure<string>(LinkMessages.LinkIsExpired);
 
         if (link.Password is not null && request.Password is null)
-        {
-            //return error for password
-        }
+            return Result.Failure<string>(LinkMessages.PasswordIsNotSent);
 
         if (!PasswordHasher.VerifyPassword(request.Password, link.Password))
-        {
-            //return error for incorrect password
-        }
+            return Result.Failure<string>(LinkMessages.InvalidPassword);
 
         return Result.Success(link.OriginalUrl);
     }

@@ -2,7 +2,7 @@
 public record Error
 {
     public static readonly Error None = new(string.Empty, string.Empty, ErrorType.Failure);
-    public static implicit operator Result(Error error) 
+    public static implicit operator Result(Error error)
         => Result.Failure(error);
 
     private Error(string code, string message, ErrorType type)
@@ -26,10 +26,10 @@ public record Error
        => new(code, message, ErrorType.Validation);
 }
 
-public enum ErrorType : byte
+public enum ErrorType
 {
-    Validation = 0,
-    Failure = 1,
-    NotFound = 2,
-    None = 4
+    Validation = 400,
+    Failure = 500,
+    NotFound = 404,
+    None = 100
 }

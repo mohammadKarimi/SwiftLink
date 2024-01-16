@@ -1,23 +1,19 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Options;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
+using SwiftLink.Application.Notifications;
 using System.Text.Json;
 
 namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortCode;
 public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
                                              ICacheProvider cacheProvider,
-                                             IShortCodeGenerator codeGenerator,
-                                             IOptions<AppSettings> options,
-                                             ISharedContext sharedContext)
+                                             IMediator mediator)
     : IRequestHandler<VisitShortenLinkQuery, Result<string>>
 {
 
     private readonly IApplicationDbContext _dbContext = dbContext;
     private readonly ICacheProvider _cache = cacheProvider;
-    private readonly IShortCodeGenerator _codeGenerator = codeGenerator;
-    private readonly ISharedContext _sharedContext = sharedContext;
-    private readonly AppSettings _options = options.Value;
+    private readonly IMediator _mediator = mediator;
 
     public async Task<Result<string>> Handle(VisitShortenLinkQuery request, CancellationToken cancellationToken)
     {
@@ -43,6 +39,12 @@ public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
 
         if (!PasswordHasher.VerifyPassword(request.Password, link.Password))
             return Result.Failure<string>(LinkMessages.InvalidPassword);
+
+        await _mediator.Publish(new VisitLinkNotification
+        {
+            LinkId = link.Id,
+            ClientMetaData = request.ClientMetaData
+        }, cancellationToken);
 
         return Result.Success(link.OriginalUrl);
     }

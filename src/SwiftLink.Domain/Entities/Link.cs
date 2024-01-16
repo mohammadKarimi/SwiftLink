@@ -4,7 +4,7 @@
 /// This class is designed to store the original URL for each subscriber along with the link code and expiration time.
 /// </summary>
 [Entity]
-public class Link: IEntity
+public class Link : IEntity
 {
     public int Id { get; set; }
     public int SubscriberId { get; set; }

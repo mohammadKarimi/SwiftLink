@@ -1,11 +1,8 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Options;
+using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortCode;
 public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
@@ -22,8 +19,39 @@ public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
     private readonly ISharedContext _sharedContext = sharedContext;
     private readonly AppSettings _options = options.Value;
 
-    public Task<Result<string>> Handle(VisitShortenLinkQuery request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(VisitShortenLinkQuery request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        Link link;
+        var cacheResult = await _cache.Get(request.ShortCode);
+        if (!string.IsNullOrEmpty(cacheResult))
+            link = JsonSerializer.Deserialize<Link>(cacheResult);
+        else
+        {
+            link = await _dbContext.Set<Link>()
+                                   .FirstOrDefaultAsync(x => x.ShortCode == request.ShortCode, cancellationToken);
+            await _cache.Set(request.ShortCode, JsonSerializer.Serialize(link));
+        }
+
+        if (link.IsBanned)
+        {
+            //return error for banned Url
+        }
+
+        if (link.ExpirationDate <= DateTime.Now)
+        {
+            //return error for expiration
+        }
+
+        if (link.Password is not null && request.Password is null)
+        {
+            //return error for password
+        }
+
+        if (!PasswordHasher.VerifyPassword(request.Password, link.Password))
+        {
+            //return error for incorrect password
+        }
+
+        return Result.Success(link.OriginalUrl);
     }
 }

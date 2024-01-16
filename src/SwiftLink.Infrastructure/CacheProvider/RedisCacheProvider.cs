@@ -18,15 +18,23 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
 
     public async Task<bool> Set(string key, string value, DateTime expirationDate)
     {
-        DistributedCacheEntryOptions cacheEntryOptions = new()
+        try
         {
-            SlidingExpiration = TimeSpan.FromHours(_options.Redis.SlidingExpirationHour),
-            AbsoluteExpiration = expirationDate,
-        };
+            DistributedCacheEntryOptions cacheEntryOptions = new()
+            {
+                SlidingExpiration = TimeSpan.FromHours(_options.Redis.SlidingExpirationHour),
+                AbsoluteExpiration = expirationDate,
+            };
 
-        var dataToCache = Encoding.UTF8.GetBytes(value);
-        await _cache.SetAsync(key, dataToCache, cacheEntryOptions);
-        return true;
+            var dataToCache = Encoding.UTF8.GetBytes(value);
+            await _cache.SetAsync(key, dataToCache, cacheEntryOptions);
+            return true;
+        }
+        catch (Exception e)
+        {
+            //Log e
+            return false;
+        }
     }
 
     public async Task<string> Get(string key)

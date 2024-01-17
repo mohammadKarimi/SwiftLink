@@ -3,13 +3,14 @@ using SwiftLink.Application.Common.Interfaces;
 
 namespace SwiftLink.Application.Notifications;
 
-public class VisitLinkNotification : INotification
+public record VisitLinkNotification : INotification
 {
     public int LinkId { get; set; }
     public string ClientMetaData { get; set; }
 }
 
-public class VisitLinkNotificationHandler(IApplicationDbContext dbContext) : INotificationHandler<VisitLinkNotification>
+public class VisitLinkNotificationHandler(IApplicationDbContext dbContext)
+    : INotificationHandler<VisitLinkNotification>
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
 

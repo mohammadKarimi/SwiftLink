@@ -46,6 +46,7 @@ public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
             ClientMetaData = request.ClientMetaData
         }, cancellationToken);
 
+
         return Result.Success(link.OriginalUrl);
     }
 }

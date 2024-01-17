@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwiftLink.Domain", "src\SwiftLink.Domain\SwiftLink.Domain.csproj", "{E89C5E38-3E78-43D3-9649-F641350E9B2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwiftLink.Domain", "src\SwiftLink.Domain\SwiftLink.Domain.csproj", "{E89C5E38-3E78-43D3-9649-F641350E9B2B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0143A2D3-97FF-4B41-B2C8-B482BF0508A5}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,13 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{65D2E709-94A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{3963F00B-7600-44B0-906A-BA212CD83856}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwiftLink.Infrastructure", "src\SwiftLink.Infrastructure\SwiftLink.Infrastructure.csproj", "{8E2625F3-F9EA-440D-AD3F-798F691E6956}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwiftLink.Infrastructure", "src\SwiftLink.Infrastructure\SwiftLink.Infrastructure.csproj", "{8E2625F3-F9EA-440D-AD3F-798F691E6956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwiftLink.Presentation", "src\SwiftLink.Presentation\SwiftLink.Presentation.csproj", "{9115EF1D-5119-47C1-AE84-10FEF5CD4BDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwiftLink.Presentation", "src\SwiftLink.Presentation\SwiftLink.Presentation.csproj", "{9115EF1D-5119-47C1-AE84-10FEF5CD4BDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwiftLink.Application", "src\SwiftLink.Application\SwiftLink.Application.csproj", "{A2F54173-F57A-4CDA-9CFA-63E35E9BF47A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwiftLink.Application", "src\SwiftLink.Application\SwiftLink.Application.csproj", "{A2F54173-F57A-4CDA-9CFA-63E35E9BF47A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwiftLink.Shared", "src\SwiftLink.Shared\SwiftLink.Shared.csproj", "{2AEBCE8B-84B8-4488-8F4B-85D4E2A06FBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwiftLink.Shared", "src\SwiftLink.Shared\SwiftLink.Shared.csproj", "{2AEBCE8B-84B8-4488-8F4B-85D4E2A06FBF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{19001328-2279-4C26-BC2B-C0AB9B07524E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

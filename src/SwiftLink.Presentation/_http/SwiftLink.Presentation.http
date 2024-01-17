@@ -1,4 +1,4 @@
-@SwiftLink.Presentation_HostAddress = http://localhost:56453
+@SwiftLink.Presentation_HostAddress = http://localhost:5185
 
 
 GET {{SwiftLink.Presentation_HostAddress}}/Health
@@ -11,9 +11,10 @@ POST {{SwiftLink.Presentation_HostAddress}}/api/v1/link/Shorten
 Content-Type: application/json
 
 {
-    "Url": "http://",
+    "Url": "https://agah.com",
     "Description": "Description",
-    "Password": "Pass@123"
+    "Password": "Pass@123",
+    "Token": "A2876E3F-0172-4F24-BBC0-DA2944A7B45E"
 }
 
 ###

@@ -33,7 +33,7 @@ public class LinkController(ISender sender) : Controller
         if (response.IsFailure)
             return Ok(response.MapToProblemDetails());
 
-        return Redirect(response.Data);
+        return Ok(response.Data);
     }
 }
 

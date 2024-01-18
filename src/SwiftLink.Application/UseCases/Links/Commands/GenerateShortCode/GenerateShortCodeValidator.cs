@@ -2,7 +2,7 @@
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.UseCases.Subscribers;
 
-namespace SwiftLink.Application.UseCases.Links.Commmands;
+namespace SwiftLink.Application.UseCases.Links.Commands;
 
 public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCommand>
 {

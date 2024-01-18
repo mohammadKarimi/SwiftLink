@@ -1,7 +1,7 @@
 ﻿using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SwiftLink.Application.UseCases.Links.Commmands;
+using SwiftLink.Application.UseCases.Links.Commands;
 using SwiftLink.Application.UseCases.Links.Queries.VisitShortCode;
 using SwiftLink.Presentation.Extensions;
 using SwiftLink.Presentation.Filters;

@@ -6,8 +6,6 @@ namespace SwiftLink.Application.Common;
 
 public class HashBasedShortCodeGenerator : IShortCodeGenerator
 {
-    private static readonly object _lockObject = new();
-    private static readonly Random _random = new();
     private const byte COUNT_OF_RANDOM_NUMBER = 8;
     private const byte COUNT_OF_HASH_SPLITTER = 8;
 
@@ -16,12 +14,9 @@ public class HashBasedShortCodeGenerator : IShortCodeGenerator
 
     private static string GetRandomString(int length)
     {
-        lock (_lockObject)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-                                        .Select(s => s[_random.Next(s.Length)]).ToArray());
-        }
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        return new string(Enumerable.Repeat(chars, length)
+                                    .Select(s => s[Random.Shared.Next(s.Length)]).ToArray());
     }
 
     private static string GetHash(string input)

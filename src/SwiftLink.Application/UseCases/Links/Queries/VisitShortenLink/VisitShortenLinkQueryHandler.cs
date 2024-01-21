@@ -5,6 +5,7 @@ using SwiftLink.Application.Notifications;
 using System.Text.Json;
 
 namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortCode;
+
 public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
                                              ICacheProvider cacheProvider,
                                              IMediator mediator)
@@ -45,7 +46,6 @@ public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
             LinkId = link.Id,
             ClientMetaData = request.ClientMetaData
         }, cancellationToken);
-
 
         return Result.Success(link.OriginalUrl);
     }

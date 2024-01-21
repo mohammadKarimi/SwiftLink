@@ -1,27 +1,28 @@
 using FluentAssertions;
 using SwiftLink.Application.Common;
+using SwiftLink.Application.Common.Interfaces;
 
 namespace SwiftLink.Application.UnitTests;
 
 [TestFixture]
 public class HashBasedShortCodeGeneratorTests
 {
-    private HashBasedShortCodeGenerator generator;
-    private string originalUrl;
+    private IShortCodeGenerator _generator;
+    private string _originalUrl;
 
     [SetUp]
     public void SetUp()
     {
         // Arrange
-        generator = new HashBasedShortCodeGenerator();
-        originalUrl = "https://example.com";
+        _generator = new HashBasedShortCodeGenerator();
+        _originalUrl = "https://example.com";
     }
 
     [Test]
     public void HashBasedShortCodeGenerator_ShouldGenerateShortCode()
     {
         // Act
-        var shortCode = generator.Generate(originalUrl);
+        var shortCode = _generator.Generate(_originalUrl);
 
         // Assert
         shortCode.Should().NotBeNull();
@@ -35,7 +36,7 @@ public class HashBasedShortCodeGeneratorTests
         // Act
         Parallel.For(0, 10, _ =>
         {
-            var shortCode = generator.Generate(originalUrl);
+            var shortCode = _generator.Generate(_originalUrl);
             TestContext.Out.WriteLine(shortCode);
 
             // Assert

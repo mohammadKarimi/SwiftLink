@@ -3,19 +3,19 @@ using System.Text;
 
 namespace SwiftLink.Application.Common;
 
-public class PasswordHasher
+public class StringHasher
 {
-    public static string HashPassword(string password, string salt)
-     => HashPasswordWithGivenSalt(password, Encoding.UTF8.GetBytes(salt));
+    public static string Hash(string value, string salt)
+     => HashWithGivenSalt(value, Encoding.UTF8.GetBytes(salt));
 
-    private static string HashPasswordWithGivenSalt(string password, byte[] salt)
+    private static string HashWithGivenSalt(string value, byte[] salt)
     {
-        byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
-        byte[] saltedPassword = new byte[passwordBytes.Length + salt.Length];
+        byte[] valueBytes = Encoding.UTF8.GetBytes(value);
+        byte[] saltedValue = new byte[valueBytes.Length + salt.Length];
 
-        Buffer.BlockCopy(passwordBytes, 0, saltedPassword, 0, passwordBytes.Length);
-        Buffer.BlockCopy(salt, 0, saltedPassword, passwordBytes.Length, salt.Length);
-        byte[] hashedBytes = SHA256.HashData(saltedPassword);
+        Buffer.BlockCopy(valueBytes, 0, saltedValue, 0,valueBytes.Length);
+        Buffer.BlockCopy(salt, 0, saltedValue, valueBytes.Length, salt.Length);
+        byte[] hashedBytes = SHA256.HashData(saltedValue);
         return Convert.ToBase64String(hashedBytes);
     }
 }

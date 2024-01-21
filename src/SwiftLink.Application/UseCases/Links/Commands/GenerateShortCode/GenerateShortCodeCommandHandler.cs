@@ -33,7 +33,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
                 Description = request.Description,
                 SubscriberId = int.Parse(_sharedContext.Get(nameof(Subscriber.Id)).ToString()),
                 ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays),
-                Password = request.Password is not null ? PasswordHasher.HashPassword(request.Password, request.Url) : null
+                Password = request.Password is not null ? request.Password.Hash(request.Url) : null
             };
 
             _linkTable.Add(link);

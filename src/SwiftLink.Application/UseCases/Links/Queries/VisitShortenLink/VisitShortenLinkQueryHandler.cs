@@ -37,7 +37,7 @@ public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
         if (link.Password is not null && request.Password is null)
             return Result.Failure<string>(LinkMessages.PasswordIsNotSent);
 
-        if (PasswordHasher.HashPassword(request.Password, link.OriginalUrl) != link.Password)
+        if (request.Password.Hash(link.OriginalUrl) != link.Password)
             return Result.Failure<string>(LinkMessages.InvalidPassword);
 
         await _mediator.Publish(new VisitLinkNotification

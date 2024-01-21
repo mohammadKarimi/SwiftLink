@@ -27,6 +27,9 @@ public class LinkConfig : IEntityTypeConfiguration<Link>
                .IsRequired()
                .HasMaxLength(16);
 
+        builder.HasIndex(x => x.ShortCode)
+               .IsUnique();
+
         builder.HasMany(x => x.LinkVisits)
                .WithOne(x => x.Link)
                .HasPrincipalKey(x => x.Id)

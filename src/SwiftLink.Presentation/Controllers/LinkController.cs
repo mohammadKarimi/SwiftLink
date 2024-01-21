@@ -6,10 +6,8 @@ using SwiftLink.Presentation.Filters;
 
 namespace SwiftLink.Presentation.Controllers;
 
-public class LinkController(ISender sender) : BaseController
+public class LinkController(ISender sender) : BaseController(sender)
 {
-    private readonly ISender _mediarR = sender;
-
     [HttpPost]
     [Route("api/v{v:apiVersion}/[controller]/[action]")]
     public async Task<IActionResult> Shorten([FromBody] GenerateShortCodeCommand command, CancellationToken cancellationToken = default)

@@ -32,4 +32,8 @@
   <ItemGroup>
     <ProjectReference Include="..\SwiftLink.Infrastructure\SwiftLink.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
 </Project>

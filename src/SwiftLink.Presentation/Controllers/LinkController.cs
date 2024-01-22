@@ -16,10 +16,17 @@ public class LinkController(ISender sender) : BaseController(sender)
     [HttpGet, Route("/api/{shortCode}")] //TODO: this routing should be removed.
     [ShortenEndpointFilter]
     public async Task<IActionResult> Shorten(string shortCode, [FromQuery] string password, CancellationToken cancellationToken = default)
-      => OK(await _mediarR.Send(new VisitShortenLinkQuery()
-      {
-          ShortCode = shortCode,
-          Password = password,
-          ClientMetaData = string.Empty
-      }, cancellationToken));
+    {
+        var response = await _mediarR.Send(new VisitShortenLinkQuery()
+        {
+            ShortCode = shortCode,
+            Password = password,
+            ClientMetaData = string.Empty
+        }, cancellationToken);
+
+        if (response.IsSuccess)
+            return Redirect(response.Data);
+
+        return Ok(response);
+    }
 }

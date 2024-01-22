@@ -1,4 +1,7 @@
 using Asp.Versioning;
+using Elastic.Apm.AspNetCore;
+using Elastic.Apm.DiagnosticSource;
+using Elastic.Apm.EntityFrameworkCore;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
@@ -87,6 +90,10 @@ var app = builder.Build();
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "SwiftLink API v1");
         options.RoutePrefix = string.Empty;
     });
+
+    app.UseElasticApm(builder.Configuration,
+        new HttpDiagnosticsSubscriber(),
+        new EfCoreDiagnosticsSubscriber());
 
     app.Run();
 }

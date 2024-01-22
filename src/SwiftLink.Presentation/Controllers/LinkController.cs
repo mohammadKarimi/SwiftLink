@@ -21,5 +21,5 @@ public class LinkController(ISender sender) : BaseController(sender)
           ShortCode = shortCode,
           Password = password,
           ClientMetaData = string.Empty
-      }, cancellationToken);
+      }, cancellationToken));
 }

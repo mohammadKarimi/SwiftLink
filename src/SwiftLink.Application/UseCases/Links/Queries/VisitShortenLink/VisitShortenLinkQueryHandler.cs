@@ -11,7 +11,6 @@ public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
                                              IMediator mediator)
     : IRequestHandler<VisitShortenLinkQuery, Result<string>>
 {
-
     private readonly IApplicationDbContext _dbContext = dbContext;
     private readonly ICacheProvider _cache = cacheProvider;
     private readonly IMediator _mediator = mediator;

@@ -2,6 +2,7 @@ using Asp.Versioning;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Prometheus;
 using SwiftLink.Application;
 using SwiftLink.Infrastructure;
@@ -47,6 +48,19 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddMetricServer(options =>
     {
         options.Port = ushort.Parse(builder.Configuration["AppSettings:DefaultPrometheusPort"]);
+    });
+
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "SwiftLink",
+            Version = "v1",
+        });
+        c.SwaggerGeneratorOptions.Servers =
+        [
+            new() { Url = "http://localhost:56453" }
+        ];
     });
 }
 

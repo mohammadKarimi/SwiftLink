@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwiftLink.Domain", "src\Swi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0143A2D3-97FF-4B41-B2C8-B482BF0508A5}"
 	ProjectSection(SolutionItems) = preProject
+		changelog.md = changelog.md
 		Dockerfile = Dockerfile
 		LICENSE = LICENSE
 		README.md = README.md
@@ -26,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwiftLink.Shared", "src\Swi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{19001328-2279-4C26-BC2B-C0AB9B07524E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwiftLink.Application.UnitTests", "tests\SwiftLink.Application.UnitTests\SwiftLink.Application.UnitTests.csproj", "{B3286D3F-2DCC-4729-BE35-63C32886F8A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwiftLink.Application.UnitTests", "tests\SwiftLink.Application.UnitTests\SwiftLink.Application.UnitTests.csproj", "{B3286D3F-2DCC-4729-BE35-63C32886F8A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

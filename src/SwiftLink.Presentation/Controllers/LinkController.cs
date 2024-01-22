@@ -10,10 +10,6 @@ namespace SwiftLink.Presentation.Controllers;
 public class LinkController(ISender sender) : BaseController(sender)
 {
     [HttpPost]
-    public async Task<IActionResult> NewShorten([FromBody] GenerateShortCodeCommand command, CancellationToken cancellationToken = default)
-     => OK(await _mediarR.Send(command, cancellationToken));
-
-    [HttpPost]
     public async Task<IActionResult> Shorten([FromBody] GenerateShortCodeCommand command, CancellationToken cancellationToken = default)
         => OK(await _mediarR.Send(command, cancellationToken));
 

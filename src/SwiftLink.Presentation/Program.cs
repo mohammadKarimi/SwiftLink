@@ -57,10 +57,6 @@ var builder = WebApplication.CreateBuilder(args);
             Title = "SwiftLink",
             Version = "v1",
         });
-        c.SwaggerGeneratorOptions.Servers =
-        [
-            new() { Url = "http://localhost:56453" }
-        ];
     });
 }
 
@@ -83,6 +79,13 @@ var app = builder.Build();
     {
         options.ReduceStatusCodeCardinality();
         options.AddCustomLabel("Host_IP", context => context.Request.Host.Host);
+    });
+
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "SwiftLink API v1");
+        options.RoutePrefix = string.Empty;
     });
 
     app.Run();

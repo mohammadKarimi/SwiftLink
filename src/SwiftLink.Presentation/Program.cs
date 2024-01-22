@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.EntityFrameworkCore;
 using Prometheus;
 using SwiftLink.Application;
 using SwiftLink.Infrastructure;

@@ -50,7 +50,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddMetricServer(options =>
     {
-        options.Port = ushort.Parse(builder.Configuration["AppSettings:DefaultPrometheusPort"]);
+        options.Port = 5678;
     });
 
     builder.Services.AddSwaggerGen(c =>
@@ -78,11 +78,13 @@ var app = builder.Build();
                  });
              });
 
+    app.UseMetricServer();
     app.UseHttpMetrics(options =>
     {
         options.ReduceStatusCodeCardinality();
         options.AddCustomLabel("Host_IP", context => context.Request.Host.Host);
     });
+    app.MapMetrics();
 
     app.UseSwagger();
     app.UseSwaggerUI(options =>
@@ -91,9 +93,9 @@ var app = builder.Build();
         options.RoutePrefix = string.Empty;
     });
 
-    app.UseElasticApm(builder.Configuration,
-        new HttpDiagnosticsSubscriber(),
-        new EfCoreDiagnosticsSubscriber());
+    //app.UseElasticApm(builder.Configuration,
+    //    new HttpDiagnosticsSubscriber(),
+    //    new EfCoreDiagnosticsSubscriber());
 
     app.Run();
 }

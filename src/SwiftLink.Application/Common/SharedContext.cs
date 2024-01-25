@@ -6,10 +6,10 @@ public class SharedContext : Dictionary<string, object>, ISharedContext
 {
     public object Get(string key)
     {
-         TryGetValue(key, out var value);
+        TryGetValue(key, out var value);
         return value;
     }
 
     public void Set(string key, object value)
-        =>  Add(key, value);
+        => Add(key, value);
 }

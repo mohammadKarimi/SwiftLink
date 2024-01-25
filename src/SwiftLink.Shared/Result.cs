@@ -6,8 +6,7 @@ public class Result
 {
     public bool IsSuccess { get; init; }
 
-    [JsonIgnore]
-    public bool IsFailure => !IsSuccess;
+    [JsonIgnore] public bool IsFailure => !IsSuccess;
 
     public Error Error { get; init; }
 

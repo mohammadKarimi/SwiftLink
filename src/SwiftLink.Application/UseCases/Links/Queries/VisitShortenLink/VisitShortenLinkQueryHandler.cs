@@ -6,9 +6,10 @@ using System.Text.Json;
 
 namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortCode;
 
-public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
-                                             ICacheProvider cacheProvider,
-                                             IMediator mediator)
+public class VisitShortenLinkQueryHandler(
+    IApplicationDbContext dbContext,
+    ICacheProvider cacheProvider,
+    IMediator mediator)
     : IRequestHandler<VisitShortenLinkQuery, Result<string>>
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
@@ -24,7 +25,7 @@ public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
         else
         {
             link = await _dbContext.Set<Link>()
-                                   .FirstOrDefaultAsync(x => x.ShortCode == request.ShortCode, cancellationToken);
+                .FirstOrDefaultAsync(x => x.ShortCode == request.ShortCode, cancellationToken);
             await _cache.Set(request.ShortCode, JsonSerializer.Serialize(link));
         }
 

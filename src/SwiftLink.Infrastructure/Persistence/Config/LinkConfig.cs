@@ -9,30 +9,30 @@ public class LinkConfig : IEntityTypeConfiguration<Link>
         builder.ToTable(t => t.HasComment("Stores Original links and generated shortCode."));
 
         builder.HasKey(t => t.Id)
-               .HasName("PK_Base_Link");
+            .HasName("PK_Base_Link");
 
         builder.Property(x => x.OriginalUrl)
-               .IsRequired()
-               .HasMaxLength(1500);
+            .IsRequired()
+            .HasMaxLength(1500);
 
         builder.Property(x => x.Description)
-               .IsRequired()
-               .HasMaxLength(250);
+            .IsRequired()
+            .HasMaxLength(250);
 
         builder.Property(x => x.Password)
-               .IsRequired()
-               .HasMaxLength(250);
+            .IsRequired()
+            .HasMaxLength(250);
 
         builder.Property(x => x.ShortCode)
-               .IsRequired()
-               .HasMaxLength(16);
+            .IsRequired()
+            .HasMaxLength(16);
 
         builder.HasIndex(x => x.ShortCode)
-               .IsUnique();
+            .IsUnique();
 
         builder.HasMany(x => x.LinkVisits)
-               .WithOne(x => x.Link)
-               .HasPrincipalKey(x => x.Id)
-               .HasForeignKey(x => x.LinkId);
+            .WithOne(x => x.Link)
+            .HasPrincipalKey(x => x.Id)
+            .HasForeignKey(x => x.LinkId);
     }
 }

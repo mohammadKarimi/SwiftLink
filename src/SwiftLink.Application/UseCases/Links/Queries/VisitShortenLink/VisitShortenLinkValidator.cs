@@ -5,5 +5,4 @@ namespace SwiftLink.Application.UseCases.Links.Commands;
 
 public class VisitShortenLinkValidator : AbstractValidator<VisitShortenLinkQuery>
 {
-
 }

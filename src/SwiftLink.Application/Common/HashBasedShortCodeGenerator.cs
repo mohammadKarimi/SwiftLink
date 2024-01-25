@@ -16,7 +16,7 @@ public class HashBasedShortCodeGenerator : IShortCodeGenerator
     {
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         return new string(Enumerable.Repeat(chars, length)
-                                    .Select(s => s[Random.Shared.Next(s.Length)]).ToArray());
+            .Select(s => s[Random.Shared.Next(s.Length)]).ToArray());
     }
 
     private static string GetHash(string input)

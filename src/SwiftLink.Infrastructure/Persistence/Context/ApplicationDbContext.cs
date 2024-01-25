@@ -27,9 +27,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         try
         {
-            return await base.SaveChangesAsync(cancellationToken) is 0 ?
-                ConstantMessages.SaveChangesFailed :
-                Result.Success();
+            return await base.SaveChangesAsync(cancellationToken) is 0
+                ? ConstantMessages.SaveChangesFailed
+                : Result.Success();
         }
         catch //(Exception ex)
         {

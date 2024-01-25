@@ -1,7 +1,9 @@
 ﻿namespace SwiftLink.Shared;
+
 public record Error
 {
     public static readonly Error None = new(string.Empty, string.Empty, ErrorType.None);
+
     public static implicit operator Result(Error error)
         => Result.Failure(error);
 
@@ -20,10 +22,10 @@ public record Error
         => new(code, message, ErrorType.NotFound);
 
     public static Error Failure(string code, string message)
-       => new(code, message, ErrorType.Failure);
+        => new(code, message, ErrorType.Failure);
 
     public static Error Validation(string code, string message)
-       => new(code, message, ErrorType.Validation);
+        => new(code, message, ErrorType.Validation);
 }
 
 public enum ErrorType

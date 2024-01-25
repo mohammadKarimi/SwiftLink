@@ -8,7 +8,6 @@
 /// </remarks>
 public interface ICacheProvider
 {
-
     /// <summary>
     /// Sets a string value in the cache with a specified expiration date.
     /// </summary>

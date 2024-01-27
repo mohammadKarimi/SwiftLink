@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortCode;
+namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
 
 public record VisitShortenLinkQuery
     : IRequest<Result<string>>

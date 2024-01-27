@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using SwiftLink.Application.UseCases.Links.Queries.VisitShortCode;
 
-namespace SwiftLink.Application.UseCases.Links.Commands;
+namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
 
 public class VisitShortenLinkValidator : AbstractValidator<VisitShortenLinkQuery>
 {

@@ -1,6 +1,6 @@
 ﻿using SwiftLink.Shared;
 
-namespace SwiftLink.Presentation;
+namespace SwiftLink.Presentation.Constants;
 
 internal static class ConstantMessages
 {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using SwiftLink.Shared;
 
 namespace SwiftLink.Presentation.Filters;
 

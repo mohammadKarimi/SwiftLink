@@ -4,9 +4,9 @@ using System.Reflection;
 namespace SwiftLink.Infrastructure.Persistence.Extensions;
 
 /// <summary>
-/// This extention is programmed for registering Entities that are defined the EntityAttribute .
+/// This extension is programmed for registering Entities that are defined the EntityAttribute .
 /// </summary>
-public static class ModelBuilderExtention
+public static class ModelBuilderExtension
 {
     public static void RegisterEntities(this ModelBuilder modelBuilder, params Assembly[] assemblies)
     {

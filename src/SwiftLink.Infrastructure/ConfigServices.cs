@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.Caching.StackExchangeRedis;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StackExchange.Redis;
 using SwiftLink.Infrastructure.CacheProvider;
 using SwiftLink.Infrastructure.Persistence.Context;
 

@@ -1,10 +1,10 @@
-﻿using MediatR;
+﻿using System.Text.Json;
+using MediatR;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Notifications;
-using System.Text.Json;
 
-namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortCode;
+namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
 
 public class VisitShortenLinkQueryHandler(
     IApplicationDbContext dbContext,

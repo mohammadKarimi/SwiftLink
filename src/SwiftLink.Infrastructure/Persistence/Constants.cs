@@ -2,5 +2,5 @@
 
 internal static class ConstantMessages
 {
-    public static Error SaveChangesFailed = Error.Failure("SaveChangesFailed", "Database operation failed :(");
+    public static readonly Error SaveChangesFailed = Error.Failure("SaveChangesFailed", "Database operation failed :(");
 }

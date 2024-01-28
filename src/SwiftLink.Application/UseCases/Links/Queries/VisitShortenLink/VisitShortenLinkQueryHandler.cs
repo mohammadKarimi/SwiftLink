@@ -1,14 +1,15 @@
-﻿using MediatR;
+﻿using System.Text.Json;
+using MediatR;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Notifications;
-using System.Text.Json;
 
-namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortCode;
+namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
 
-public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
-                                             ICacheProvider cacheProvider,
-                                             IMediator mediator)
+public class VisitShortenLinkQueryHandler(
+    IApplicationDbContext dbContext,
+    ICacheProvider cacheProvider,
+    IMediator mediator)
     : IRequestHandler<VisitShortenLinkQuery, Result<string>>
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
@@ -24,7 +25,7 @@ public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
         else
         {
             link = await _dbContext.Set<Link>()
-                                   .FirstOrDefaultAsync(x => x.ShortCode == request.ShortCode, cancellationToken);
+                .FirstOrDefaultAsync(x => x.ShortCode == request.ShortCode, cancellationToken);
             await _cache.Set(request.ShortCode, JsonSerializer.Serialize(link));
         }
 

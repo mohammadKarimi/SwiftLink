@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.Caching.StackExchangeRedis;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StackExchange.Redis;
 using SwiftLink.Infrastructure.CacheProvider;
 using SwiftLink.Infrastructure.Persistence.Context;
 
@@ -13,15 +11,12 @@ namespace SwiftLink.Infrastructure;
 public static class ConfigureServices
 {
     public static IServiceCollection RegisterInfrastructureServices(this IServiceCollection services,
-                                                                    IConfiguration configuration)
+        IConfiguration configuration)
     {
         services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(opt =>
         {
             opt.UseSqlServer(configuration.GetConnectionString(nameof(ApplicationDbContext)),
-                (db) =>
-                {
-                    db.MigrationsHistoryTable("MigrationHistory");
-                });
+                (db) => { db.MigrationsHistoryTable("MigrationHistory"); });
         });
 
         services.AddSingleton<ICacheProvider, RedisCacheService>();
@@ -29,8 +24,8 @@ public static class ConfigureServices
         {
             opt.Configuration = configuration["AppSettings:Redis:RedisCacheUrl"];
         });
-       
-        
+
+
         return services;
     }
 }

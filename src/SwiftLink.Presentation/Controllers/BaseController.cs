@@ -8,7 +8,7 @@ namespace SwiftLink.Presentation.Controllers;
 [ApiController]
 public abstract class BaseController(ISender sender) : Controller
 {
-    protected readonly ISender _mediarR = sender;
+    protected readonly ISender _mediatR = sender;
 
     protected IActionResult OK<T>(Result<T> response)
     {

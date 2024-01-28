@@ -1,10 +1,6 @@
 using Asp.Versioning;
-using Elastic.Apm.AspNetCore;
-using Elastic.Apm.DiagnosticSource;
-using Elastic.Apm.EntityFrameworkCore;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Prometheus;
 using SwiftLink.Application;
@@ -16,14 +12,14 @@ using SwiftLink.Shared;
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddOptions<AppSettings>()
-                 .Bind(builder.Configuration.GetSection(AppSettings.ConfigurationSectionName))
-                 .ValidateDataAnnotations();
+        .Bind(builder.Configuration.GetSection(AppSettings.ConfigurationSectionName))
+        .ValidateDataAnnotations();
 
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
 
     builder.Services.RegisterApplicationServices()
-                    .RegisterInfrastructureServices(builder.Configuration);
+        .RegisterInfrastructureServices(builder.Configuration);
 
     builder.Services.AddApiVersioning(options =>
     {
@@ -31,7 +27,6 @@ var builder = WebApplication.CreateBuilder(args);
         options.ReportApiVersions = true;
         options.AssumeDefaultVersionWhenUnspecified = true;
         options.ApiVersionReader = new UrlSegmentApiVersionReader();
-
     }).AddApiExplorer(options =>
     {
         options.GroupNameFormat = "'v'VVV";
@@ -39,19 +34,16 @@ var builder = WebApplication.CreateBuilder(args);
     });
 
     builder.Services
-           .AddHealthChecks()
-           .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)))
-           .AddRedis(builder.Configuration["AppSettings:Redis:RedisCacheUrl"]);
+        .AddHealthChecks()
+        .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)))
+        .AddRedis(builder.Configuration["AppSettings:Redis:RedisCacheUrl"]);
 
     builder.Services
-           .AddExceptionHandler<BusinessValidationExceptionHandling>()
-           .AddExceptionHandler<GlobalExceptionHandling>();
+        .AddExceptionHandler<BusinessValidationExceptionHandling>()
+        .AddExceptionHandler<GlobalExceptionHandling>();
     builder.Services.AddProblemDetails();
 
-    builder.Services.AddMetricServer(options =>
-    {
-        options.Port = 5678;
-    });
+    builder.Services.AddMetricServer(options => { options.Port = 5678; });
 
     builder.Services.AddSwaggerGen(c =>
     {
@@ -69,14 +61,14 @@ var app = builder.Build();
     app.UseAuthorization();
     app.MapControllers();
     app.UseRouting()
-       .UseEndpoints(config =>
-             {
-                 config.MapHealthChecks("/health", new HealthCheckOptions
-                 {
-                     Predicate = _ => true,
-                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                 });
-             });
+        .UseEndpoints(config =>
+        {
+            config.MapHealthChecks("/health", new HealthCheckOptions
+            {
+                Predicate = _ => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+        });
 
     app.UseMetricServer();
     app.UseHttpMetrics(options =>

@@ -1,17 +1,17 @@
-﻿using MediatR;
+﻿using System.Text.Json;
+using MediatR;
 using Microsoft.Extensions.Options;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
-using System.Text.Json;
-using System.Transactions;
 
-namespace SwiftLink.Application.UseCases.Links.Commands;
+namespace SwiftLink.Application.UseCases.Links.Commands.GenerateShortCode;
 
-public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
-                                             ICacheProvider cacheProvider,
-                                             IShortCodeGenerator codeGenerator,
-                                             IOptions<AppSettings> options,
-                                             ISharedContext sharedContext)
+public class GenerateShortCodeCommandHandler(
+    IApplicationDbContext dbContext,
+    ICacheProvider cacheProvider,
+    IShortCodeGenerator codeGenerator,
+    IOptions<AppSettings> options,
+    ISharedContext sharedContext)
     : IRequestHandler<GenerateShortCodeCommand, Result<object>>
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
@@ -20,7 +20,8 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
     private readonly ISharedContext _sharedContext = sharedContext;
     private readonly AppSettings _options = options.Value;
 
-    public async Task<Result<object>> Handle(GenerateShortCodeCommand request, CancellationToken cancellationToken = default)
+    public async Task<Result<object>> Handle(GenerateShortCodeCommand request,
+        CancellationToken cancellationToken = default)
     {
         var _linkTable = _dbContext.Set<Link>();
 

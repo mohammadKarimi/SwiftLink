@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SwiftLink.Application.UseCases.Links.Commands;
-using SwiftLink.Application.UseCases.Links.Queries.VisitShortCode;
+using SwiftLink.Application.UseCases.Links.Commands.GenerateShortCode;
+using SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
 using SwiftLink.Presentation.Filters;
 
 namespace SwiftLink.Presentation.Controllers;
@@ -10,14 +10,16 @@ namespace SwiftLink.Presentation.Controllers;
 public class LinkController(ISender sender) : BaseController(sender)
 {
     [HttpPost]
-    public async Task<IActionResult> Shorten([FromBody] GenerateShortCodeCommand command, CancellationToken cancellationToken = default)
-        => OK(await _mediarR.Send(command, cancellationToken));
+    public async Task<IActionResult> Shorten([FromBody] GenerateShortCodeCommand command,
+        CancellationToken cancellationToken = default)
+        => OK(await _mediatR.Send(command, cancellationToken));
 
     [HttpGet, Route("/api/{shortCode}")] //TODO: this routing should be removed.
     [ShortenEndpointFilter]
-    public async Task<IActionResult> Shorten(string shortCode, [FromQuery] string password, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> Shorten(string shortCode, [FromQuery] string password,
+        CancellationToken cancellationToken = default)
     {
-        var response = await _mediarR.Send(new VisitShortenLinkQuery()
+        var response = await _mediatR.Send(new VisitShortenLinkQuery()
         {
             ShortCode = shortCode,
             Password = password,

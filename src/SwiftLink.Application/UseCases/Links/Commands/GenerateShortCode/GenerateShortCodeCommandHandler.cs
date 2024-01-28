@@ -1,8 +1,8 @@
-﻿using System.Text.Json;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Options;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
+using System.Text.Json;
 
 namespace SwiftLink.Application.UseCases.Links.Commands.GenerateShortCode;
 

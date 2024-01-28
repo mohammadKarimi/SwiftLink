@@ -6,12 +6,11 @@ using System.Text.Json;
 
 namespace SwiftLink.Application.UseCases.Links.Commands.GenerateShortCode;
 
-public class GenerateShortCodeCommandHandler(
-    IApplicationDbContext dbContext,
-    ICacheProvider cacheProvider,
-    IShortCodeGenerator codeGenerator,
-    IOptions<AppSettings> options,
-    ISharedContext sharedContext)
+public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
+                                             ICacheProvider cacheProvider,
+                                             IShortCodeGenerator codeGenerator,
+                                             IOptions<AppSettings> options,
+                                             ISharedContext sharedContext)
     : IRequestHandler<GenerateShortCodeCommand, Result<object>>
 {
     private readonly IApplicationDbContext _dbContext = dbContext;

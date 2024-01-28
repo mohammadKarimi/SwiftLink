@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SwiftLink.Application.UseCases.Links.Commands.GenerateShortCode;
 using SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
+using SwiftLink.Application.UseCases.Subscribers.Queries.ListOfLinks;
 using SwiftLink.Presentation.Filters;
-using System.Text.Json;
 
 namespace SwiftLink.Presentation.Controllers;
 
@@ -20,7 +20,6 @@ public class LinkController(ISender sender) : BaseController(sender)
     public async Task<IActionResult> Visit(string shortCode, [FromQuery] string password,
         CancellationToken cancellationToken = default)
     {
-
         HttpContext.Items.TryGetValue("ClientMetaData", out object clientMetaData);
         var response = await _mediatR.Send(new VisitShortenLinkQuery()
         {
@@ -34,4 +33,9 @@ public class LinkController(ISender sender) : BaseController(sender)
 
         return Ok(response);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> List([FromQuery] ListOfLinksQuery listOfLinksQuery,
+        CancellationToken cancellationToken = default)
+       => Ok(await _mediatR.Send(listOfLinksQuery, cancellationToken));
 }

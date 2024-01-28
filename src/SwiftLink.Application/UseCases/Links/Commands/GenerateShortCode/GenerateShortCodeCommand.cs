@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using SwiftLink.Application.Common;
 
 namespace SwiftLink.Application.UseCases.Links.Commands.GenerateShortCode;
 
-public record GenerateShortCodeCommand : IRequest<Result<object>>
+public record GenerateShortCodeCommand : IAuthorizedRequest, IRequest<Result<object>>
 {
     public string Url { get; set; }
     public string Description { get; set; }

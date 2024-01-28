@@ -16,6 +16,7 @@ public static class ConfigServices
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(SubscriberAuthorizationBehavior<,>));
             config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         });
 

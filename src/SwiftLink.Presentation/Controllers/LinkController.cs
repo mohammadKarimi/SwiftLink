@@ -16,21 +16,17 @@ public class LinkController(ISender sender) : BaseController(sender)
         => OK(await _mediatR.Send(command, cancellationToken));
 
     [HttpGet, Route("/link/{shortCode}")]
-    [ShortenEndpointFilter]
+    [HeaderExtraction]
     public async Task<IActionResult> Visit(string shortCode, [FromQuery] string password,
         CancellationToken cancellationToken = default)
     {
+
+        HttpContext.Items.TryGetValue("ClientMetaData", out object clientMetaData);
         var response = await _mediatR.Send(new VisitShortenLinkQuery()
         {
             ShortCode = shortCode,
             Password = password,
-            ClientMetaData = JsonSerializer.Serialize(new
-            {
-                OperationSystem = HttpContext.Request.Headers["sec-ch-ua-platform"],
-                Mobile = HttpContext.Request.Headers["sec-ch-ua-mobile"],
-                HttpContext.Request.Headers.UserAgent,
-                Browser = HttpContext.Request.Headers["sec-ch-ua"]
-            })
+            ClientMetaData = clientMetaData.ToString()
         }, cancellationToken);
 
         if (response.IsSuccess)

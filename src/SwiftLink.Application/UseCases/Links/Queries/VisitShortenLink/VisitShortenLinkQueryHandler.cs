@@ -35,11 +35,15 @@ public class VisitShortenLinkQueryHandler(
         if (link.ExpirationDate <= DateTime.Now)
             return Result.Failure<string>(LinkMessages.LinkIsExpired);
 
-        if (link.Password is not null && request.Password is null)
-            return Result.Failure<string>(LinkMessages.PasswordIsNotSent);
-
-        if (request.Password.Hash(link.OriginalUrl) != link.Password)
-            return Result.Failure<string>(LinkMessages.InvalidPassword);
+        if (link.Password is not null)
+        {
+            if (request.Password is null)
+            {
+                return Result.Failure<string>(LinkMessages.PasswordIsNotSent);
+            }
+            else if (request.Password.Hash(link.OriginalUrl) != link.Password)
+                return Result.Failure<string>(LinkMessages.InvalidPassword);
+        }
 
         await _mediator.Publish(new VisitLinkNotification
         {

@@ -24,28 +24,21 @@ public class GenerateShortCodeCommandHandler(
         CancellationToken cancellationToken = default)
     {
         var _linkTable = _dbContext.Set<Link>();
-
-        var link = await _linkTable.FirstOrDefaultAsync(x => x.OriginalUrl == request.Url
-                                                             && x.ExpirationDate > DateTime.Now
-                                                             && !x.IsBanned, cancellationToken);
-        if (link is null)
+        Link link = new()
         {
-            link = new Link
-            {
-                OriginalUrl = request.Url,
-                ShortCode = _codeGenerator.Generate(request.Url),
-                Description = request.Description,
-                SubscriberId = int.Parse(_sharedContext.Get(nameof(Subscriber.Id)).ToString()),
-                ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays),
-                Password = request.Password?.Hash(request.Url)
-            };
+            OriginalUrl = request.Url,
+            ShortCode = _codeGenerator.Generate(request.Url),
+            Description = request.Description,
+            SubscriberId = int.Parse(_sharedContext.Get(nameof(Subscriber.Id)).ToString()),
+            ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays),
+            Password = request.Password?.Hash(request.Url)
+        };
 
-            _linkTable.Add(link);
-            var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
+        _linkTable.Add(link);
+        var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
 
-            if (dbResult.IsFailure)
-                return Result.Failure<object>(CommonMessages.Database.InsertFailed);
-        }
+        if (dbResult.IsFailure)
+            return Result.Failure<object>(CommonMessages.Database.InsertFailed);
 
         await _cache.Set(link.ShortCode, JsonSerializer.Serialize(link), link.ExpirationDate);
 

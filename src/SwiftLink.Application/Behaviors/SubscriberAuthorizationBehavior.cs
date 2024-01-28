@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Exceptions;
 using SwiftLink.Application.Common.Interfaces;
 
@@ -6,7 +7,7 @@ namespace SwiftLink.Application.Behaviors;
 internal class SubscriberAuthorizationBehavior<TRequest, TResponse>(IApplicationDbContext dbContext,
                                                                     ISharedContext sharedContext,
                                                                     IUser user)
-    : IPipelineBehavior<TRequest, TResponse>
+    : IPipelineBehavior<TRequest, TResponse> where TRequest : IAuthorizedRequest
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
     private readonly ISharedContext _sharedContext = sharedContext;

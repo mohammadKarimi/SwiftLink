@@ -20,7 +20,6 @@ public class LinkController(ISender sender) : BaseController(sender)
     public async Task<IActionResult> Visit(string shortCode, [FromQuery] string password,
         CancellationToken cancellationToken = default)
     {
-
         HttpContext.Items.TryGetValue("ClientMetaData", out object clientMetaData);
         var response = await _mediatR.Send(new VisitShortenLinkQuery()
         {

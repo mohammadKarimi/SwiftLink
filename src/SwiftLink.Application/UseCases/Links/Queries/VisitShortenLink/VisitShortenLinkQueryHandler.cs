@@ -24,8 +24,9 @@ public class VisitShortenLinkQueryHandler(
             link = JsonSerializer.Deserialize<Link>(cacheResult);
         else
         {
-            link = await _dbContext.Set<Link>()
-                .FirstOrDefaultAsync(x => x.ShortCode == request.ShortCode, cancellationToken);
+            link = await _dbContext.Set<Link>().FirstOrDefaultAsync(x => x.ShortCode == request.ShortCode, cancellationToken);
+            if (link is null)
+                return Result.Failure<string>(LinkMessages.LinkIsNotFound);
             await _cache.Set(request.ShortCode, JsonSerializer.Serialize(link));
         }
 

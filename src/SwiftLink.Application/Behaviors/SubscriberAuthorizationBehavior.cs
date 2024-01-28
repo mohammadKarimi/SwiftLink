@@ -1,13 +1,13 @@
 ﻿using MediatR;
-using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Exceptions;
 using SwiftLink.Application.Common.Interfaces;
+using SwiftLink.Application.Common.Security;
 
 namespace SwiftLink.Application.Behaviors;
 internal class SubscriberAuthorizationBehavior<TRequest, TResponse>(IApplicationDbContext dbContext,
                                                                     ISharedContext sharedContext,
                                                                     IUser user)
-    : IPipelineBehavior<TRequest, TResponse> where TRequest : IAuthorizedRequest
+    : IPipelineBehavior<TRequest, TResponse>
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
     private readonly ISharedContext _sharedContext = sharedContext;
@@ -15,6 +15,9 @@ internal class SubscriberAuthorizationBehavior<TRequest, TResponse>(IApplication
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
+        if (request is IAnonymousRequest)
+            return await next();
+
         if (_user.Token is null)
             throw new SubscriberUnAuthorizedException();
 

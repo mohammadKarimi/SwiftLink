@@ -20,16 +20,16 @@ public class LinkController(ISender sender) : BaseController(sender)
     public async Task<IActionResult> Visit(string shortCode, [FromQuery] string password,
         CancellationToken cancellationToken = default)
     {
-
-        var userAgent = HttpContext.Request.Headers["User-Agent"];
-       
-
         var response = await _mediatR.Send(new VisitShortenLinkQuery()
         {
             ShortCode = shortCode,
             Password = password,
-            ClientMetaData = JsonSerializer.Serialize(new {
-                
+            ClientMetaData = JsonSerializer.Serialize(new
+            {
+                OperationSystem = HttpContext.Request.Headers["sec-ch-ua-platform"],
+                Mobile = HttpContext.Request.Headers["sec-ch-ua-mobile"],
+                HttpContext.Request.Headers.UserAgent,
+                Browser = HttpContext.Request.Headers["sec-ch-ua"]
             })
         }, cancellationToken);
 

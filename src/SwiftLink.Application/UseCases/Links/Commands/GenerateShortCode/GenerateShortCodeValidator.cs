@@ -28,7 +28,7 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
 
     private async Task<bool> BeAValidSubscriber(Guid token, CancellationToken cancellationToken)
     {
-        var result = await _dbContext.Set<Subscriber>().FirstOrDefaultAsync(x => x.Token == token, cancellationToken);
+        var result = await _dbContext.Set<Subscriber>().FirstOrDefaultAsync(x => x.Token == token && x.IsActive, cancellationToken);
         if (result is null)
             return false;
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SwiftLink.Application.UseCases.Links.Commands.GenerateShortCode;
 using SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
 using SwiftLink.Presentation.Filters;
+using System.Text.Json;
 
 namespace SwiftLink.Presentation.Controllers;
 
@@ -14,16 +15,18 @@ public class LinkController(ISender sender) : BaseController(sender)
         CancellationToken cancellationToken = default)
         => OK(await _mediatR.Send(command, cancellationToken));
 
-    [HttpGet, Route("/api/{shortCode}")] //TODO: this routing should be removed.
-    [ShortenEndpointFilter]
-    public async Task<IActionResult> Shorten(string shortCode, [FromQuery] string password,
+    [HttpGet, Route("/link/{shortCode}")]
+    [HeaderExtraction]
+    public async Task<IActionResult> Visit(string shortCode, [FromQuery] string password,
         CancellationToken cancellationToken = default)
     {
+
+        HttpContext.Items.TryGetValue("ClientMetaData", out object clientMetaData);
         var response = await _mediatR.Send(new VisitShortenLinkQuery()
         {
             ShortCode = shortCode,
             Password = password,
-            ClientMetaData = string.Empty
+            ClientMetaData = clientMetaData.ToString()
         }, cancellationToken);
 
         if (response.IsSuccess)

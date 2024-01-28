@@ -20,7 +20,6 @@ public class LinkConfig : IEntityTypeConfiguration<Link>
             .HasMaxLength(250);
 
         builder.Property(x => x.Password)
-            .IsRequired()
             .HasMaxLength(250);
 
         builder.Property(x => x.ShortCode)

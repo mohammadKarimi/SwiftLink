@@ -6,10 +6,9 @@ using SwiftLink.Application.Notifications;
 
 namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
 
-public class VisitShortenLinkQueryHandler(
-    IApplicationDbContext dbContext,
-    ICacheProvider cacheProvider,
-    IMediator mediator)
+public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
+                                          ICacheProvider cacheProvider,
+                                          IMediator mediator)
     : IRequestHandler<VisitShortenLinkQuery, Result<string>>
 {
     private readonly IApplicationDbContext _dbContext = dbContext;

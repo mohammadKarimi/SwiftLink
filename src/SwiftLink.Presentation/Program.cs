@@ -4,13 +4,18 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using Prometheus;
 using SwiftLink.Application;
+using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Infrastructure;
 using SwiftLink.Infrastructure.Persistence.Context;
 using SwiftLink.Presentation.Middleware;
+using SwiftLink.Presentation.Services;
 using SwiftLink.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 {
+    builder.Services.AddScoped<IUser, CurrentUser>();
+    builder.Services.AddHttpContextAccessor();
+
     builder.Services.AddOptions<AppSettings>()
         .Bind(builder.Configuration.GetSection(AppSettings.ConfigurationSectionName))
         .ValidateDataAnnotations();
@@ -38,9 +43,7 @@ var builder = WebApplication.CreateBuilder(args);
         .AddSqlServer(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)))
         .AddRedis(builder.Configuration["AppSettings:Redis:RedisCacheUrl"]);
 
-    builder.Services
-        .AddExceptionHandler<BusinessValidationExceptionHandling>()
-        .AddExceptionHandler<GlobalExceptionHandling>();
+    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
 
     builder.Services.AddMetricServer(options => { options.Port = 5678; });

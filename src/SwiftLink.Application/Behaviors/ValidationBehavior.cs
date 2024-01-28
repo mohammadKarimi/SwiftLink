@@ -28,7 +28,6 @@ public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidat
         if (errors.Count != 0)
             throw new BusinessValidationException(errors);
 
-        var response = await next();
-        return response;
+        return await next();
     }
 }

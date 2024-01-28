@@ -25,7 +25,9 @@ public class GenerateShortCodeCommandHandler(
     {
         var _linkTable = _dbContext.Set<Link>();
 
-        var link = await _linkTable.FirstOrDefaultAsync(x => x.OriginalUrl == request.Url, cancellationToken);
+        var link = await _linkTable.FirstOrDefaultAsync(x => x.OriginalUrl == request.Url
+                                                             && x.ExpirationDate > DateTime.Now
+                                                             && !x.IsBanned, cancellationToken);
         if (link is null)
         {
             link = new Link

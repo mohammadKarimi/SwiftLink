@@ -9,7 +9,7 @@ using SwiftLink.Shared;
 using Xunit;
 
 namespace SwiftLink.Application.UnitTests.UseCases.Links.Commands.GenerateShortCode;
-
+ 
 public class GenerateShortCodeCommandHandlerTests
 {
     [Fact]

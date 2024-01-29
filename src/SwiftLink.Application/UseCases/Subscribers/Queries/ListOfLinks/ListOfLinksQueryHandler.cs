@@ -1,25 +1,22 @@
-﻿using System.Text.Json;
-using MediatR;
-using SwiftLink.Application.Common;
+﻿using MediatR;
 using SwiftLink.Application.Common.Interfaces;
-using SwiftLink.Application.Notifications;
+using SwiftLink.Application.Dtos;
 using SwiftLink.Application.UseCases.Subscribers.Queries.ListOfLinks;
-using SwiftLink.Domain.Entities;
 
 namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
 
 public class ListOfLinksQueryHandler(IApplicationDbContext dbContext)
-    : IRequestHandler<ListOfLinksQuery, Result<IReadOnlyList<ListOfLinksDto>>>
+    : IRequestHandler<ListOfLinksQuery, Result<IReadOnlyList<LinksDto>>>
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
 
-    public async Task<Result<IReadOnlyList<ListOfLinksDto>>> Handle(ListOfLinksQuery request, CancellationToken cancellationToken)
+    public async Task<Result<IReadOnlyList<LinksDto>>> Handle(ListOfLinksQuery request, CancellationToken cancellationToken)
     {
         var result = await _dbContext.Set<Link>()
             .AsNoTracking()
             .OrderByDescending(x => x.Id)
             .Take(request.Count)
-            .Select(x => new ListOfLinksDto
+            .Select(x => new LinksDto
             {
                 LinkdId = x.Id,
                 Description = x.Description,
@@ -30,6 +27,6 @@ public class ListOfLinksQueryHandler(IApplicationDbContext dbContext)
             })
             .ToListAsync(cancellationToken);
 
-        return Result.Success<IReadOnlyList<ListOfLinksDto>>(result);
+        return Result.Success<IReadOnlyList<LinksDto>>(result);
     }
 }

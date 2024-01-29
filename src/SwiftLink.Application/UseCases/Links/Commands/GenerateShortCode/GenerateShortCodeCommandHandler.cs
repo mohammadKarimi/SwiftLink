@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
+using SwiftLink.Application.Dtos;
 using System.Text.Json;
 
 namespace SwiftLink.Application.UseCases.Links.Commands.GenerateShortCode;
@@ -11,7 +12,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
                                              IShortCodeGenerator codeGenerator,
                                              IOptions<AppSettings> options,
                                              ISharedContext sharedContext)
-    : IRequestHandler<GenerateShortCodeCommand, Result<object>>
+    : IRequestHandler<GenerateShortCodeCommand, Result<LinksDto>>
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
     private readonly ICacheProvider _cache = cacheProvider;
@@ -19,7 +20,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
     private readonly ISharedContext _sharedContext = sharedContext;
     private readonly AppSettings _options = options.Value;
 
-    public async Task<Result<object>> Handle(GenerateShortCodeCommand request,
+    public async Task<Result<LinksDto>> Handle(GenerateShortCodeCommand request,
         CancellationToken cancellationToken = default)
     {
         var _linkTable = _dbContext.Set<Link>();
@@ -37,16 +38,18 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
         var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
 
         if (dbResult.IsFailure)
-            return Result.Failure<object>(CommonMessages.Database.InsertFailed);
+            return Result.Failure<LinksDto>(CommonMessages.Database.InsertFailed);
 
         await _cache.Set(link.ShortCode, JsonSerializer.Serialize(link), link.ExpirationDate);
 
-        return Result.Success<object>(new
+        return Result.Success(new LinksDto()
         {
-            link.ExpirationDate,
-            link.IsBanned,
-            link.ShortCode,
-            link.OriginalUrl,
+            ExpirationDate = link.ExpirationDate,
+            IsBanned = link.IsBanned,
+            ShortCode = link.ShortCode,
+            OriginalUrl = link.OriginalUrl,
+            Description = link.Description,
+            LinkdId = link.Id
         });
     }
 }

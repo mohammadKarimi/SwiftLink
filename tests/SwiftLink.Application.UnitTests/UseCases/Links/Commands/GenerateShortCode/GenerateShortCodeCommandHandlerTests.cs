@@ -8,7 +8,7 @@ using SwiftLink.Domain.Entities;
 using SwiftLink.Shared;
 using Xunit;
 
-namespace SwiftLink.Application.UnitTests; using System;
+namespace SwiftLink.Application.UnitTests.UseCases.Links.Commands.GenerateShortCode;
 
 public class GenerateShortCodeCommandHandlerTests
 {

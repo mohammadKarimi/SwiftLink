@@ -67,11 +67,16 @@ var app = builder.Build();
     app.UseExceptionHandler();
     app.UseAuthorization();
     app.MapControllers();
-    app.UseHealthChecks("/health", int.Parse(builder.Configuration["AppSettings:DefaultHealthCheckPort"]), new HealthCheckOptions
+
+    app.UseRouting().UseEndpoints(config =>
     {
-        Predicate = _ => true,
-        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        config.MapHealthChecks("/health", new HealthCheckOptions
+        {
+            Predicate = _ => true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
     });
+
     app.UseMetricServer();
     app.UseHttpMetrics(options =>
     {

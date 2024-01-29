@@ -46,7 +46,10 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
 
-    builder.Services.AddMetricServer(options => { options.Port = 5678; });
+    builder.Services.AddMetricServer(options =>
+    {
+        options.Port = 5678;
+    });
 
     builder.Services.AddSwaggerGen(c =>
     {
@@ -64,16 +67,11 @@ var app = builder.Build();
     app.UseExceptionHandler();
     app.UseAuthorization();
     app.MapControllers();
-    app.UseRouting()
-        .UseEndpoints(config =>
-        {
-            config.MapHealthChecks("/health", new HealthCheckOptions
-            {
-                Predicate = _ => true,
-                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
-        });
-
+    app.UseHealthChecks("/health", 9876, new HealthCheckOptions
+    {
+        Predicate = _ => true,
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
     app.UseMetricServer();
     app.UseHttpMetrics(options =>
     {

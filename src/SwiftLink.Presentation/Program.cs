@@ -48,7 +48,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddMetricServer(options =>
     {
-        options.Port = 5678;
+        options.Port = ushort.Parse(builder.Configuration["AppSettings:DefaultPrometheusPort"]);
     });
 
     builder.Services.AddSwaggerGen(c =>
@@ -67,7 +67,7 @@ var app = builder.Build();
     app.UseExceptionHandler();
     app.UseAuthorization();
     app.MapControllers();
-    app.UseHealthChecks("/health", 9876, new HealthCheckOptions
+    app.UseHealthChecks("/health", int.Parse(builder.Configuration["AppSettings:DefaultHealthCheckPort"]), new HealthCheckOptions
     {
         Predicate = _ => true,
         ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse

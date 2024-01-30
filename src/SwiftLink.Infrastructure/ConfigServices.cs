@@ -25,7 +25,6 @@ public static class ConfigureServices
             opt.Configuration = configuration["AppSettings:Redis:RedisCacheUrl"];
         });
 
-
         return services;
     }
 }

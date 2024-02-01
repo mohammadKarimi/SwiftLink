@@ -6,7 +6,7 @@ using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Dtos;
 using System.Text.Json;
 
-namespace SwiftLink.Application.UseCases.Links.Commands.GenerateShortCode;
+namespace SwiftLink.Application.UseCases.Links.Commands;
 
 public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
                                              ICacheProvider cacheProvider,

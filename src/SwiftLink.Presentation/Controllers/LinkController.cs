@@ -1,8 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SwiftLink.Application.UseCases.Links.Commands.GenerateShortCode;
-using SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
-using SwiftLink.Application.UseCases.Subscribers.Queries.ListOfLinks;
+using SwiftLink.Application.Dtos;
+using SwiftLink.Application.UseCases.Links.Commands;
+using SwiftLink.Application.UseCases.Links.Queries;
+using SwiftLink.Application.UseCases.Subscribers.Queries;
 using SwiftLink.Presentation.Filters;
 
 namespace SwiftLink.Presentation.Controllers;
@@ -38,4 +39,9 @@ public class LinkController(ISender sender) : BaseController(sender)
     public async Task<IActionResult> List([FromQuery] ListOfLinksQuery listOfLinksQuery,
         CancellationToken cancellationToken = default)
        => Ok(await _mediatR.Send(listOfLinksQuery, cancellationToken));
+
+    [HttpGet]
+    public async Task<IActionResult> Count([FromQuery] CountOfVisitLinkDto listOfLinksQuery,
+     CancellationToken cancellationToken = default)
+    => Ok(await _mediatR.Send(listOfLinksQuery, cancellationToken));
 }

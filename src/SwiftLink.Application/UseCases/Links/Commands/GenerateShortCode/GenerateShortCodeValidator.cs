@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using SwiftLink.Application.Common.Interfaces;
 
-namespace SwiftLink.Application.UseCases.Links.Commands.GenerateShortCode;
+namespace SwiftLink.Application.UseCases.Links.Commands;
 
 public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCommand>
 {

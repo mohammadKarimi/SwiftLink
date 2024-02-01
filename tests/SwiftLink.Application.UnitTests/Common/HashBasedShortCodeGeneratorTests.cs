@@ -1,12 +1,16 @@
 using FluentAssertions;
 using SwiftLink.Application.Common;
+using SwiftLink.Application.Common.Interfaces;
 using Xunit;
+using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace SwiftLink.Application.UnitTests.Common;
 
-public class HashBasedShortCodeGeneratorTests
+public class HashBasedShortCodeGeneratorTests(ITestOutputHelper testOutput)
 {
     private readonly HashBasedShortCodeGenerator _generator = new();
+    private readonly ITestOutputHelper _output = testOutput;
 
     [Theory]
     [InlineData("https://www.example.com")]
@@ -16,6 +20,9 @@ public class HashBasedShortCodeGeneratorTests
     {
         var generator = new HashBasedShortCodeGenerator();
         var shortCode = generator.Generate(originalUrl);
+
+        testOutput.WriteLine($"shortCode for {originalUrl} is {shortCode}");
+
         shortCode.Should().NotBeNull();
         shortCode.Length.Should().Be(16);
     }
@@ -23,9 +30,15 @@ public class HashBasedShortCodeGeneratorTests
     [Fact]
     public void Generate_ShouldReturnDifferentShortCodesForDifferentInputUrls()
     {
-        var shortCode1 = _generator.Generate("https://www.example.com");
-        var shortCode2 = _generator.Generate("https://anotherexample.com");
-        shortCode1.Should().NotBe(shortCode2);
+        string firstOriginalUrl = "https://www.example.com";
+        string secondOriginalUrl = "https://anotherexample.com";
+        var firstOriginalUrl_shortCode = _generator.Generate(firstOriginalUrl);
+        var secondOriginalUrl_shortCode = _generator.Generate(secondOriginalUrl);
+
+        testOutput.WriteLine($"shortCode for {firstOriginalUrl} is {firstOriginalUrl_shortCode}");
+        testOutput.WriteLine($"shortCode for {secondOriginalUrl} is {secondOriginalUrl_shortCode}");
+
+        firstOriginalUrl_shortCode.Should().NotBe(secondOriginalUrl_shortCode);
     }
 
     //[Fact]

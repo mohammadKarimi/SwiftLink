@@ -19,7 +19,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
     private readonly ICacheProvider _cache = cacheProvider;
     private readonly IShortCodeGenerator _codeGenerator = codeGenerator;
     private readonly ISharedContext _sharedContext = sharedContext;
-    private readonly AppSettings _options = options.Value;
+    private readonly IOptions<AppSettings> _options = options;
 
     public async Task<Result<LinksDto>> Handle(GenerateShortCodeCommand request,
         CancellationToken cancellationToken = default)
@@ -31,7 +31,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
             ShortCode = _codeGenerator.Generate(request.Url),
             Description = request.Description,
             SubscriberId = int.Parse(_sharedContext.Get(nameof(Subscriber.Id)).ToString()),
-            ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays),
+            ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.Value.DefaultExpirationTimeInDays),
             Password = request.Password?.Hash(request.Url)
         };
 

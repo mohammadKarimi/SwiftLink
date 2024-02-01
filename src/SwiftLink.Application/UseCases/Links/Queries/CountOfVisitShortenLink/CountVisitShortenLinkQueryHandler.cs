@@ -1,56 +1,30 @@
-﻿using System.Text.Json;
-using MediatR;
-using SwiftLink.Application.Common;
+﻿using MediatR;
 using SwiftLink.Application.Common.Interfaces;
-using SwiftLink.Application.Notifications;
+using SwiftLink.Application.Dtos;
 
 namespace SwiftLink.Application.UseCases.Links.Queries;
 
 public class CountVisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
-                                          ICacheProvider cacheProvider,
-                                          IMediator mediator)
-    : IRequestHandler<CountVisitShortenLinkQuery, Result<string>>
+                                               ISharedContext sharedContext)
+    : IRequestHandler<CountVisitShortenLinkQuery, Result<CountOfVisitLinkDto>>
 {
+    private readonly ISharedContext _sharedContext = sharedContext;
     private readonly IApplicationDbContext _dbContext = dbContext;
-    private readonly ICacheProvider _cache = cacheProvider;
-    private readonly IMediator _mediator = mediator;
 
-    public async Task<Result<string>> Handle(CountVisitShortenLinkQuery request, CancellationToken cancellationToken)
+    public async Task<Result<CountOfVisitLinkDto>> Handle(CountVisitShortenLinkQuery request, CancellationToken cancellationToken)
     {
-        Link link;
-        var cacheResult = await _cache.Get(request.ShortCode);
-        if (!string.IsNullOrEmpty(cacheResult))
-            link = JsonSerializer.Deserialize<Link>(cacheResult);
-        else
-        {
-            link = await _dbContext.Set<Link>().FirstOrDefaultAsync(x => x.ShortCode == request.ShortCode, cancellationToken);
-            if (link is null)
-                return Result.Failure<string>(LinkMessages.LinkIsNotFound);
-            await _cache.Set(request.ShortCode, JsonSerializer.Serialize(link));
-        }
+        var subscriberId = int.Parse(_sharedContext.Get(nameof(Subscriber.Id)).ToString());
+        var link = await _dbContext.Set<Link>()
+               .Where(x => x.Id == request.LinkId && x.SubscriberId == subscriberId)
+               .Select(x => new CountOfVisitLinkDto { ShortCode = x.ShortCode, OriginalUrl = x.OriginalUrl })
+               .FirstOrDefaultAsync(cancellationToken);
+        if (link is null)
+            return Result.Failure<CountOfVisitLinkDto>(LinkMessages.InvalidLinkId);
 
-        if (link.IsBanned)
-            return Result.Failure<string>(LinkMessages.LinkIsBanned);
-
-        if (link.ExpirationDate <= DateTime.Now)
-            return Result.Failure<string>(LinkMessages.LinkIsExpired);
-
-        if (link.Password is not null)
-        {
-            if (request.Password is null)
-            {
-                return Result.Failure<string>(LinkMessages.PasswordIsNotSent);
-            }
-            else if (request.Password.Hash(link.OriginalUrl) != link.Password)
-                return Result.Failure<string>(LinkMessages.InvalidPassword);
-        }
-
-        await _mediator.Publish(new VisitLinkNotification
-        {
-            LinkId = link.Id,
-            ClientMetaData = request.ClientMetaData
-        }, cancellationToken);
-
-        return Result.Success(link.OriginalUrl);
+        var countOfVisit = await _dbContext.Set<LinkVisit>()
+                                           .Where(x => x.LinkId == request.LinkId)
+                                           .CountAsync(cancellationToken);
+        link.Count = countOfVisit;
+        return Result.Success(link);
     }
 }

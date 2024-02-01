@@ -1,15 +1,12 @@
 using FluentAssertions;
 using SwiftLink.Application.Common;
-using SwiftLink.Application.Common.Interfaces;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace SwiftLink.Application.UnitTests.Common;
 
-public class HashBasedShortCodeGeneratorTests(ITestOutputHelper testOutput)
+public class HashBasedShortCodeGeneratorTests
 {
-    private readonly IShortCodeGenerator _generator = new HashBasedShortCodeGenerator();
-    private readonly ITestOutputHelper _output = testOutput;
+    private readonly HashBasedShortCodeGenerator _generator = new();
 
     [Theory]
     [InlineData("https://www.example.com")]

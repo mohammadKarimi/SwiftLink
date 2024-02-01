@@ -4,7 +4,7 @@ using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Notifications;
 
-namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
+namespace SwiftLink.Application.UseCases.Links.Queries;
 
 public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
                                           ICacheProvider cacheProvider,

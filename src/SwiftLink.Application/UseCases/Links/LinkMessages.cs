@@ -8,4 +8,6 @@ internal record LinkMessages
     public static readonly Error PasswordIsNotSent = Error.Validation("LinkValidation", "This Link is protected, Please Send your password!");
     public static readonly Error InvalidPassword = Error.Validation("LinkValidation", "Invalid Password!");
     public static readonly Error LinkIsNotFound = Error.Validation("ShortCodeValidation", "Invalid ShortCode");
+    public static readonly Error InvalidLinkId = Error.Validation("LinkValidation", "Invalid LinkId or Subscriber Token.");
+
 }

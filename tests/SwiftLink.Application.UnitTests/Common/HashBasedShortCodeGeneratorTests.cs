@@ -21,7 +21,7 @@ public class HashBasedShortCodeGeneratorTests(ITestOutputHelper testOutput)
         var generator = new HashBasedShortCodeGenerator();
         var shortCode = generator.Generate(originalUrl);
 
-        testOutput.WriteLine($"shortCode for {originalUrl} is {shortCode}");
+        _output.WriteLine($"shortCode for {originalUrl} is {shortCode}");
 
         shortCode.Should().NotBeNull();
         shortCode.Length.Should().Be(16);
@@ -35,8 +35,8 @@ public class HashBasedShortCodeGeneratorTests(ITestOutputHelper testOutput)
         var firstOriginalUrl_shortCode = _generator.Generate(firstOriginalUrl);
         var secondOriginalUrl_shortCode = _generator.Generate(secondOriginalUrl);
 
-        testOutput.WriteLine($"shortCode for {firstOriginalUrl} is {firstOriginalUrl_shortCode}");
-        testOutput.WriteLine($"shortCode for {secondOriginalUrl} is {secondOriginalUrl_shortCode}");
+        _output.WriteLine($"shortCode for {firstOriginalUrl} is {firstOriginalUrl_shortCode}");
+        _output.WriteLine($"shortCode for {secondOriginalUrl} is {secondOriginalUrl_shortCode}");
 
         firstOriginalUrl_shortCode.Should().NotBe(secondOriginalUrl_shortCode);
     }

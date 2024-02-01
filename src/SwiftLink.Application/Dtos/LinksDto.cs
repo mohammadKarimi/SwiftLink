@@ -8,3 +8,10 @@ public record struct LinksDto
     public DateTime ExpirationDate { get; set; }
     public bool IsBanned { get; set; }
 }
+
+public record CountOfVisitLinkDto
+{
+    public int Count { get; set; }
+    public string ShortCode { get; set; }
+    public string OriginalUrl { get; set; }
+}

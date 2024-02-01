@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using SwiftLink.Application.Dtos;
 
-namespace SwiftLink.Application.UseCases.Subscribers.Queries.ListOfLinks;
+namespace SwiftLink.Application.UseCases.Subscribers.Queries;
 
 public record ListOfLinksQuery : IRequest<Result<IReadOnlyList<LinksDto>>>
 {

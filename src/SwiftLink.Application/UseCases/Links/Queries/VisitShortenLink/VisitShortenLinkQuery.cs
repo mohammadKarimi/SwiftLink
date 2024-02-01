@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using SwiftLink.Application.Common.Security;
 
-namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
+namespace SwiftLink.Application.UseCases.Links.Queries;
 
 public record VisitShortenLinkQuery : IAnonymousRequest, IRequest<Result<string>>
 {

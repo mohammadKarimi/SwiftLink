@@ -41,7 +41,7 @@ public class LinkController(ISender sender) : BaseController(sender)
        => Ok(await _mediatR.Send(listOfLinksQuery, cancellationToken));
 
     [HttpGet]
-    public async Task<IActionResult> Count([FromQuery] CountOfVisitLinkDto listOfLinksQuery,
+    public async Task<IActionResult> Count([FromQuery] CountVisitShortenLinkQuery countOfLinksQuery,
      CancellationToken cancellationToken = default)
-    => Ok(await _mediatR.Send(listOfLinksQuery, cancellationToken));
+       => Ok(await _mediatR.Send(countOfLinksQuery, cancellationToken));
 }

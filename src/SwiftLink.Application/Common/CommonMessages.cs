@@ -1,6 +1,6 @@
 ﻿namespace SwiftLink.Application.Common;
 
-internal static class CommonMessages
+public static class CommonMessages
 {
     public static class Database
     {

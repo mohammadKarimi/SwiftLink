@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SwiftLink.Application.Dtos;
 using SwiftLink.Application.UseCases.Links.Commands;
 using SwiftLink.Application.UseCases.Links.Queries;
 using SwiftLink.Application.UseCases.Subscribers.Queries;

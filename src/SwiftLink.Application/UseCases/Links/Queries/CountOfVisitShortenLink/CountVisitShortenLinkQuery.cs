@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
+namespace SwiftLink.Application.UseCases.Links.Queries;
 
 public record CountVisitShortenLinkQuery : IRequest<Result<string>>
 {

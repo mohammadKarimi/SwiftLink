@@ -4,18 +4,18 @@ using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Notifications;
 
-namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
+namespace SwiftLink.Application.UseCases.Links.Queries;
 
-public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
+public class CountVisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
                                           ICacheProvider cacheProvider,
                                           IMediator mediator)
-    : IRequestHandler<VisitShortenLinkQuery, Result<string>>
+    : IRequestHandler<CountVisitShortenLinkQuery, Result<string>>
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
     private readonly ICacheProvider _cache = cacheProvider;
     private readonly IMediator _mediator = mediator;
 
-    public async Task<Result<string>> Handle(VisitShortenLinkQuery request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(CountVisitShortenLinkQuery request, CancellationToken cancellationToken)
     {
         Link link;
         var cacheResult = await _cache.Get(request.ShortCode);

@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Dtos;
-using SwiftLink.Application.UseCases.Subscribers.Queries.ListOfLinks;
+using SwiftLink.Application.UseCases.Subscribers.Queries;
 
-namespace SwiftLink.Application.UseCases.Links.Queries.VisitShortenLink;
+namespace SwiftLink.Application.UseCases.Links.Queries;
 
 public class ListOfLinksQueryHandler(IApplicationDbContext dbContext)
     : IRequestHandler<ListOfLinksQuery, Result<IReadOnlyList<LinksDto>>>

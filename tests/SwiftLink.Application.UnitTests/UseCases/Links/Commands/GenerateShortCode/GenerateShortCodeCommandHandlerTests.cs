@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using SwiftLink.Application.Common.Interfaces;
-using SwiftLink.Application.UseCases.Links.Commands.GenerateShortCode;
+using SwiftLink.Application.UseCases.Links.Commands;
 using SwiftLink.Domain.Entities;
 using SwiftLink.Shared;
 using Xunit;

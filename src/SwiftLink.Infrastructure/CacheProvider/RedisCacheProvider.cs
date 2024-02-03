@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
@@ -13,8 +14,11 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
     : ICacheProvider
 {
 
-    private readonly AsyncCircuitBreakerPolicy<bool> circuitBreakerPolicy = Policy<bool>.HandleResult(false)
-                                                                                        .CircuitBreakerAsync(2, TimeSpan.FromSeconds(30));
+    private readonly AsyncCircuitBreakerPolicy<bool> setCacheCircuitBreaker = Policy<bool>.HandleResult(false)
+                                                                                          .CircuitBreakerAsync(1, TimeSpan.FromSeconds(60));
+
+    private readonly AsyncCircuitBreakerPolicy<string> getCacheCircuitBreaker = Policy<string>.HandleResult((r) => { return r is null; })
+                                                                                              .CircuitBreakerAsync(1, TimeSpan.FromSeconds(60));
 
     private readonly IDistributedCache _cache = cache;
     private readonly AppSettings _options = options.Value;
@@ -27,9 +31,9 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
 
     public async Task<bool> Set(string key, string value, DateTime expirationDate)
     {
-        if (circuitBreakerPolicy.CircuitState is CircuitState.Open)
+        if (setCacheCircuitBreaker.CircuitState is CircuitState.Open)
             return false;
-        return await circuitBreakerPolicy.ExecuteAsync(async () =>
+        return await setCacheCircuitBreaker.ExecuteAsync(async () =>
             {
                 try
                 {
@@ -51,13 +55,18 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
 
     public async Task<string> Get(string key)
     {
-        try
-        {
-            return await _cache.GetStringAsync(key);
-        }
-        catch
-        {
+        if (getCacheCircuitBreaker.CircuitState is CircuitState.Open)
             return null;
-        }
+        return await getCacheCircuitBreaker.ExecuteAsync(async () =>
+        {
+            try
+            {
+                return await _cache.GetStringAsync(key);
+            }
+            catch (RedisConnectionException)
+            {
+                return null;
+            }
+        });
     }
 }

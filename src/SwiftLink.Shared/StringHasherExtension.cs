@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace SwiftLink.Application.Common;
+namespace SwiftLink.Shared;
 
 public static class StringHasherExtension
 {

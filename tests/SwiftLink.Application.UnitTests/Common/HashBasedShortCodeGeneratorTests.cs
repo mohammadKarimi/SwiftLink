@@ -1,9 +1,7 @@
 using FluentAssertions;
 using SwiftLink.Application.Common;
-using SwiftLink.Application.Common.Interfaces;
 using Xunit;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 namespace SwiftLink.Application.UnitTests.Common;
 

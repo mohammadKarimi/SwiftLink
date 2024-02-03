@@ -7,12 +7,16 @@ using SwiftLink.Application;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Infrastructure;
 using SwiftLink.Infrastructure.Persistence.Context;
+using SwiftLink.Presentation.Extensions;
 using SwiftLink.Presentation.Middleware;
 using SwiftLink.Presentation.Services;
 using SwiftLink.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 {
+    builder.Services.AddPolicyRegistry()
+                    .AddPolicies();
+
     builder.Services.AddScoped<IUser, CurrentUser>();
     builder.Services.AddHttpContextAccessor();
 

@@ -1,26 +1,19 @@
-﻿using Azure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Caching.Distributed;
+﻿using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using Polly;
 using Polly.CircuitBreaker;
+using Polly.Registry;
 using StackExchange.Redis;
 using System.Text;
 
 namespace SwiftLink.Infrastructure.CacheProvider;
 
-public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> options)
+public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> options, IReadOnlyPolicyRegistry<string> policyRegistry)
     : ICacheProvider
 {
-
-    private readonly AsyncCircuitBreakerPolicy<bool> setCacheCircuitBreaker = Policy<bool>.HandleResult(false)
-                                                                                          .CircuitBreakerAsync(1, TimeSpan.FromSeconds(60));
-
-    private readonly AsyncCircuitBreakerPolicy<string> getCacheCircuitBreaker = Policy<string>.HandleResult((r) => { return r is null; })
-                                                                                              .CircuitBreakerAsync(1, TimeSpan.FromSeconds(60));
-
     private readonly IDistributedCache _cache = cache;
+    private readonly IReadOnlyPolicyRegistry<string> _policyRegistry = policyRegistry;
+
     private readonly AppSettings _options = options.Value;
 
     public Task Remove(string key)
@@ -31,8 +24,10 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
 
     public async Task<bool> Set(string key, string value, DateTime expirationDate)
     {
+        var setCacheCircuitBreaker = _policyRegistry.Get<AsyncCircuitBreakerPolicy<bool>>(nameof(RedisCashServiceResiliencyKey.SetCircuitBreaker));
         if (setCacheCircuitBreaker.CircuitState is CircuitState.Open)
             return false;
+
         return await setCacheCircuitBreaker.ExecuteAsync(async () =>
             {
                 try
@@ -55,8 +50,10 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
 
     public async Task<string> Get(string key)
     {
+        var getCacheCircuitBreaker = _policyRegistry.Get<AsyncCircuitBreakerPolicy<string>>(nameof(RedisCashServiceResiliencyKey.GetCircuitBreaker));
         if (getCacheCircuitBreaker.CircuitState is CircuitState.Open)
             return null;
+
         return await getCacheCircuitBreaker.ExecuteAsync(async () =>
         {
             try
@@ -69,4 +66,10 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
             }
         });
     }
+}
+
+public enum RedisCashServiceResiliencyKey
+{
+    SetCircuitBreaker,
+    GetCircuitBreaker
 }

@@ -1,6 +1,7 @@
 ﻿namespace SwiftLink.Application.UseCases.Links;
 internal record LinkMessages
 {
+    public static readonly Error ExpirationDateMustBeMoreThanTomorrow = Error.Validation("ExpirationDate Invalid", "ExpirationDate Must Be More Than Tomorrow!");
     public static readonly Error UrlMustBeSent = Error.Validation("InValidFormat", "Url must be sent!");
     public static readonly Error InvalidUrlFormat = Error.Validation("InValidFormat", "Invalid Url Format!");
     public static readonly Error LinkIsBanned = Error.Validation("LinkValidation", "Your Link in banned! :(");

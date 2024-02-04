@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
-using Polly;
 using Polly.CircuitBreaker;
 using Polly.Registry;
 using StackExchange.Redis;

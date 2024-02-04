@@ -7,21 +7,26 @@ namespace SwiftLink.Presentation.Middleware;
 internal sealed class GlobalExceptionHandler : IExceptionHandler
 {
     private readonly Dictionary<Type, Func<HttpContext, Exception, CancellationToken, Task>> _exceptionHandlers;
-    //private readonly ILogger<GlobalExceptionHandling> _logger = logger;
+    private readonly ILogger<GlobalExceptionHandler> _logger;
 
-    public GlobalExceptionHandler()
+    public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
     {
+        _logger = logger;
         _exceptionHandlers = new()
-            {
-                { typeof(BusinessValidationException), HandleBusinessValidationException },
-                { typeof(SubscriberUnAuthorizedException), HandleSubscriberUnAuthorizedException },
-            };
+        {
+            { typeof(BusinessValidationException), HandleBusinessValidationException },
+            { typeof(SubscriberUnAuthorizedException), HandleSubscriberUnAuthorizedException },
+        };
     }
 
-    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
+    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception,
+        CancellationToken cancellationToken)
     {
+        _logger.LogError(exception, "Server Error happened!");
+
         var exceptionType = exception.GetType();
-        if (_exceptionHandlers.TryGetValue(exceptionType, out Func<HttpContext, Exception, CancellationToken, Task> value))
+        if (_exceptionHandlers.TryGetValue(exceptionType,
+                out Func<HttpContext, Exception, CancellationToken, Task> value))
         {
             await value.Invoke(httpContext, exception, cancellationToken);
             return true;
@@ -38,9 +43,12 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
         return false;
     }
 
-    private async Task HandleBusinessValidationException(HttpContext httpContext, Exception ex, CancellationToken cancellationToken)
+    private async Task HandleBusinessValidationException(HttpContext httpContext, Exception exception,
+        CancellationToken cancellationToken)
     {
-        var businessValidationException = (BusinessValidationException)ex;
+        _logger.LogError(exception, "Validation error happened!");
+
+        var businessValidationException = (BusinessValidationException)exception;
 
         var problemDetails = new ProblemDetails
         {
@@ -54,11 +62,14 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
 
         httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
         await httpContext.Response.WriteAsJsonAsync(problemDetails,
-                                                    cancellationToken: cancellationToken);
+            cancellationToken: cancellationToken);
     }
 
-    private async Task HandleSubscriberUnAuthorizedException(HttpContext httpContext, Exception ex, CancellationToken cancellationToken)
+    private async Task HandleSubscriberUnAuthorizedException(HttpContext httpContext, Exception exception,
+        CancellationToken cancellationToken)
     {
+        _logger.LogError(exception, "UnAuthorized user error happened!");
+
         httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
         await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
         {

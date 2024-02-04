@@ -8,7 +8,7 @@ using SwiftLink.Presentation.Filters;
 namespace SwiftLink.Presentation.Controllers;
 
 [Route("api/v{v:apiVersion}/[controller]/[action]")]
-public class LinkController(ISender sender, ILogger<LinkController> logger) : BaseController(sender, logger)
+public class LinkController(ISender sender) : BaseController(sender)
 {
     [HttpPost]
     public async Task<IActionResult> Shorten([FromBody] GenerateShortCodeCommand command,

@@ -2,7 +2,6 @@
 using Polly.CircuitBreaker;
 using Polly.Registry;
 using SwiftLink.Infrastructure.CacheProvider;
-using System.Xml.Serialization;
 
 namespace SwiftLink.Presentation.Extensions;
 

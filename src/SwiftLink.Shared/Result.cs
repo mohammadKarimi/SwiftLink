@@ -6,7 +6,9 @@ public class Result
 {
     public bool IsSuccess { get; init; }
 
-    [JsonIgnore] public bool IsFailure => !IsSuccess;
+    [JsonIgnore] 
+    public bool IsFailure 
+        => !IsSuccess;
 
     public Error Error { get; init; }
 
@@ -16,13 +18,17 @@ public class Result
         Error = error;
     }
 
-    public static Result Failure(Error error) => new(false, error);
+    public static Result Failure(Error error) 
+        => new(false, error);
 
-    public static Result Success() => new(true, Error.None);
+    public static Result Success() 
+        => new(true, Error.None);
 
-    public static Result<T> Failure<T>(Error error) => Result<T>.Failure(error);
+    public static Result<T> Failure<T>(Error error) 
+        => Result<T>.Failure(error);
 
-    public static Result<T> Success<T>(T data) => Result<T>.Success(data);
+    public static Result<T> Success<T>(T data) 
+        => Result<T>.Success(data);
 }
 
 public class Result<T> : Result
@@ -34,7 +40,9 @@ public class Result<T> : Result
         Data = data;
     }
 
-    public static Result<T> Success(T result) => new(true, result, Error.None);
+    public static Result<T> Success(T result) 
+        => new(true, result, Error.None);
 
-    public new static Result<T> Failure(Error error) => new(false, default!, error);
+    public new static Result<T> Failure(Error error) 
+        => new(false, default!, error);
 }

@@ -3,6 +3,7 @@ using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using Prometheus;
+using Serilog;
 using SwiftLink.Application;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Infrastructure;
@@ -15,7 +16,7 @@ using SwiftLink.Shared;
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddPolicyRegistry()
-                    .AddPolicies();
+        .AddPolicies();
 
     builder.Services.AddScoped<IUser, CurrentUser>();
     builder.Services.AddHttpContextAccessor();
@@ -49,6 +50,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
+    builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
     builder.Services.AddMetricServer(options =>
     {
@@ -67,7 +69,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
-
     app.UseExceptionHandler();
     app.UseAuthorization();
     app.MapControllers();
@@ -95,6 +96,7 @@ var app = builder.Build();
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "SwiftLink API v1");
         options.RoutePrefix = string.Empty;
     });
+    app.UseSerilogRequestLogging();
 
     //app.UseElasticApm(builder.Configuration,
     //    new HttpDiagnosticsSubscriber(),

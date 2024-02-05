@@ -19,6 +19,7 @@
 <a name="readme-top"></a>
 
 ## SwiftLink - .NET 8 Project
+[![dotnet-version]]
 
 ### Introduction
 Welcome to the SwiftLink project, a .NET 8 application designed to streamline link shortening. This README provides comprehensive instructions on how to clone, restore, build, and run the project. Additionally, it covers database migration and the usage of a Redis container via Docker.
@@ -147,3 +148,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [issues-url]: https://github.com/mohammadKarimi/SwiftLink/issues
 [license-shield]: https://img.shields.io/github/license/mohammadKarimi/SwiftLink.svg?style=for-the-badge
 [license-url]: https://github.com/mohammadKarimi/SwiftLink/blob/main/LICENSE.txt
+[dotnet-version]: https://img.shields.io/badge/dotnet%20version-net8.0-blue

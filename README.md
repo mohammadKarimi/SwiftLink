@@ -1,5 +1,21 @@
 ![image 138](https://github.com/mohammadKarimi/SwiftLink/assets/5300102/9720e942-4853-4f7f-a426-f0f7a9fefeca) 
 
+
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
 <a name="readme-top"></a>
 
 ## SwiftLink - .NET 8 Project
@@ -117,3 +133,17 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-url]: https://github.com/mohammadKarimi/SwiftLink/graphs/contributors
+[stars-url]: https://github.com/mohammadKarimi/SwiftLink/stargazers
+[forks-url]: https://github.com/mohammadKarimi/SwiftLink/network/members
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/mha-karimi/
+[contributors-shield]: https://img.shields.io/github/contributors/mohammadKarimi/SwiftLink.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/mohammadKarimi/SwiftLink.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/mohammadKarimi/SwiftLink.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/mohammadKarimi/SwiftLink.svg?style=for-the-badge
+[issues-url]: https://github.com/mohammadKarimi/SwiftLink/issues
+[license-shield]: https://img.shields.io/github/license/mohammadKarimi/SwiftLink.svg?style=for-the-badge
+[license-url]: https://github.com/mohammadKarimi/SwiftLink/blob/master/LICENSE.txt

@@ -18,8 +18,8 @@
 
 <a name="readme-top"></a>
 
-## SwiftLink - .NET 8 Project
-[![dotnet-version]]
+## SwiftLink - Modern Shortener Link Project
+![dotnet-version]
 
 ### Introduction
 Welcome to the SwiftLink project, a .NET 8 application designed to streamline link shortening. This README provides comprehensive instructions on how to clone, restore, build, and run the project. Additionally, it covers database migration and the usage of a Redis container via Docker.

@@ -76,6 +76,12 @@ Next, apply the database migrations using the following command:
 ```
 dotnet ef database update
 ```
+OR
+* PMC (package manager console)
+```
+Update-Database
+```
+
 
 ### Redis Container
 This project utilizes a Redis container to manage caching. Ensure that Docker is running and execute the following command to pull the Redis image:
@@ -102,7 +108,7 @@ dotnet build
 dotnet run
 ```
 
-Access the application by navigating to https://localhost:5001 in your web browser.
+Access the application by navigating to https://localhost:44314 in your web browser.
 
 That's it! You've successfully cloned, restored, and run the SwiftLink project with database migration and a Redis container. If you encounter any issues, refer to the project documentation or seek help from the community. Happy coding!
 

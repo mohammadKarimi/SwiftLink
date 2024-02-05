@@ -37,10 +37,10 @@ public class LinkController(ISender sender) : BaseController(sender)
     [HttpGet]
     public async Task<IActionResult> List([FromQuery] ListOfLinksQuery listOfLinksQuery,
         CancellationToken cancellationToken = default)
-       => Ok(await _mediatR.Send(listOfLinksQuery, cancellationToken));
+        => Ok(await _mediatR.Send(listOfLinksQuery, cancellationToken));
 
     [HttpGet]
     public async Task<IActionResult> Count([FromQuery] CountVisitShortenLinkQuery countOfLinksQuery,
-     CancellationToken cancellationToken = default)
-       => Ok(await _mediatR.Send(countOfLinksQuery, cancellationToken));
+        CancellationToken cancellationToken = default)
+        => Ok(await _mediatR.Send(countOfLinksQuery, cancellationToken));
 }

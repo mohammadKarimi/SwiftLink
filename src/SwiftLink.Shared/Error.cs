@@ -27,11 +27,3 @@ public record Error
     public static Error Validation(string code, string message)
         => new(code, message, ErrorType.Validation);
 }
-
-public enum ErrorType
-{
-    Validation = 400,
-    Failure = 500,
-    NotFound = 404,
-    None = 100
-}

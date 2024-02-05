@@ -16,7 +16,7 @@ using SwiftLink.Shared;
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddPolicyRegistry()
-        .AddPolicies();
+                    .AddPolicies();
 
     builder.Services.AddScoped<IUser, CurrentUser>();
     builder.Services.AddHttpContextAccessor();
@@ -50,6 +50,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
+
     builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
     builder.Services.AddMetricServer(options =>

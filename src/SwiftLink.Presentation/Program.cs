@@ -9,6 +9,7 @@ using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Infrastructure;
 using SwiftLink.Infrastructure.Persistence.Context;
 using SwiftLink.Presentation.Extensions;
+using SwiftLink.Presentation.Filters;
 using SwiftLink.Presentation.Middleware;
 using SwiftLink.Presentation.Services;
 using SwiftLink.Shared;
@@ -58,13 +59,15 @@ var builder = WebApplication.CreateBuilder(args);
         options.Port = ushort.Parse(builder.Configuration["AppSettings:DefaultPrometheusPort"]);
     });
 
-    builder.Services.AddSwaggerGen(c =>
+    builder.Services.AddSwaggerGen(options =>
     {
-        c.SwaggerDoc("v1", new OpenApiInfo
+        options.SwaggerDoc("v1", new OpenApiInfo
         {
             Title = "SwiftLink",
             Version = "v1",
         });
+
+        options.OperationFilter<SwaggerAuthenticationFilter>();
     });
 }
 

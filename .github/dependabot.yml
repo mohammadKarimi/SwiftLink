@@ -5,4 +5,4 @@ updates:
     schedule:
       interval: "weekly" # Period Of Scheduling
       day: "wednesday" # When
-    open-pull-requests-limit: 5 # Limitaion of Pull-Request
+    open-pull-requests-limit: 8 # Limitaion of Pull-Request

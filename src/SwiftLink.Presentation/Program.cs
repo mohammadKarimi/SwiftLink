@@ -29,7 +29,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
 
-    builder.Services.RegisterApplicationServices()
+    builder.Services.RegisterApplicationServices(builder.Configuration)
         .RegisterInfrastructureServices(builder.Configuration);
 
     builder.Services.AddApiVersioning(options =>

@@ -1,17 +1,18 @@
-﻿using MediatR.Pipeline;
+﻿using MediatR;
+using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 using SwiftLink.Application.Common.Interfaces;
 
 namespace SwiftLink.Application.Behaviors;
 
-public class LoggingBehavior<TRequest>(ILogger<TRequest> logger, IUser user, IApplicationDbContext dbContext) 
-: IRequestPreProcessor<TRequest> where TRequest : notnull
+public class LoggingBehavior<TRequest, TResponse>(ILogger<TRequest> logger, IUser user, IApplicationDbContext dbContext)
+: IPipelineBehavior<TRequest, TResponse>
 {
     private readonly ILogger _logger = logger;
     private readonly IUser _user = user;
     private readonly IApplicationDbContext _dbContext = dbContext;
 
-    public async Task Process(TRequest request, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         var requestName = typeof(TRequest).Name;
         var subscriberToken = _user.Token.ToString() ?? string.Empty;
@@ -25,7 +26,14 @@ public class LoggingBehavior<TRequest>(ILogger<TRequest> logger, IUser user, IAp
             subscriberName = result.Name;
         }
 
-        _logger.LogInformation("SwiftLink Request: {Name} {@subscriberToken} {@subscriberName} {@Request}",
+        _logger.LogInformation("SwiftLink Request: {requestName} {@subscriberToken} {@subscriberName} {@Request}",
             requestName, subscriberToken, subscriberName, request);
+
+        var response = await next();
+
+        _logger.LogInformation("SwiftLink Response: {requestName} {@Response}",
+        requestName, response);
+
+        return response;
     }
 }

@@ -24,7 +24,7 @@ public static class ConfigServices
             var loggingBehavior = configuration["LoggingBehavior"] == "enable" ? true : false;
 
             if (loggingBehavior)
-                config.AddRequestPreProcessor(typeof(IRequestPreProcessor<>), typeof(LoggingBehavior<>));
+                config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         });
 
         services.AddScoped<IShortCodeGenerator, HashBasedShortCodeGenerator>();

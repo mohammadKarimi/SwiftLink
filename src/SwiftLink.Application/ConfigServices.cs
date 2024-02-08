@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using MediatR.Pipeline;
 using Microsoft.Extensions.DependencyInjection;
 using SwiftLink.Application.Behaviors;
 using SwiftLink.Application.Common;
@@ -18,6 +19,7 @@ public static class ConfigServices
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(SubscriberAuthorizationBehavior<,>));
             config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            config.AddRequestPreProcessor(typeof(IRequestPreProcessor<>), typeof(LoggingBehavior<>));
         });
 
         services.AddScoped<IShortCodeGenerator, HashBasedShortCodeGenerator>();

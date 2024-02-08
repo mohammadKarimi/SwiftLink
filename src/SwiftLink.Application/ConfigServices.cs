@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
+using MediatR.Pipeline;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwiftLink.Application.Behaviors;
 using SwiftLink.Application.Common;
@@ -10,7 +12,7 @@ namespace SwiftLink.Application;
 
 public static class ConfigServices
 {
-    public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
+    public static IServiceCollection RegisterApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddMediatR(config =>
@@ -18,6 +20,11 @@ public static class ConfigServices
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(SubscriberAuthorizationBehavior<,>));
             config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            var loggingBehavior = configuration["LoggingBehavior"] == "enable" ? true : false;
+
+            if (loggingBehavior)
+                config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         });
 
         services.AddScoped<IShortCodeGenerator, HashBasedShortCodeGenerator>();

@@ -1,4 +1,5 @@
 ﻿using SwiftLink.Domain.Common;
+using SwiftLink.Infrastructure.Persistence.Const;
 using SwiftLink.Infrastructure.Persistence.Extensions;
 using System.Reflection;
 
@@ -15,7 +16,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDefaultSchema("Base");
+        modelBuilder.HasDefaultSchema(EntitySchema.BASE);
         modelBuilder.RegisterEntities(typeof(EntityAttribute).Assembly);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 

@@ -1,5 +1,5 @@
 ﻿using SwiftLink.Domain.Common;
-using SwiftLink.Infrastructure.Persistence.Const;
+using SwiftLink.Infrastructure.Persistence.Consts;
 using SwiftLink.Infrastructure.Persistence.Extensions;
 using System.Reflection;
 

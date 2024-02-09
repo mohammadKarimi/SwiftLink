@@ -24,6 +24,8 @@
 ### Introduction
 Welcome to the SwiftLink project, a .NET 8 application designed to streamline link shortening. This README provides comprehensive instructions on how to clone, restore, build, and run the project. Additionally, it covers database migration and the usage of a Redis container via Docker.
 
+![Architecture](https://github.com/mohammadKarimi/SwiftLink/blob/main/docs/architecture.png) 
+
 ## Getting Started
 
 ### Prerequisites

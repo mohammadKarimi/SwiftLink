@@ -21,7 +21,7 @@ public static class ConfigServices
             config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(SubscriberAuthorizationBehavior<,>));
             config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
-            if (configuration["AppSettings:LoggingBehavior"] == "enable")
+            if (configuration["AppSettings:LoggingBehavior"].ToLower() is "enable")
                 config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         });
 

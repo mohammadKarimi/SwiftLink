@@ -4,12 +4,11 @@ using SwiftLink.Application.Common.Interfaces;
 
 namespace SwiftLink.Application.Behaviors;
 
-public class LoggingBehavior<TRequest, TResponse>(ILogger<TRequest> logger, ISharedContext sharedContext, IApplicationDbContext dbContext)
+public class LoggingBehavior<TRequest, TResponse>(ILogger<TRequest> logger, ISharedContext sharedContext)
 : IPipelineBehavior<TRequest, TResponse>
 {
     private readonly ILogger _logger = logger;
     private readonly ISharedContext _sharedContext = sharedContext;
-    private readonly IApplicationDbContext _dbContext = dbContext;
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {

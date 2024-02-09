@@ -6,19 +6,19 @@ public record AppSettings
 {
     public static string ConfigurationSectionName => "AppSettings";
 
-    [Range(1, 60)] 
+    [Range(1, 60)]
     public byte DefaultExpirationTimeInDays { get; set; }
-
-    [Url] 
+    
+    [Url]
     public string DefaultUrlOnNotFound { get; set; }
-
     public Redis Redis { get; set; }
+    public bool LoggingBehavior { get; set; }
 }
 
 public record Redis
 {
     public int SlidingExpirationHour { get; set; }
 
-    [Url] 
+    [Url]
     public string RedisCacheUrl { get; set; }
 }

@@ -1,4 +1,4 @@
-![image 138](https://github.com/mohammadKarimi/SwiftLink/assets/5300102/9720e942-4853-4f7f-a426-f0f7a9fefeca) 
+﻿![image 138](https://github.com/mohammadKarimi/SwiftLink/assets/5300102/9720e942-4853-4f7f-a426-f0f7a9fefeca) 
 
 
 <!-- PROJECT SHIELDS -->
@@ -132,7 +132,8 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
+## 🌟 Support this project
+If you believe this project has potential, feel free to star this repo just like many <a href="https://github.com/mohammadKarimi/SwiftLink/stargazers">amazing people</a> have.
 
 <!-- LICENSE -->
 ## License

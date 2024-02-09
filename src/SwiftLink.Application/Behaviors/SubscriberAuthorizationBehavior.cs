@@ -25,6 +25,7 @@ internal class SubscriberAuthorizationBehavior<TRequest, TResponse>(IApplication
                                                                                  && x.IsActive, cancellationToken) ?? throw new SubscriberUnAuthorizedException();
 
         _sharedContext.Set(nameof(result.Id), result.Id);
+        _sharedContext.Set(nameof(result.Name), result.Name);
         return await next();
     }
 }

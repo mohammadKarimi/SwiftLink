@@ -33,5 +33,11 @@ public class LinkConfig : IEntityTypeConfiguration<Link>
             .WithOne(x => x.Link)
             .HasPrincipalKey(x => x.Id)
             .HasForeignKey(x => x.LinkId);
+
+        builder.Property(x => x.Title)
+            .HasMaxLength(250);
+
+        builder.Property(x => x.IsDisabled)
+            .HasDefaultValue(false);
     }
 }

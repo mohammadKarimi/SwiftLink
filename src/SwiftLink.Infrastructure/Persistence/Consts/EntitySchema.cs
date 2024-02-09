@@ -1,4 +1,4 @@
-﻿namespace SwiftLink.Infrastructure.Persistence.Const;
+﻿namespace SwiftLink.Infrastructure.Persistence.Consts;
 
 public static class EntitySchema
 {

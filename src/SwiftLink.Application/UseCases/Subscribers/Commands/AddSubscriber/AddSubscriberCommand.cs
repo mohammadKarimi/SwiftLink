@@ -1,3 +1,5 @@
-﻿namespace SwiftLink.Application.UseCases.Subscribers.Commands;
+﻿using SwiftLink.Application.Common.Security;
 
-public record AddSubscriberCommand(string Email,string Name) : IRequest<Result<Guid>>;
+namespace SwiftLink.Application.UseCases.Subscribers.Commands;
+
+public record AddSubscriberCommand(string Email, string Name) : IAnonymousRequest, IRequest<Result<Guid>>;

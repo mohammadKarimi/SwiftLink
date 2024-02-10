@@ -24,5 +24,5 @@ public class AddSubscriberCommandValidator : AbstractValidator<AddSubscriberComm
       => EmailFormatChecker.EmailRegex().IsMatch(email);
 
     private Task<bool> BeAUniqueEmail(string email, CancellationToken cancellationToken)
-    => _dbContext.Set<Subscriber>().AnyAsync(x => x.Email == email, cancellationToken);
+        => _dbContext.Set<Subscriber>().AnyAsync(x => x.Email == email, cancellationToken);
 }

@@ -17,6 +17,12 @@ public class Link : IEntity
     public bool IsBanned { get; set; }
     public bool IsDisabled { get; set; }
     public string Password { get; set; }
-
+    public List<Tags> Tags { get; set; }
     public ICollection<LinkVisit> LinkVisits { get; set; }
+}
+
+public class Tags
+{
+    public string Title { get; set; }
+    public byte Order { get; set; }
 }

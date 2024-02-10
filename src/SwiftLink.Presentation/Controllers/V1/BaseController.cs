@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Serilog.Context;
 using SwiftLink.Presentation.Extensions;
 using SwiftLink.Shared;
 
-namespace SwiftLink.Presentation.Controllers;
+namespace SwiftLink.Presentation.Controllers.V1;
 
+[Route("api/v{v:apiVersion}/[controller]/[action]")]
 [ApiController]
 public abstract class BaseController(ISender sender) : Controller
 {

@@ -9,5 +9,6 @@ public class Subscriber : IEntity
     public int Id { get; set; }
     public Guid Token { get; set; }
     public string Name { get; set; }
+    public string Email { get; set; }
     public bool IsActive { get; set; }
 }

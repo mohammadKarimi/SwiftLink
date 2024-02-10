@@ -6,8 +6,7 @@ public class LinkVisitConfig : IEntityTypeConfiguration<LinkVisit>
 {
     public void Configure(EntityTypeBuilder<LinkVisit> builder)
     {
-        builder.ToTable(t =>
-            t.HasComment("analytics, providing insights into the number of users who clicked on a shortened link."));
+        builder.ToTable(t => t.HasComment("analytics, providing insights into the number of users who clicked on a shortened link."));
 
         builder.HasKey(t => t.Id)
             .HasName("PK_Base_LinkVisit");

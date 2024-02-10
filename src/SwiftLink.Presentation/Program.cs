@@ -16,7 +16,7 @@ using SwiftLink.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.WebHost.UseKestrel(x => x.AddServerHeader = false);
+   // builder.WebHost.UseKestrel(x => x.AddServerHeader = false);
 
     builder.Services.AddPolicyRegistry()
                     .AddPolicies();

@@ -12,7 +12,7 @@ public record AppSettings
     [Url]
     public string DefaultUrlOnNotFound { get; set; }
     public Redis Redis { get; set; }
-    public bool LoggingBehavior { get; set; }
+    public string LoggingBehavior { get; set; }
 }
 
 public record Redis

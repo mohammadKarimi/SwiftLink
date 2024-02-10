@@ -10,11 +10,3 @@ public record GenerateShortCodeCommand : IRequest<Result<LinksDto>>
     public DateTime? ExpirationDate { get; set; }
     public string Password { get; set; }
 }
-
-internal record GenerateShortCodeDto
-{
-    public string Url { get; set; }
-    public string Description { get; set; }
-    public DateTime? ExpirationDate { get; set; }
-    public bool IsBanned { get; set; }
-}

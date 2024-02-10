@@ -1,0 +1,11 @@
+﻿@SwiftLink.Presentation_HostAddress = http://localhost:56459
+
+POST {{SwiftLink.Presentation_HostAddress}}/api/v1.0/subscriber/Add
+Content-Type: application/json
+
+{
+    "email": "m.karimi@gmail.com",
+    "name": "Mohammad Karimi"
+}
+
+###

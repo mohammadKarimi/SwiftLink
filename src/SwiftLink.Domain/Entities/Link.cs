@@ -7,6 +7,7 @@
 public class Link : IEntity
 {
     public int Id { get; set; }
+    public string Title { get; set; }
     public int SubscriberId { get; set; }
     public Subscriber Subscriber { get; set; }
     public string ShortCode { get; set; }
@@ -14,6 +15,7 @@ public class Link : IEntity
     public string Description { get; set; }
     public DateTime ExpirationDate { get; set; }
     public bool IsBanned { get; set; }
+    public bool IsDisabled { get; set; }
     public string Password { get; set; }
 
     public ICollection<LinkVisit> LinkVisits { get; set; }

@@ -16,8 +16,6 @@ using SwiftLink.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-   // builder.WebHost.UseKestrel(x => x.AddServerHeader = false);
-
     builder.Services.AddPolicyRegistry()
                     .AddPolicies();
 
@@ -86,7 +84,7 @@ var app = builder.Build();
 
     app.UseRouting().UseEndpoints(config =>
     {
-        config.MapHealthChecks("/health", new HealthCheckOptions
+        config.MapHealthChecks("/health/check", new HealthCheckOptions
         {
             Predicate = _ => true,
             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse

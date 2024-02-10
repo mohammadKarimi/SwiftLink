@@ -23,6 +23,6 @@ public class AddSubscriberCommandValidator : AbstractValidator<AddSubscriberComm
     private bool BeAValidEmail(string email)
       => EmailFormatChecker.EmailRegex().IsMatch(email);
 
-    private Task<bool> BeAUniqueEmail(string email, CancellationToken cancellationToken)
-        => _dbContext.Set<Subscriber>().AnyAsync(x => x.Email == email, cancellationToken);
+    private async Task<bool> BeAUniqueEmail(string email, CancellationToken cancellationToken)
+       => !await _dbContext.Set<Subscriber>().AnyAsync(x => x.Email == email, cancellationToken);
 }

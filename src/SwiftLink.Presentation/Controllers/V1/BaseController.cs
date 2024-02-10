@@ -4,7 +4,7 @@ using Serilog.Context;
 using SwiftLink.Presentation.Extensions;
 using SwiftLink.Shared;
 
-namespace SwiftLink.Presentation.Controllers;
+namespace SwiftLink.Presentation.Controllers.V1;
 
 [ApiController]
 public abstract class BaseController(ISender sender) : Controller

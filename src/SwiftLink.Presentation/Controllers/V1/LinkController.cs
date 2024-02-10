@@ -5,9 +5,8 @@ using SwiftLink.Application.UseCases.Links.Queries;
 using SwiftLink.Application.UseCases.Subscribers.Queries;
 using SwiftLink.Presentation.Filters;
 
-namespace SwiftLink.Presentation.Controllers;
+namespace SwiftLink.Presentation.Controllers.V1;
 
-[Route("api/v{v:apiVersion}/[controller]/[action]")]
 public class LinkController(ISender sender) : BaseController(sender)
 {
     [HttpPost]
@@ -15,7 +14,7 @@ public class LinkController(ISender sender) : BaseController(sender)
         CancellationToken cancellationToken = default)
         => OK(await _mediatR.Send(command, cancellationToken));
 
-    [HttpGet, Route("/link/{shortCode}")]
+    [HttpGet, Route("/link/{shortCode}")] // this endpoint must be changed.
     [HeaderExtraction]
     public async Task<IActionResult> Visit(string shortCode, [FromQuery] string password,
         CancellationToken cancellationToken = default)

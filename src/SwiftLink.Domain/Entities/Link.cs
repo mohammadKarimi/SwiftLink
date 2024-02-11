@@ -19,6 +19,8 @@ public class Link : IEntity
     public string Password { get; set; }
     public List<Tags> Tags { get; set; }
     public ICollection<LinkVisit> LinkVisits { get; set; }
+
+    public void EnableLink() => IsDisabled = false;
 }
 
 public class Tags

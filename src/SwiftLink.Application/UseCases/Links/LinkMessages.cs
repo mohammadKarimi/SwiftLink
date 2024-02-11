@@ -10,4 +10,5 @@ internal record LinkMessages
     public static readonly Error InvalidPassword = Error.Validation("LinkValidation", "Invalid Password!");
     public static readonly Error LinkIsNotFound = Error.Validation("ShortCodeValidation", "Invalid ShortCode");
     public static readonly Error InvalidLinkId = Error.Validation("LinkValidation", "Invalid LinkId or Subscriber Token.");
+    public static readonly Error InvalidSubscribeId = Error.Validation("LinkValidation", "Invalid SubscribeId.");
 }

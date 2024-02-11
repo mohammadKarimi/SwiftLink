@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SwiftLink.Application.UseCases.Links.Commands;
-using SwiftLink.Application.UseCases.Links.Commands.DisableLink;
 using SwiftLink.Application.UseCases.Links.Queries;
 using SwiftLink.Application.UseCases.Subscribers.Queries;
 using SwiftLink.Presentation.Filters;
@@ -48,5 +47,5 @@ public class LinkController(ISender sender) : BaseController(sender)
     [HttpDelete]
     public async Task<IActionResult> Disable([FromRoute] int id,
         CancellationToken cancellationToken = default)
-        => OK(await _mediatR.Send(new DisableLinkCommand() { Id = id }, cancellationToken));
+        => OK(await _mediatR.Send(new DisableLinkCommand(id), cancellationToken));
 }

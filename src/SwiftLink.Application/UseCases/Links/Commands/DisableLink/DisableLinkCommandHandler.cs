@@ -14,7 +14,7 @@ public class DisableLinkCommandHandler(IApplicationDbContext dbContext) : IReque
         if (link is null)
             return Result.Failure<bool>(LinkMessages.LinkIsNotFound);
 
-        link.DisableLink();
+        link.Disable();
         var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
 
         if (dbResult.IsFailure)

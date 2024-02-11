@@ -4,6 +4,7 @@ using SwiftLink.Application.UseCases.Links.Commands;
 using SwiftLink.Application.UseCases.Links.Queries;
 using SwiftLink.Application.UseCases.Subscribers.Queries;
 using SwiftLink.Presentation.Filters;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SwiftLink.Presentation.Controllers.V1;
 
@@ -12,7 +13,7 @@ public class LinkController(ISender sender) : BaseController(sender)
     [HttpPost]
     public async Task<IActionResult> Shorten([FromBody] GenerateShortCodeCommand command,
         CancellationToken cancellationToken = default)
-        => OK(await MediatR.Send(command, cancellationToken));
+        => OK(await _mediatR.Send(command, cancellationToken));
 
     [HttpGet, Route("{shortCode}")]
     [HeaderExtraction]
@@ -20,28 +21,31 @@ public class LinkController(ISender sender) : BaseController(sender)
         CancellationToken cancellationToken = default)
     {
         HttpContext.Items.TryGetValue("ClientMetaData", out object clientMetaData);
-        var response = await MediatR.Send(new VisitShortenLinkQuery()
+        var response = await _mediatR.Send(new VisitShortenLinkQuery()
         {
             ShortCode = shortCode,
             Password = password,
             ClientMetaData = clientMetaData.ToString()
         }, cancellationToken);
 
-        return response.IsSuccess ? Redirect(response.Data) : Ok(response);
+        if (response.IsSuccess)
+            return Redirect(response.Data);
+
+        return Ok(response);
     }
 
     [HttpGet]
     public async Task<IActionResult> List([FromQuery] ListOfLinksQuery listOfLinksQuery,
         CancellationToken cancellationToken = default)
-        => Ok(await MediatR.Send(listOfLinksQuery, cancellationToken));
+        => Ok(await _mediatR.Send(listOfLinksQuery, cancellationToken));
 
     [HttpGet]
     public async Task<IActionResult> Count([FromQuery] CountVisitShortenLinkQuery countOfLinksQuery,
         CancellationToken cancellationToken = default)
-        => Ok(await MediatR.Send(countOfLinksQuery, cancellationToken));
+        => Ok(await _mediatR.Send(countOfLinksQuery, cancellationToken));
 
-    [HttpDelete]
-    public async Task<IActionResult> Disable([FromRoute] int id,
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody] UpdateLinkCommand updateLinkCommand,
         CancellationToken cancellationToken = default)
-        => OK(await MediatR.Send(new DisableLinkCommand(id), cancellationToken));
+        => Ok(await _mediatR.Send(updateLinkCommand, cancellationToken));
 }

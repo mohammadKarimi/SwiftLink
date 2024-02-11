@@ -2,7 +2,4 @@
 
 namespace SwiftLink.Application.UseCases.Links.Commands;
 
-public record DisableLinkCommand : IRequest<Result<bool>>
-{
-    public int Id { get; set; }
-}
+public record DisableLinkCommand(int Id) : IRequest<Result<bool>>;

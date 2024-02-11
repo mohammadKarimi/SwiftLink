@@ -20,7 +20,7 @@ public class Link : IEntity
     public bool IsDisabled { get; private set; }
     public string Password { get; set; }
 
-    public void DisableLink() => IsDisabled = true;
+    public void Disable() => IsDisabled = true;
 
     public ICollection<LinkVisit> LinkVisits { get; set; }
 }

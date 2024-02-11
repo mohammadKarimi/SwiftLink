@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace SwiftLink.Application.UseCases.Links.Commands.DisableLink;
+namespace SwiftLink.Application.UseCases.Links.Commands;
 
-public class DisableLinkCommand : IRequest<Result<bool>>
+public record DisableLinkCommand : IRequest<Result<bool>>
 {
     public int Id { get; set; }
 }

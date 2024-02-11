@@ -24,7 +24,7 @@ public class UpdateLinkCommandHandler(IApplicationDbContext dbContext,
             return Result.Failure<bool>(LinkMessages.InvalidSubscribeId);
 
         link.Title = request.Title;
-
+        
         var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
 
         if (dbResult.IsFailure)

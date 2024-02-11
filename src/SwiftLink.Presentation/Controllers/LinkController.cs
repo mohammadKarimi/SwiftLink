@@ -46,7 +46,7 @@ public class LinkController(ISender sender) : BaseController(sender)
         => Ok(await _mediatR.Send(countOfLinksQuery, cancellationToken));
 
     [HttpDelete]
-    public async Task<IActionResult> DisableLink([FromRoute] int id,
+    public async Task<IActionResult> Disable([FromRoute] int id,
         CancellationToken cancellationToken = default)
         => OK(await _mediatR.Send(new DisableLinkCommand() { Id = id }, cancellationToken));
 }

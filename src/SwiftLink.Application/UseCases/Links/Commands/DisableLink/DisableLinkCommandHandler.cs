@@ -2,7 +2,7 @@
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
 
-namespace SwiftLink.Application.UseCases.Links.Commands.DisableLink;
+namespace SwiftLink.Application.UseCases.Links.Commands;
 
 public class DisableLinkCommandHandler(IApplicationDbContext dbContext) : IRequestHandler<DisableLinkCommand, Result<bool>>
 {
@@ -14,7 +14,7 @@ public class DisableLinkCommandHandler(IApplicationDbContext dbContext) : IReque
         if (link is null)
             return Result.Failure<bool>(LinkMessages.LinkIsNotFound);
 
-        link.IsDisabled = true;
+        link.DisableLink();
         var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
 
         if (dbResult.IsFailure)

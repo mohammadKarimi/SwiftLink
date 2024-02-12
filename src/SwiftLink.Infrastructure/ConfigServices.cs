@@ -18,8 +18,10 @@ public static class ConfigureServices
         {
             opt.UseSqlServer(configuration.GetConnectionString(nameof(ApplicationDbContext)),
                 (db) => { db.MigrationsHistoryTable("MigrationHistory"); })
+#if DEBUG
             .LogTo(Console.WriteLine, LogLevel.Information)
             .EnableSensitiveDataLogging();
+#endif
         });
 
         services.AddSingleton<ICacheProvider, RedisCacheService>();

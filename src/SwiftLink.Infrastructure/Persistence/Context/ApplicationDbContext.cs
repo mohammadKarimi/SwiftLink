@@ -1,14 +1,16 @@
-﻿using SwiftLink.Domain.Common;
+﻿using System.Reflection;
+using Microsoft.Extensions.Logging;
+using SwiftLink.Domain.Common;
 using SwiftLink.Infrastructure.Persistence.Consts;
 using SwiftLink.Infrastructure.Persistence.Extensions;
-using System;
-using System.Reflection;
 
 namespace SwiftLink.Infrastructure.Persistence.Context;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ILogger<ApplicationDbContext> logger)
     : DbContext(options), IApplicationDbContext
 {
+    private readonly ILogger<ApplicationDbContext> _logger = logger;
+
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         configurationBuilder.Properties<string>().HaveMaxLength(200);
@@ -33,9 +35,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 ? ConstantMessages.SaveChangesFailed
                 : Result.Success();
         }
-        catch //(Exception ex)
+        catch (Exception ex)
         {
-            //Use Fluentd for logging
+            _logger.LogError(ex, "DataBase_Exception");
             return ConstantMessages.SaveChangesFailed;
         }
     }

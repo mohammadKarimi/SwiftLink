@@ -11,9 +11,7 @@ public class CurrentUser(IHttpContextAccessor httpContextAccessor) : IUser
         get
         {
             var token = _httpContextAccessor.HttpContext?.Request?.Headers["Token"];
-            if (token is not null && Guid.TryParse(token, out Guid _token))
-                return _token;
-            return null;
+            return token is not null && Guid.TryParse(token, out var _token) ? _token : null;
         }
     }
 }

@@ -10,12 +10,12 @@ public static class StringHasherExtension
 
     private static string HashWithGivenSalt(string value, byte[] salt)
     {
-        byte[] valueBytes = Encoding.UTF8.GetBytes(value);
-        byte[] saltedValue = new byte[valueBytes.Length + salt.Length];
+        var valueBytes = Encoding.UTF8.GetBytes(value);
+        var saltedValue = new byte[valueBytes.Length + salt.Length];
 
         Buffer.BlockCopy(valueBytes, 0, saltedValue, 0, valueBytes.Length);
         Buffer.BlockCopy(salt, 0, saltedValue, valueBytes.Length, salt.Length);
-        byte[] hashedBytes = SHA256.HashData(saltedValue);
+        var hashedBytes = SHA256.HashData(saltedValue);
         return Convert.ToBase64String(hashedBytes);
     }
 }

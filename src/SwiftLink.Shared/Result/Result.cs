@@ -43,6 +43,6 @@ public class Result<T> : Result
     public static Result<T> Success(T result) 
         => new(true, result, Error.None);
 
-    public new static Result<T> Failure(Error error) 
+    public static new Result<T> Failure(Error error) 
         => new(false, default!, error);
 }

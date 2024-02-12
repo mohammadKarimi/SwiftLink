@@ -18,9 +18,6 @@ public class AddSubscriberCommandHandler(IApplicationDbContext dbContext)
         };
         _dbContext.Set<Subscriber>().Add(subscriber);
         var result = await _dbContext.SaveChangesAsync(cancellationToken);
-        if (result.IsFailure)
-            return Result.Failure<Guid>(CommonMessages.Database.InsertFailed);
-
-        return Result.Success(subscriber.Token);
+        return result.IsFailure ? Result.Failure<Guid>(CommonMessages.Database.InsertFailed) : Result.Success(subscriber.Token);
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System.Text.Json;
-using MediatR;
-using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Notifications;
 

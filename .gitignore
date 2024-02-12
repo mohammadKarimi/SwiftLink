@@ -479,8 +479,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-# Vim temporary swap files
-*.swp
-/src/SwiftLink.Presentation/appsettings.Development.json
-/src/SwiftLink.Presentation/appsettings.json

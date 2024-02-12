@@ -15,6 +15,9 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
             .NotNull().WithMessage(LinkMessages.UrlMustBeSent.Message)
             .Must(BeAValidUrl).WithMessage(LinkMessages.InvalidUrlFormat.Message);
 
+        RuleFor(x => x.BackHalf)
+            .MustAsync(BeAValidBackHalf).WithMessage(LinkMessages.InvalidBackHalf.Message);
+
         RuleFor(x => x.ExpirationDate)
            .Must(BeAValidExpirationDate).WithMessage(LinkMessages.ExpirationDateMustBeMoreThanTomorrow.Message);
     }
@@ -29,5 +32,13 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
         if (date.Value <= DateTime.Now)
             return false;
         return true;
+    }
+
+    private async Task<bool> BeAValidBackHalf(string backHalf, CancellationToken cancellationToken)
+    {
+        if (backHalf is null)
+            return true;
+
+        return !await _dbContext.Set<Link>().AnyAsync(x => x.ShortCode == backHalf, cancellationToken);
     }
 }

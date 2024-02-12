@@ -1,5 +1,4 @@
-﻿using MediatR;
-using SwiftLink.Application.Common;
+﻿using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
 
 namespace SwiftLink.Application.UseCases.Links.Commands;

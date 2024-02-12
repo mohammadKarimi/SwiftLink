@@ -27,13 +27,13 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
         Link link = new()
         {
             OriginalUrl = request.Url,
-            ShortCode = _codeGenerator.Generate(request.Url),
+            ShortCode = request.BackHalf ?? _codeGenerator.Generate(request.Url),
             Description = request.Description,
             SubscriberId = int.Parse(_sharedContext.Get(nameof(Subscriber.Id)).ToString()),
             ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.Value.DefaultExpirationTimeInDays),
             Password = request.Password?.Hash(request.Url),
             Title = request.Title,
-            Tags = request.Tags?.ToList()
+            Tags = request.Tags?.ToList(),
         };
 
         _linkTable.Add(link);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using SwiftLink.Infrastructure.CacheProvider;
 using SwiftLink.Infrastructure.Persistence.Context;
 
@@ -16,7 +17,9 @@ public static class ConfigureServices
         services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(opt =>
         {
             opt.UseSqlServer(configuration.GetConnectionString(nameof(ApplicationDbContext)),
-                (db) => { db.MigrationsHistoryTable("MigrationHistory"); });
+                (db) => { db.MigrationsHistoryTable("MigrationHistory"); })
+            .LogTo(Console.WriteLine, LogLevel.Information)
+            .EnableSensitiveDataLogging();
         });
 
         services.AddSingleton<ICacheProvider, RedisCacheService>();

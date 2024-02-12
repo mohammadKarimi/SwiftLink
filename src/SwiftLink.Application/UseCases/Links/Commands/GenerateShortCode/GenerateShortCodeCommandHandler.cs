@@ -53,5 +53,6 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
             Description = link.Description,
             LinkdId = link.Id
         });
+
     }
 }

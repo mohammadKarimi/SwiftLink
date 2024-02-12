@@ -26,19 +26,8 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
        => UrlFormatChecker.UrlRegex().IsMatch(url);
 
     private bool BeAValidExpirationDate(DateTime? date)
-    {
-        if (date is null)
-            return true;
-        if (date.Value <= DateTime.Now)
-            return false;
-        return true;
-    }
+        => date is null || date.Value > DateTime.Now;
 
     private async Task<bool> BeAValidBackHalf(string backHalf, CancellationToken cancellationToken)
-    {
-        if (backHalf is null)
-            return true;
-
-        return !await _dbContext.Set<Link>().AnyAsync(x => x.ShortCode == backHalf, cancellationToken);
-    }
+        => backHalf is null || !await _dbContext.Set<Link>().AnyAsync(x => x.ShortCode == backHalf, cancellationToken);
 }

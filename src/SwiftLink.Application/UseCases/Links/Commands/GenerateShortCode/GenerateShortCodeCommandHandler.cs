@@ -22,7 +22,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
     public async Task<Result<LinksDto>> Handle(GenerateShortCodeCommand request,
         CancellationToken cancellationToken = default)
     {
-        var _linkTable = _dbContext.Set<Link>();
+        var linkTable = _dbContext.Set<Link>();
         Link link = new()
         {
             OriginalUrl = request.Url,
@@ -35,7 +35,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
             Tags = request.Tags?.ToList(),
         };
 
-        _linkTable.Add(link);
+        linkTable.Add(link);
         var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
 
         if (dbResult.IsFailure)
@@ -52,6 +52,5 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
             Description = link.Description,
             LinkdId = link.Id
         });
-
     }
 }

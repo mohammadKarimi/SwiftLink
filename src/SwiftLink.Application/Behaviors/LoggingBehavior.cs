@@ -14,10 +14,12 @@ public class LoggingBehavior<TRequest, TResponse>(ILogger<TRequest> logger, ISha
     {
         var requestName = typeof(TRequest).Name;
 
-        _logger.LogInformation($"SwiftLink Request: {requestName} {_sharedContext.Get(nameof(Subscriber.Id))} {_sharedContext.Get(nameof(Subscriber.Name))} {request}");
-        var response = await next();
-        _logger.LogInformation($"SwiftLink Response: {requestName} {response}");
+        _logger.LogInformation("SwiftLink Request: {requestName} {@subscriberId} {@subscriberName} {@Request}",
+            requestName, _sharedContext.Get(nameof(Subscriber.Id)), _sharedContext.Get(nameof(Subscriber.Name)), request);
 
+        var response = await next();
+
+        _logger.LogInformation("SwiftLink Response: {requestName} {@Response}", requestName, response);
         return response;
     }
 }

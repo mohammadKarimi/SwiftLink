@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Dtos;

@@ -33,22 +33,18 @@ public class ApplicationDbContextInitializer(ILogger<ApplicationDbContextInitial
         }
     }
 
-    public async Task TrySeedAsync()
+    private async Task TrySeedAsync()
     {
-        // Default Subscriber
-        if (!_context.Set<Subscriber>().Any())
+        if (_context.Set<Subscriber>().Any())
+            return;
+        Subscriber subscriber = new()
         {
-            Subscriber subscriber = new()
-            {
-                Email = "Default@localhost",
-                IsActive = true,
-                Name = "Default Subscriber",
-                Token = new Guid("5F9E9F0D-2413-4E4B-8E38-9EEBE9503E52")
-            };
-
-            _context.Set<Subscriber>().Add(subscriber);
-
-            await _context.SaveChangesAsync();
-        }
+            Email = "Default@localhost",
+            IsActive = true,
+            Name = "Default Subscriber",
+            Token = new Guid("5F9E9F0D-2413-4E4B-8E38-9EEBE9503E52")
+        };
+        _context.Set<Subscriber>().Add(subscriber);
+        await _context.SaveChangesAsync();
     }
 }

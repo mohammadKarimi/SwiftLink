@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SwiftLink.Presentation.Extensions;
 using SwiftLink.Shared;
 
-namespace SwiftLink.Presentation.Controllers.V1;
+namespace SwiftLink.Presentation.Controllers;
 
 [Route("api/v{v:apiVersion}/[controller]/[action]")]
 [ApiController]

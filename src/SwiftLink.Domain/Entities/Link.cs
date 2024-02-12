@@ -20,7 +20,8 @@ public class Link : IEntity
     public List<Tags> Tags { get; set; }
     public ICollection<LinkVisit> LinkVisits { get; set; }
 
-    public void Disable() => IsDisabled = true;
+    public void Disable()
+        => IsDisabled = true;
 }
 public class Tags
 {

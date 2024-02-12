@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace SwiftLink.Domain.Entities;
+﻿namespace SwiftLink.Domain.Entities;
 
 /// <summary>
 /// This class is designed to store the original URL for each subscriber along with the link code and expiration time.
@@ -21,11 +19,9 @@ public class Link : IEntity
     public string Password { get; set; }
     public List<Tags> Tags { get; set; }
     public ICollection<LinkVisit> LinkVisits { get; set; }
-}
 
     public void Disable() => IsDisabled = true;
-
-    public ICollection<LinkVisit> LinkVisits { get; set; }
+}
 public class Tags
 {
     public string Title { get; set; }

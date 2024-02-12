@@ -15,7 +15,7 @@ public static class ModelBuilderExtension
                         && !x.IsAbstract
                         && x.IsPublic
                         && Attribute.IsDefined(x, typeof(EntityAttribute)));
-        foreach (Type type in types)
+        foreach (var type in types)
             modelBuilder.Entity(type);
     }
 }

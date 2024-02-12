@@ -1,5 +1,4 @@
-﻿using MediatR;
-using SwiftLink.Application.Dtos;
+﻿using SwiftLink.Application.Dtos;
 
 namespace SwiftLink.Application.UseCases.Links.Queries;
 

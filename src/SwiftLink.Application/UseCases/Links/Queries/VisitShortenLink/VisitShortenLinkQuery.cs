@@ -1,5 +1,4 @@
-﻿using MediatR;
-using SwiftLink.Application.Common.Security;
+﻿using SwiftLink.Application.Common.Security;
 
 namespace SwiftLink.Application.UseCases.Links.Queries;
 

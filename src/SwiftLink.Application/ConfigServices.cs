@@ -1,12 +1,10 @@
-﻿using FluentValidation;
-using MediatR;
-using MediatR.Pipeline;
+﻿using System.Reflection;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwiftLink.Application.Behaviors;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
-using System.Reflection;
 
 namespace SwiftLink.Application;
 

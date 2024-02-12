@@ -4,8 +4,8 @@ namespace SwiftLink.Shared;
 
 public static partial class UrlFormatChecker
 {
-    private const string _pattern = @"^(https?|ftp)://[^\s/$.?#].[^\s]*$";
+    private const string Pattern = @"^(https?|ftp)://[^\s/$.?#].[^\s]*$";
 
-    [GeneratedRegex(_pattern, RegexOptions.IgnoreCase, "en-US")]
+    [GeneratedRegex(Pattern, RegexOptions.IgnoreCase, "en-US")]
     public static partial Regex UrlRegex();
 }

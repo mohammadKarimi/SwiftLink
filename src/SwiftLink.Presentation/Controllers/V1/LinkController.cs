@@ -19,7 +19,7 @@ public class LinkController(ISender sender) : BaseController(sender)
     public async Task<IActionResult> Visit(string shortCode, [FromQuery] string password,
         CancellationToken cancellationToken = default)
     {
-        HttpContext.Items.TryGetValue("ClientMetaData", out object clientMetaData);
+        HttpContext.Items.TryGetValue("ClientMetaData", out var clientMetaData);
         var response = await MediatR.Send(new VisitShortenLinkQuery()
         {
             ShortCode = shortCode,
@@ -33,7 +33,7 @@ public class LinkController(ISender sender) : BaseController(sender)
     [HttpGet]
     public async Task<IActionResult> List([FromQuery] ListOfLinksQuery listOfLinksQuery,
         CancellationToken cancellationToken = default)
-        => Ok(await MediatR.Send(listOfLinksQuery, cancellationToken));
+        => Ok(await MediatR.Send(listOfLinksQuery , cancellationToken));
 
     [HttpGet]
     public async Task<IActionResult> Count([FromQuery] CountVisitShortenLinkQuery countOfLinksQuery,

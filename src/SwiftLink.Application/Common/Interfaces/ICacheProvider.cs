@@ -29,7 +29,7 @@ public interface ICacheProvider
     /// Removes the object associated with the given key.
     /// </summary>
     /// <param name="key">An object identifying the requested entry.</param>
-    Task Remove(string key);
+    Task<bool> Remove(string key);
 
     /// <summary>
     /// Gets the item associated with this key if present.

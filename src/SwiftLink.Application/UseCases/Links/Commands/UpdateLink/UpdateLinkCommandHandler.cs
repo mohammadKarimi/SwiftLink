@@ -29,6 +29,7 @@ public class UpdateLinkCommandHandler(IApplicationDbContext dbContext,
         if (dbResult.IsFailure)
             return Result.Failure<bool>(CommonMessages.Database.InsertFailed);
 
+        await _cache.Remove(link.ShortCode);
         await _cache.Set(link.ShortCode, JsonSerializer.Serialize(link), link.ExpirationDate);
 
         return Result.Success(true);

@@ -17,7 +17,7 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
 
     public async Task<bool> Remove(string key)
     {
-        var removeCacheCircuitBreaker = _policyRegistry.Get<AsyncCircuitBreakerPolicy<bool>>(nameof(RedisCashServiceResiliencyKey.RemoveCircuitBreaker));
+        var removeCacheCircuitBreaker = _policyRegistry.Get<AsyncCircuitBreakerPolicy<bool>>(nameof(RedisCashServiceResiliencyKey.SetOrRemoveCircuitBreaker));
         return removeCacheCircuitBreaker.CircuitState is not CircuitState.Open &&
             await removeCacheCircuitBreaker.ExecuteAsync(async () =>
             {
@@ -38,7 +38,7 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
 
     public async Task<bool> Set(string key, string value, DateTime expirationDate)
     {
-        var setCacheCircuitBreaker = _policyRegistry.Get<AsyncCircuitBreakerPolicy<bool>>(nameof(RedisCashServiceResiliencyKey.SetCircuitBreaker));
+        var setCacheCircuitBreaker = _policyRegistry.Get<AsyncCircuitBreakerPolicy<bool>>(nameof(RedisCashServiceResiliencyKey.SetOrRemoveCircuitBreaker));
         return setCacheCircuitBreaker.CircuitState is not CircuitState.Open &&
             await setCacheCircuitBreaker.ExecuteAsync(async () =>
             {
@@ -81,7 +81,6 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
 
 public enum RedisCashServiceResiliencyKey
 {
-    SetCircuitBreaker,
-    GetCircuitBreaker,
-    RemoveCircuitBreaker
+    SetOrRemoveCircuitBreaker,
+    GetCircuitBreaker
 }

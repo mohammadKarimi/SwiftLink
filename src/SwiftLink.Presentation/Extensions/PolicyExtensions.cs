@@ -14,7 +14,7 @@ public static class PolicyExtensions
         var getCacheCircuitBreaker =
             Policy<string>.HandleResult((r) => { return r is null; }).CircuitBreakerAsync(1, TimeSpan.FromSeconds(60));
 
-        policy.Add(nameof(RedisCashServiceResiliencyKey.SetCircuitBreaker), setCacheCircuitBreaker);
+        policy.Add(nameof(RedisCashServiceResiliencyKey.SetOrRemoveCircuitBreaker), setCacheCircuitBreaker);
         policy.Add(nameof(RedisCashServiceResiliencyKey.GetCircuitBreaker), getCacheCircuitBreaker);
     }
 }

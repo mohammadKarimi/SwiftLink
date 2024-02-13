@@ -33,7 +33,7 @@ public class LinkController(ISender sender) : BaseController(sender)
     [HttpGet]
     public async Task<IActionResult> List([FromQuery] ListOfLinksQuery listOfLinksQuery,
         CancellationToken cancellationToken = default)
-        => Ok(await MediatR.Send(listOfLinksQuery , cancellationToken));
+        => Ok(await MediatR.Send(listOfLinksQuery, cancellationToken));
 
     [HttpGet]
     public async Task<IActionResult> Count([FromQuery] CountVisitShortenLinkQuery countOfLinksQuery,
@@ -49,4 +49,9 @@ public class LinkController(ISender sender) : BaseController(sender)
     public async Task<IActionResult> Disable([FromRoute] int id,
         CancellationToken cancellationToken = default)
         => OK(await MediatR.Send(new DisableLinkCommand(id), cancellationToken));
+
+    [HttpGet]
+    public async Task<IActionResult> GetByGroupName([FromQuery] GetLinkByGroupNameQuery query,
+    CancellationToken cancellationToken = default)
+        => OK(await MediatR.Send(query, cancellationToken));
 }

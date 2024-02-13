@@ -15,14 +15,17 @@ public class Link : IEntity
     public string Description { get; set; }
     public DateTime ExpirationDate { get; set; }
     public bool IsBanned { get; set; }
-    public bool IsDisabled { get; set; }
+    public bool IsDisabled { get; private set; }
     public string Password { get; set; }
     public List<Tags> Tags { get; set; }
     public ICollection<LinkVisit> LinkVisits { get; set; }
-
-    public void EnableLink() => IsDisabled = false;
+    
+    public void Enable() 
+        => IsDisabled = false;
+        
+    public void Disable()
+        => IsDisabled = true;
 }
-
 public class Tags
 {
     public string Title { get; set; }

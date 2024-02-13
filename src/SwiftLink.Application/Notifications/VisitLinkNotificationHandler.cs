@@ -1,5 +1,4 @@
-﻿using MediatR;
-using SwiftLink.Application.Common.Interfaces;
+﻿using SwiftLink.Application.Common.Interfaces;
 
 namespace SwiftLink.Application.Notifications;
 

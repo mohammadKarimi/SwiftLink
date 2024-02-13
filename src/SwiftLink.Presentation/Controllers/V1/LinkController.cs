@@ -13,7 +13,7 @@ public class LinkController(ISender sender) : BaseController(sender)
     [HttpPost]
     public async Task<IActionResult> Shorten([FromBody] GenerateShortCodeCommand command,
         CancellationToken cancellationToken = default)
-        => OK(await _mediatR.Send(command, cancellationToken));
+        => OK(await MediatR.Send(command, cancellationToken));
 
     [HttpGet, Route("{shortCode}")]
     [HeaderExtraction]
@@ -21,31 +21,34 @@ public class LinkController(ISender sender) : BaseController(sender)
         CancellationToken cancellationToken = default)
     {
         HttpContext.Items.TryGetValue("ClientMetaData", out object clientMetaData);
-        var response = await _mediatR.Send(new VisitShortenLinkQuery()
+        var response = await MediatR.Send(new VisitShortenLinkQuery()
         {
             ShortCode = shortCode,
             Password = password,
             ClientMetaData = clientMetaData.ToString()
         }, cancellationToken);
 
-        if (response.IsSuccess)
-            return Redirect(response.Data);
-
-        return Ok(response);
+        return response.IsSuccess ? Redirect(response.Data) : Ok(response);
     }
 
     [HttpGet]
     public async Task<IActionResult> List([FromQuery] ListOfLinksQuery listOfLinksQuery,
         CancellationToken cancellationToken = default)
-        => Ok(await _mediatR.Send(listOfLinksQuery, cancellationToken));
+        => Ok(await MediatR.Send(listOfLinksQuery, cancellationToken));
 
     [HttpGet]
     public async Task<IActionResult> Count([FromQuery] CountVisitShortenLinkQuery countOfLinksQuery,
         CancellationToken cancellationToken = default)
+
         => Ok(await _mediatR.Send(countOfLinksQuery, cancellationToken));
 
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateLinkCommand updateLinkCommand,
         CancellationToken cancellationToken = default)
         => Ok(await _mediatR.Send(updateLinkCommand, cancellationToken));
+
+    [HttpDelete]
+    public async Task<IActionResult> Disable([FromRoute] int id,
+        CancellationToken cancellationToken = default)
+        => OK(await MediatR.Send(new DisableLinkCommand(id), cancellationToken));
 }

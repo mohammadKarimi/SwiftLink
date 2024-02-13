@@ -61,7 +61,8 @@ dotnet restore
 ```
 
 ### Updating Database and Connection String
-In the appSettings.json file, locate the connection string and update it accordingly. This connection string is crucial for updating the database during migrations.
+For Adding Your Connection String(in Development phase) please add a user-sercret file with visual-studio and locate your connection string there.
+For Adding Your Connection String(In Production phase) please add your connection string in appsettings.Production.json, locate the connection string and update it accordingly. This connection string is crucial for updating the database during migrations.
 
 * json
 ```

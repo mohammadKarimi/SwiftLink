@@ -26,7 +26,7 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
 
         var exceptionType = exception.GetType();
         if (_exceptionHandlers.TryGetValue(exceptionType,
-                out Func<HttpContext, Exception, CancellationToken, Task> value))
+                out var value))
         {
             await value.Invoke(httpContext, exception, cancellationToken);
             return true;

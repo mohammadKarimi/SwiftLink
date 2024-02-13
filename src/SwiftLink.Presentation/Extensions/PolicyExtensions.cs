@@ -1,5 +1,4 @@
 ﻿using Polly;
-using Polly.CircuitBreaker;
 using Polly.Registry;
 using SwiftLink.Infrastructure.CacheProvider;
 
@@ -9,10 +8,10 @@ public static class PolicyExtensions
 {
     public static void AddPolicies(this IPolicyRegistry<string> policy)
     {
-        AsyncCircuitBreakerPolicy<bool> setCacheCircuitBreaker =
+        var setCacheCircuitBreaker =
             Policy<bool>.HandleResult(false).CircuitBreakerAsync(1, TimeSpan.FromSeconds(60));
 
-        AsyncCircuitBreakerPolicy<string> getCacheCircuitBreaker =
+        var getCacheCircuitBreaker =
             Policy<string>.HandleResult((r) => { return r is null; }).CircuitBreakerAsync(1, TimeSpan.FromSeconds(60));
 
         policy.Add(nameof(RedisCashServiceResiliencyKey.SetCircuitBreaker), setCacheCircuitBreaker);

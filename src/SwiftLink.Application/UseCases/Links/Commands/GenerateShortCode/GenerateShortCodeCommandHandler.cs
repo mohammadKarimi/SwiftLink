@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Dtos;
@@ -23,20 +22,20 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
     public async Task<Result<LinksDto>> Handle(GenerateShortCodeCommand request,
         CancellationToken cancellationToken = default)
     {
-        var _linkTable = _dbContext.Set<Link>();
+        var linkTable = _dbContext.Set<Link>();
         Link link = new()
         {
             OriginalUrl = request.Url,
-            ShortCode = _codeGenerator.Generate(request.Url),
+            ShortCode = request.BackHalf ?? _codeGenerator.Generate(request.Url),
             Description = request.Description,
             SubscriberId = int.Parse(_sharedContext.Get(nameof(Subscriber.Id)).ToString()),
             ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.Value.DefaultExpirationTimeInDays),
             Password = request.Password?.Hash(request.Url),
             Title = request.Title,
-            Tags = request.Tags?.ToList()
+            Tags = request.Tags?.ToList(),
         };
 
-        _linkTable.Add(link);
+        linkTable.Add(link);
         var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
 
         if (dbResult.IsFailure)

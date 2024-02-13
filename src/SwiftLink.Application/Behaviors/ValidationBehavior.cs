@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using MediatR;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Exceptions;
 
@@ -25,9 +24,6 @@ public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidat
             .Distinct()
             .ToList();
 
-        if (errors.Count != 0)
-            throw new BusinessValidationException(errors);
-
-        return await next();
+        return errors.Count != 0 ? throw new BusinessValidationException(errors) : await next();
     }
 }

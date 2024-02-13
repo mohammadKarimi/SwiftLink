@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
+﻿using System.Text;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using Polly.CircuitBreaker;
 using Polly.Registry;
 using StackExchange.Redis;
-using System.Text;
 
 namespace SwiftLink.Infrastructure.CacheProvider;
 
@@ -24,10 +24,8 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
     public async Task<bool> Set(string key, string value, DateTime expirationDate)
     {
         var setCacheCircuitBreaker = _policyRegistry.Get<AsyncCircuitBreakerPolicy<bool>>(nameof(RedisCashServiceResiliencyKey.SetCircuitBreaker));
-        if (setCacheCircuitBreaker.CircuitState is CircuitState.Open)
-            return false;
-
-        return await setCacheCircuitBreaker.ExecuteAsync(async () =>
+        return setCacheCircuitBreaker.CircuitState is not CircuitState.Open &&
+            await setCacheCircuitBreaker.ExecuteAsync(async () =>
             {
                 try
                 {
@@ -50,20 +48,19 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
     public async Task<string> Get(string key)
     {
         var getCacheCircuitBreaker = _policyRegistry.Get<AsyncCircuitBreakerPolicy<string>>(nameof(RedisCashServiceResiliencyKey.GetCircuitBreaker));
-        if (getCacheCircuitBreaker.CircuitState is CircuitState.Open)
-            return null;
-
-        return await getCacheCircuitBreaker.ExecuteAsync(async () =>
-        {
-            try
-            {
-                return await _cache.GetStringAsync(key);
-            }
-            catch (RedisConnectionException)
-            {
-                return null;
-            }
-        });
+        return getCacheCircuitBreaker.CircuitState is CircuitState.Open
+            ? null
+            : await getCacheCircuitBreaker.ExecuteAsync(async () =>
+                {
+                    try
+                    {
+                        return await _cache.GetStringAsync(key);
+                    }
+                    catch (RedisConnectionException)
+                    {
+                        return null;
+                    }
+                });
     }
 }
 

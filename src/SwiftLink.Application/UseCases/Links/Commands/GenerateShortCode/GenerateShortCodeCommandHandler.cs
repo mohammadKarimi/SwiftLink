@@ -33,6 +33,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
             Password = request.Password?.Hash(request.Url),
             Title = request.Title,
             Tags = request.Tags?.ToList(),
+            GroupName = request.GroupName
         };
 
         linkTable.Add(link);

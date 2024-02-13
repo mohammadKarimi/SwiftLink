@@ -5,7 +5,7 @@ namespace SwiftLink.Application.UseCases.Links.Commands;
 
 public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCommand>
 {
-    public readonly IApplicationDbContext _dbContext;
+    private readonly IApplicationDbContext _dbContext;
 
     public GenerateShortCodeValidator(IApplicationDbContext dbContext)
     {

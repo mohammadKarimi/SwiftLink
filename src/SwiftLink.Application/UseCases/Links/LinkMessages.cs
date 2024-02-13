@@ -12,4 +12,5 @@ internal record LinkMessages
     public static readonly Error InvalidLinkId = Error.Validation("LinkValidation", "Invalid LinkId or Subscriber Token.");
     public static readonly Error InvalidSubscriberId = Error.Validation("LinkValidation", "Invalid SubscriberId.");
     public static readonly Error InvalidBackHalf = Error.Validation("LinkValidation", "This back-half text is used before.");
+    public static readonly Error GroupNameMustBeSent = Error.Validation("GroupName Validation", "GroupName field can not be null.");
 }

@@ -22,7 +22,8 @@ public class ListOfLinksQueryHandler(IApplicationDbContext dbContext)
                 ExpirationDate = x.ExpirationDate,
                 IsBanned = x.IsBanned,
                 OriginalUrl = x.OriginalUrl,
-                ShortCode = x.ShortCode
+                ShortCode = x.ShortCode,
+                IsDisabled = x.IsDisabled
             })
             .ToListAsync(cancellationToken);
 

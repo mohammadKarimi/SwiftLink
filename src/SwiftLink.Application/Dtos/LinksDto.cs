@@ -7,6 +7,7 @@ public record struct LinksDto
     public string Description { get; set; }
     public DateTime ExpirationDate { get; set; }
     public bool IsBanned { get; set; }
+    public bool IsDisabled { get; set; }
 }
 
 public record CountOfVisitLinkDto

@@ -16,7 +16,7 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
             .Must(BeAValidUrl).WithMessage(LinkMessages.InvalidUrlFormat.Message);
 
         RuleFor(x => x.BackHalf)
-            .MustAsync(BeAValidBackHalf).WithMessage(LinkMessages.InvalidBackHalf.Message);
+            .MustAsync(BeAValidBackHalf).WithMessage(LinkMessages.BackHalfIsExist.Message);
 
         RuleFor(x => x.ExpirationDate)
            .Must(BeAValidExpirationDate).WithMessage(LinkMessages.ExpirationDateMustBeMoreThanTomorrow.Message);

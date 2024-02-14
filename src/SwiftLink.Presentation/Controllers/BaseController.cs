@@ -12,5 +12,5 @@ public abstract class BaseController(ISender sender) : Controller
     protected readonly ISender MediatR = sender;
 
     protected IActionResult OK<T>(Result<T> response)
-        => response.IsFailure ? Ok(response.MapToProblemDetails()) : (IActionResult)Ok(response);
+       => response.IsSuccess || response.Error.Type == ErrorType.None ? Ok(response) : (IActionResult)Ok(response.MapToProblemDetails());
 }

@@ -54,4 +54,9 @@ public class LinkController(ISender sender) : BaseController(sender)
     public async Task<IActionResult> GetByGroupName([FromQuery] GetLinkByGroupNameQuery query,
     CancellationToken cancellationToken = default)
         => OK(await MediatR.Send(query, cancellationToken));
+
+    [HttpGet]
+    public async Task<IActionResult> Inquery([FromQuery] InquiryBackHalfQuery query,
+    CancellationToken cancellationToken = default)
+        => OK(await MediatR.Send(query, cancellationToken));
 }

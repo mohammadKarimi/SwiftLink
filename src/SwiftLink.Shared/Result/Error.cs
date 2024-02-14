@@ -19,10 +19,13 @@ public record Error
     public ErrorType Type { get; set; }
 
     public static Error NotFound(string code, string message)
-        => new(code, message, ErrorType.NotFound);
+      => new(code, message, ErrorType.NotFound);
+
+    public static Error Exception(string code, string message)
+        => new(code, message, ErrorType.Failure);
 
     public static Error Failure(string code, string message)
-        => new(code, message, ErrorType.Failure);
+        => new(code, message, ErrorType.None);
 
     public static Error Validation(string code, string message)
         => new(code, message, ErrorType.Validation);

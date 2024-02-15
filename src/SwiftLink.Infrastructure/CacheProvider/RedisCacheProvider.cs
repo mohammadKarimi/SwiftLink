@@ -40,9 +40,6 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
             });
     }
 
-    private Task MyMethodAsync(CancellationToken cancellation)
-        => throw new NotImplementedException();
-
     public async Task<bool> Set(string key, string value)
         => await Set(key, value, DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays));
 

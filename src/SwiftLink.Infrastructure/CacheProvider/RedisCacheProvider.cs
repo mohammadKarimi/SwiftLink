@@ -1,9 +1,15 @@
-﻿using System.Text;
+﻿using System.Net.Http;
+using System.Net;
+using System.Text;
+using System.Threading;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
+using Polly;
 using Polly.CircuitBreaker;
 using Polly.Registry;
+using Polly.Retry;
 using StackExchange.Redis;
+using System.Security.Cryptography;
 
 namespace SwiftLink.Infrastructure.CacheProvider;
 
@@ -17,6 +23,7 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
 
     public async Task<bool> Remove(string key)
     {
+
         var removeCacheCircuitBreaker = _policyRegistry.Get<AsyncCircuitBreakerPolicy<bool>>(nameof(RedisCashServiceResiliencyKey.SetOrRemoveCircuitBreaker));
         return removeCacheCircuitBreaker.CircuitState is not CircuitState.Open &&
             await removeCacheCircuitBreaker.ExecuteAsync(async () =>
@@ -32,6 +39,9 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
                 return true;
             });
     }
+
+    private Task MyMethodAsync(CancellationToken cancellation)
+        => throw new NotImplementedException();
 
     public async Task<bool> Set(string key, string value)
         => await Set(key, value, DateTime.Now.AddDays(_options.DefaultExpirationTimeInDays));

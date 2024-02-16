@@ -155,3 +155,19 @@ The SwiftLink project employs Clean Architecture, which organizes the applicatio
 ### Summary
 
 Clean Architecture in SwiftLink ensures that the application is easy to maintain and adapt to changes, whether those changes are in the form of new business rules, new UI requirements, or changes in external dependencies like databases or web services. Each layer has clear responsibilities and dependencies that flow inwards, meaning inner layers are not dependent on outer layers. This setup allows for greater flexibility and easier testing.
+
+## What is the mechanism of authentication for subscriber?
+
+The authentication mechanism for subscribers in the SwiftLink project involves token validation, as implemented in the `SubscriberAuthorizationBehavior<TRequest, TResponse>` class. Here's a step-by-step breakdown of how it works:
+
+- **Token Check**: The behavior first checks if the incoming request is marked as `IAnonymousRequest`. If so, it bypasses the authentication check, allowing the request to proceed without a token. This is useful for operations that do not require authentication.
+
+- **Token Validation**: If the request requires authentication (i.e., not an `IAnonymousRequest`), the behavior checks if the `IUser` instance (injected into the behavior) has a non-null token. If the token is null, it throws a `SubscriberUnAuthorizedException`, indicating that the request is unauthorized due to the absence of a valid token.
+
+- **Subscriber Verification**: The behavior then queries the database for a `Subscriber` entity that matches the token provided by the `IUser` instance and is marked as active (`IsActive`). This is done using the `_dbContext` to access the `Subscriber` entities. If no matching active subscriber is found, it throws a `SubscriberUnAuthorizedException`.
+
+- **Context Setting**: Upon successful verification, the behavior sets the subscriber's ID and Name in the `_sharedContext`, making these details available for subsequent operations within the same request processing pipeline.
+
+- **Proceeding with Request**: Finally, if the subscriber is successfully authenticated, the behavior invokes the next delegate in the request processing pipeline, allowing the request to proceed to its intended handler.
+
+This authentication mechanism ensures that only requests with a valid and active subscriber token can access certain operations within the SwiftLink application. Unauthorized requests are effectively blocked, enhancing the security of the application by ensuring that only registered and active subscribers can perform actions that require authentication.

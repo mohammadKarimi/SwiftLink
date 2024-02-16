@@ -77,3 +77,47 @@ The Circuit Breaker automatically attempts to close the circuit after a specifie
 In the RedisCacheProvider class, Polly's Circuit Breaker policies are configured for different cache operations (Set, Remove, Get). These policies define the conditions under which the circuit should open (e.g., on a RedisConnectionException) and the duration for which the circuit remains open before allowing another attempt. This approach enhances the reliability and stability of cache operations within the SwiftLink application, especially in scenarios where the Redis cache might be temporarily inaccessible or unreliable.
 
 ## Endpoints
+https://github.com/mohammadkarimi/swiftlink/blob/main/src/SwiftLink.Presentation/Controllers/V1/LinkController.cs
+https://github.com/mohammadkarimi/swiftlink/blob/main/src/SwiftLink.Presentation/Controllers/V1/SubscriberController.cs
+
+Based on the provided information from the LinkController and SubscriberController within the SwiftLink.Presentation/Controllers/V1 directory, here is a list of the endpoints in the SwiftLink project and a description of each:
+
+### LinkController Endpoints
+### POST /Shorten
+Description: This endpoint is used to create a shortened URL. It accepts a GenerateShortCodeCommand object in the request body, which likely includes the original URL and possibly other metadata for generating the short code.
+Use Case: When a user wants to shorten a URL.
+
+### GET /{shortCode}
+Description: This endpoint is responsible for redirecting a user to the original URL associated with the given short code. It may also accept a password query parameter if the link is protected.
+Use Case: When a user visits a shortened URL.
+
+### GET /List
+Description: Lists all the shortened links based on the criteria provided in the ListOfLinksQuery object.
+Use Case: To retrieve a list of shortened links, possibly for administrative or user dashboard purposes.
+
+### GET /Count
+Description: Returns a count of visits to shortened links based on the CountVisitShortenLinkQuery object.
+Use Case: To get analytics or metrics on the usage of shortened links.
+
+### PUT /Update
+Description: Updates an existing shortened link. It accepts an UpdateLinkCommand object, which likely includes the ID of the link to update and the new details.
+Use Case: When a user needs to modify the details of an existing shortened link.
+
+### DELETE /Disable/{id}
+Description: Disables a shortened link based on the provided ID.
+Use Case: To disable or "soft delete" a shortened link, making it inaccessible to users.
+
+### GET /GetByGroupName
+Description: Retrieves shortened links by a group name specified in the GetLinkByGroupNameQuery object.
+Use Case: Useful for organizing and retrieving links that are grouped under a specific category or tag.
+
+### GET /Inquery
+Description: Inquires about the availability or status of a back half (the part of the URL after the domain) based on the InquiryBackHalfQuery object.
+Use Case: Before creating a custom back half for a shortened link, this can check if the desired back half is available.
+
+## SubscriberController Endpoints
+### POST /Add
+Description: Adds a new subscriber to the system. It accepts an AddSubscriberCommand object, which likely includes subscriber details such as email.
+Use Case: When a new user subscribes to the service, possibly for updates or newsletters.
+
+Each endpoint serves a specific function within the SwiftLink application, ranging from URL shortening and redirection to subscriber management and analytics.

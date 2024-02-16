@@ -55,3 +55,25 @@ Visit Notification: Upon successfully passing the above checks, the handler publ
 Success Response: Finally, if all checks pass, the handler returns a success result with the original URL of the link. The Visit action in the LinkController then redirects the user to this original URL.
 This process ensures that only valid, non-expired, and non-banned links are successfully resolved and visited, while also providing mechanisms for analytics and security through password protection.
 
+## Describe why this code uses polly?
+https://github.com/mohammadkarimi/swiftlink/blob/main/src/SwiftLink.Infrastructure/CacheProvider/RedisCacheProvider.cs
+
+The code uses Polly, a resilience and transient-fault-handling library, to implement robustness in the operations related to caching with Redis. Specifically, Polly is utilized here for its Circuit Breaker pattern, which is a design pattern used to detect failures and encapsulate the logic of preventing a failure from constantly recurring during maintenance, temporary external system failure, or unexpected system difficulties.
+
+Here's why Polly is used in the context of RedisCacheProvider:
+
+### Handling Redis Connection Failures:
+Redis operations, like setting, getting, or removing cache entries, can fail due to transient network issues or Redis server problems. Polly's Circuit Breaker policy allows the application to temporarily halt operations to the cache when a predefined threshold of failures is reached, thus preventing a cascade of failures when the Redis server is unavailable or experiencing issues.
+
+### Resiliency:
+By using the Circuit Breaker pattern, the system becomes more resilient. It avoids making calls to a system that is likely to fail, which can help in maintaining the stability of the application. Once the circuit is open, it prevents the application from performing the operation that is likely to fail, until a specified amount of time has passed and the circuit closes again, allowing the operation to be attempted once more.
+
+### Fail Fast:
+The Circuit Breaker policy allows the application to fail fast. When the circuit is open, it immediately returns a failure response without attempting the operation, which can help in reducing the load on the failing system and improve the response time for the user or calling service.
+
+### Recovery and Self-Healing:
+The Circuit Breaker automatically attempts to close the circuit after a specified "break duration," allowing for a retry of the operation. This self-healing behavior ensures that the application can recover from transient faults without requiring manual intervention.
+
+In the RedisCacheProvider class, Polly's Circuit Breaker policies are configured for different cache operations (Set, Remove, Get). These policies define the conditions under which the circuit should open (e.g., on a RedisConnectionException) and the duration for which the circuit remains open before allowing another attempt. This approach enhances the reliability and stability of cache operations within the SwiftLink application, especially in scenarios where the Redis cache might be temporarily inaccessible or unreliable.
+
+## Endpoints

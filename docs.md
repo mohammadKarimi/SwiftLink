@@ -122,3 +122,36 @@ Description: Adds a new subscriber to the system. It accepts an AddSubscriberCom
 Use Case: When a new user subscribes to the service, possibly for updates or newsletters.
 
 Each endpoint serves a specific function within the SwiftLink application, ranging from URL shortening and redirection to subscriber management and analytics.
+
+
+## Architecture
+
+The SwiftLink project employs Clean Architecture, which organizes the application into distinct layers with specific responsibilities. This architecture aims to create systems that are independent of UI, databases, frameworks, and external agencies, making them more maintainable, scalable, and adaptable to change. Here's a breakdown of each layer as observed in the SwiftLink project:
+
+### 1. **Domain Layer (`SwiftLink.Domain`)**
+
+- **Responsibilities**: This is the innermost layer and represents the business and application domain. It contains enterprise logic and types, including entities, enums, exceptions, interfaces, and domain events. The domain layer defines the business rules and how business objects interact with one another but is independent of any application logic, database, or external concerns.
+  
+- **Implementation**: In SwiftLink, the domain layer includes interfaces like `IEntity` and attributes like `EntityAttribute` for marking and identifying domain entities. These entities are the core business objects manipulated by the application.
+
+### 2. **Application Layer (`SwiftLink.Application`)**
+
+- **Responsibilities**: This layer contains application logic and defines the jobs the software is supposed to do. It orchestrates the flow of data to and from the domain layer, and directs the expressive domain models to work out business problems. This layer is where the use cases of the application are implemented. It's also responsible for validation, authorization, and running business rules on the data that flows between the UI and the domain layer.
+  
+- **Implementation**: The SwiftLink application layer implements functionalities like logging, validation, and handling of business commands and queries using MediatR. It also includes DTOs (Data Transfer Objects) for transferring data between processes, and configurations for mapping domain entities to DTOs.
+
+### 3. **Infrastructure Layer (`SwiftLink.Infrastructure`)**
+
+- **Responsibilities**: This layer supports the application and domain layers with technical capabilities such as database access, file system manipulation, network calls, and so on. It implements interfaces defined in the application layer, providing concrete implementations that are specific to the technologies chosen (e.g., Entity Framework Core for ORM, Redis for caching).
+  
+- **Implementation**: In SwiftLink, the infrastructure layer includes the `RedisCacheService` for caching, configurations for entity models, and the application's DbContext for database operations. It also contains services for initializing and seeding the database, and extensions for registering infrastructure services like DbContext and RedisCacheService in the application's dependency injection container.
+
+### 4. **Presentation Layer (`SwiftLink.Presentation`)**
+
+- **Responsibilities**: This outermost layer is where the application interacts with the external world. It handles HTTP requests, translates them into commands or queries, and returns the response to the client. This layer is concerned with presenting information to the user and interpreting user commands. It's also where the application's configuration settings, such as caching, logging, and other infrastructure concerns, are defined.
+  
+- **Implementation**: The SwiftLink presentation layer likely includes controllers, view models, and views (in the case of a web application). It defines endpoints for the application's REST API, handling requests to shorten URLs, redirect, and manage subscribers. It also includes application configuration settings for aspects like caching, logging, and allowed hosts.
+
+### Summary
+
+Clean Architecture in SwiftLink ensures that the application is easy to maintain and adapt to changes, whether those changes are in the form of new business rules, new UI requirements, or changes in external dependencies like databases or web services. Each layer has clear responsibilities and dependencies that flow inwards, meaning inner layers are not dependent on outer layers. This setup allows for greater flexibility and easier testing.

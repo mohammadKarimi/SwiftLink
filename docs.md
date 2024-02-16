@@ -25,12 +25,12 @@ This command is a record that acts as a data transfer object (DTO) for the neces
 ### GenerateShortCodeCommandHandler
 This class handles the logic for generating a shortened link. It involves several steps:
 
-Validation: It first ensures that the provided URL and other parameters meet specific criteria through the GenerateShortCodeValidator.
-Short Code Generation: If no custom back half is provided, it generates a unique short code for the URL using the IShortCodeGenerator service.
-Link Creation: It creates a new Link entity with the provided details and the generated or provided short code.
-Database Insertion: The new link entity is added to the database.
-Caching: The newly created link is cached using the ICacheProvider service, with the expiration date set accordingly.
-Response: It returns a Result<LinksDto> object, which includes details of the created link, such as the short code, original URL, and expiration date.
+- Validation: It first ensures that the provided URL and other parameters meet specific criteria through the GenerateShortCodeValidator.
+- Short Code Generation: If no custom back half is provided, it generates a unique short code for the URL using the IShortCodeGenerator service.
+- Link Creation: It creates a new Link entity with the provided details and the generated or provided short code.
+- Database Insertion: The new link entity is added to the database.
+- Caching: The newly created link is cached using the ICacheProvider service, with the expiration date set accordingly.
+- Response: It returns a Result<LinksDto> object, which includes details of the created link, such as the short code, original URL, and expiration date.
 Execution Flow in the Controller
 The LinkController class exposes an endpoint that handles the "Shorten" use case. The Shorten method in the controller:
 

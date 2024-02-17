@@ -1,8 +1,7 @@
 ﻿using Polly;
 using Polly.Registry;
-using SwiftLink.Infrastructure.CacheProvider;
 
-namespace SwiftLink.Presentation.Extensions;
+namespace SwiftLink.Infrastructure.CacheProvider;
 
 public static class PolicyExtensions
 {

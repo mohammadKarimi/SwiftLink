@@ -7,6 +7,7 @@ using Serilog;
 using SwiftLink.Application;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Infrastructure;
+using SwiftLink.Infrastructure.CacheProvider;
 using SwiftLink.Infrastructure.Persistence.Context;
 using SwiftLink.Presentation.Extensions;
 using SwiftLink.Presentation.Filters;

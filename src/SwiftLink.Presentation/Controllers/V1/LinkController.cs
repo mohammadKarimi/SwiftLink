@@ -14,7 +14,7 @@ public class LinkController(ISender sender) : BaseController(sender)
         CancellationToken cancellationToken = default)
         => OK(await MediatR.Send(command, cancellationToken));
 
-    [HttpGet, Route("{shortCode}")]
+    [HttpGet, Route("/{shortCode}")]
     [HeaderExtraction]
     public async Task<IActionResult> Visit(string shortCode, [FromQuery] string password,
         CancellationToken cancellationToken = default)

@@ -30,6 +30,9 @@ public class VisitShortenLinkQueryHandler(IApplicationDbContext dbContext,
         if (link.IsBanned)
             return Result.Failure<string>(LinkMessages.LinkIsBanned);
 
+        if (link.IsDisabled)
+            return Result.Failure<string>(LinkMessages.LinkIsDisabledByUser);
+
         if (link.ExpirationDate <= DateTime.Now)
             return Result.Failure<string>(LinkMessages.LinkIsExpired);
 

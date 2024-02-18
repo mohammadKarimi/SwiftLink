@@ -171,3 +171,24 @@ The authentication mechanism for subscribers in the SwiftLink project involves t
 - **Proceeding with Request**: Finally, if the subscriber is successfully authenticated, the behavior invokes the next delegate in the request processing pipeline, allowing the request to proceed to its intended handler.
 
 This authentication mechanism ensures that only requests with a valid and active subscriber token can access certain operations within the SwiftLink application. Unauthorized requests are effectively blocked, enhancing the security of the application by ensuring that only registered and active subscribers can perform actions that require authentication.
+
+
+## What is Back-Half Option
+
+The Back-Half Option in the SwiftLink system refers to the custom path or identifier that follows the base URL of a shortened link. This custom back half allows users to personalize their shortened URLs, making them more recognizable, memorable, or relevant to the content they link to. For example, instead of a randomly generated short link like `http://swft.link/1X3YzZ`, a user could specify a back half to create a more descriptive link like `http://swft.link/mycampaign`.
+
+### Implementation Overview
+
+Based on the provided code snippets, the SwiftLink system includes functionality to inquire about the availability of a specific back half text through the `InquiryBackHalfQuery`. This feature ensures that custom back halves are unique and not already in use within the system.
+
+- **InquiryBackHalfQuery**: This record defines a query with a single property, `BackHalfText`, representing the custom back half text that a user wants to use for their shortened link.
+
+- **InquiryBackHalfValidator**: This class validates the `InquiryBackHalfQuery` to ensure that the `BackHalfText` is not null and does not exceed a maximum length of 30 characters. This validation helps maintain data integrity and prevents abuse of the system by limiting the length of custom back halves.
+
+- **InquiryBackHalfHandler**: This class handles the `InquiryBackHalfQuery` by checking the database for the existence of the specified `BackHalfText` in the `Link` entities. If the back half text already exists, it returns a failure result, indicating that the back half is not available for use. Otherwise, it returns a success result, indicating that the back half is available.
+
+### Usage in the System
+
+The Back-Half Option feature is crucial for users who wish to create more meaningful and branded short links. By allowing users to specify a custom back half, SwiftLink enhances the usability and appeal of its short links, making them more effective for marketing, branding, and content sharing purposes.
+
+The inquiry mechanism ensures that each custom back half is unique within the system, preventing conflicts and confusion that could arise from duplicate short links. This feature is part of SwiftLink's broader functionality to provide a user-friendly, efficient, and reliable link shortening service.

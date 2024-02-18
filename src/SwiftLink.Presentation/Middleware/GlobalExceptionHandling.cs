@@ -25,20 +25,18 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
         _logger.LogError(exception, "Server Error happened!");
 
         var exceptionType = exception.GetType();
-        if (_exceptionHandlers.TryGetValue(exceptionType,
-                out var value))
+        if (_exceptionHandlers.TryGetValue(exceptionType, out var handler))
         {
-            await value.Invoke(httpContext, exception, cancellationToken);
+            await handler.Invoke(httpContext, exception, cancellationToken);
             return true;
         }
 
         httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-        await httpContext.Response
-            .WriteAsJsonAsync(new ProblemDetails
-            {
-                Status = StatusCodes.Status500InternalServerError,
-                Title = "Server error"
-            }, cancellationToken);
+        await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
+        {
+            Status = StatusCodes.Status500InternalServerError,
+            Title = "Server error"
+        }, cancellationToken);
 
         return false;
     }
@@ -61,8 +59,7 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
             problemDetails.Extensions["errors"] = businessValidationException.Errors;
 
         httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-        await httpContext.Response.WriteAsJsonAsync(problemDetails,
-            cancellationToken: cancellationToken);
+        await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
     }
 
     private async Task HandleSubscriberUnAuthorizedException(HttpContext httpContext, Exception exception,
@@ -76,6 +73,6 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
             Status = StatusCodes.Status401Unauthorized,
             Title = "UnAuthorized User",
             Detail = "Token is not sent or User is unauthorized :(",
-        }, cancellationToken: cancellationToken);
+        }, cancellationToken);
     }
 }

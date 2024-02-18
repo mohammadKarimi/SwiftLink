@@ -13,8 +13,10 @@ internal record LinkMessages
     public static readonly Error InvalidLinkId = Error.Validation("LinkValidation", "Invalid LinkId or Subscriber Token.");
     public static readonly Error InvalidSubscriberId = Error.Validation("LinkValidation", "Invalid SubscriberId.");
     public static readonly Error BackHalfIsExist = Error.Failure("LinkValidation", "This back-half text is used before.");
+    public static readonly Error BackHalfLength = Error.Validation("BackHalf Validation", "Back-Half must be less than 16 characters.");
+    public static readonly Error BackHalfInvalidFormat = Error.Validation("BackHalf Validation", "Back-Half must be contain words and numbers.");
+
     public static readonly Error GroupNameMustBeSent = Error.Validation("GroupName Validation", "GroupName field can not be null.");
     public static readonly Error InvalidBackHalfLength = Error.Validation("LinkValidation", "maximum length for back-half text is 30.");
     public static readonly Error InvalidBackHalf = Error.Validation("LinkValidation", "maximum length for back-half text is 30.");
-
 }

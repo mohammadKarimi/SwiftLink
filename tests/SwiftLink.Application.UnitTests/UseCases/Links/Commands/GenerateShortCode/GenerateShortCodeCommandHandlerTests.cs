@@ -24,14 +24,12 @@ public class GenerateShortCodeCommandHandlerTests
     public GenerateShortCodeCommandHandlerTests()
     {
         _dbContextMock = Substitute.For<IApplicationDbContext>();
-        _cacheProviderMock = Substitute.For<ICacheProvider>();
         _codeGeneratorMock = Substitute.For<IShortCodeGenerator>();
         _optionsMock = Substitute.For<IOptions<AppSettings>>();
         _sharedContextMock = Substitute.For<ISharedContext>();
 
         _handler = new GenerateShortCodeCommandHandler(
             _dbContextMock,
-            _cacheProviderMock,
             _codeGeneratorMock,
             _optionsMock,
             _sharedContextMock

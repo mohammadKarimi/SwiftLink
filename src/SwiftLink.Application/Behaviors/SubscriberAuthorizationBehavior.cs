@@ -20,8 +20,10 @@ internal class SubscriberAuthorizationBehavior<TRequest, TResponse>(IApplication
         if (_user.Token is null)
             throw new SubscriberUnAuthorizedException();
 
-        var result = await _dbContext.Set<Subscriber>().FirstOrDefaultAsync(x => x.Token == _user.Token
-                                                                                 && x.IsActive, cancellationToken) ?? throw new SubscriberUnAuthorizedException();
+        var result = await _dbContext.Set<Subscriber>()
+            .FirstOrDefaultAsync(x => x.Token == _user.Token
+                                 && x.IsActive, cancellationToken)
+            ?? throw new SubscriberUnAuthorizedException();
 
         _sharedContext.Set(nameof(result.Id), result.Id);
         _sharedContext.Set(nameof(result.Name), result.Name);

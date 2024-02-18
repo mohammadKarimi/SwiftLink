@@ -15,7 +15,6 @@ namespace SwiftLink.Application.UnitTests.UseCases.Links.Commands.GenerateShortC
 public class GenerateShortCodeCommandHandlerTests
 {
     private readonly IApplicationDbContext _dbContextMock;
-    private readonly ICacheProvider _cacheProviderMock;
     private readonly IShortCodeGenerator _codeGeneratorMock;
     private readonly IOptions<AppSettings> _optionsMock;
     private readonly ISharedContext _sharedContextMock;

@@ -7,9 +7,9 @@ namespace SwiftLink.Infrastructure.CacheProvider;
 
 public static class PolicyExtensions
 {
-    public static void AddPollyPipelines(this IServiceCollection services)//this IPolicyRegistry<string> policy)
+    public static void AddPollyPipelines(this IServiceCollection services)
     {
-        services.AddResiliencePipeline<string, string>("my-key", builder =>
+        services.AddResiliencePipeline<string, string>(nameof(RedisCashServiceResiliencyKey.GetCircuitBreaker), builder =>
          {
              builder.AddCircuitBreaker(new CircuitBreakerStrategyOptions<string>()
              {
@@ -21,15 +21,16 @@ public static class PolicyExtensions
              });
          });
 
-        //policy.Add("", circuitBreaker);
-
-        //var setCacheCircuitBreaker =
-        //    Policy<bool>.HandleResult(false).CircuitBreakerAsync(1, TimeSpan.FromSeconds(60));
-
-        //var getCacheCircuitBreaker =
-        //    Policy<string>.HandleResult((r) => { return r is null; }).CircuitBreakerAsync(1, TimeSpan.FromSeconds(60));
-
-        //policy.Add(nameof(RedisCashServiceResiliencyKey.SetOrRemoveCircuitBreaker), setCacheCircuitBreaker);
-        //policy.Add(nameof(RedisCashServiceResiliencyKey.GetCircuitBreaker), getCacheCircuitBreaker);
+        services.AddResiliencePipeline<string, bool>(nameof(RedisCashServiceResiliencyKey.SetOrRemoveCircuitBreaker), builder =>
+        {
+            builder.AddCircuitBreaker(new CircuitBreakerStrategyOptions<bool>()
+            {
+                MinimumThroughput = 2,
+                FailureRatio = 0.1,
+                SamplingDuration = TimeSpan.FromSeconds(10),
+                BreakDuration = TimeSpan.FromSeconds(60),
+                ShouldHandle = new PredicateBuilder<bool>().Handle<RedisConnectionException>()
+            });
+        });
     }
 }

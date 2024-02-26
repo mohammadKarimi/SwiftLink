@@ -13,7 +13,6 @@ public class RedisCacheService(IDistributedCache cache,
     : ICacheProvider
 {
     private readonly IDistributedCache _cache = cache;
-    private readonly IReadOnlyPolicyRegistry<string> _policyRegistry;
     private readonly ResiliencePipelineProvider<string> _resiliencePipeline = resiliencePipeline;
     private readonly AppSettings _options = options.Value;
 

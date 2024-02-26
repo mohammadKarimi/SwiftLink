@@ -17,7 +17,7 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
 
         RuleFor(x => x.BackHalf)
             .MaximumLength(16).WithMessage(LinkMessages.BackHalfLength.Message)
-            .Must(BeAValidCharacters).WithMessage(LinkMessages.BackHalfInvalidFormat.Message)
+            .Must(BeAValidCharacters).WithMessage(LinkMessages.BackHalfInvalidFormat.Message).When(x => x.BackHalf is not null)
             .MustAsync(BeAValidBackHalf).WithMessage(LinkMessages.BackHalfIsExist.Message);
 
         RuleFor(x => x.ExpirationDate)

@@ -18,10 +18,7 @@ using SwiftLink.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    //builder.Services.AddPolicyRegistry()
-    //                .AddPolicies();
-
-
+   
     builder.Services.AddPollyPipelines();
 
     builder.Services.AddScoped<IUser, CurrentUser>();

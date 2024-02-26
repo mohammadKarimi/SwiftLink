@@ -35,10 +35,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SwiftLink.Infrastructure\SwiftLink.Infrastructure.csproj" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <ProjectReference Include="..\SwiftLink.Infrastructure\SwiftLink.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

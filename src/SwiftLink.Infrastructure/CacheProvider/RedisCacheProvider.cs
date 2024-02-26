@@ -1,24 +1,22 @@
-﻿using System.Net.Http;
-using System.Net;
-using System.Text;
-using System.Threading;
+﻿using System.Text;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using Polly;
 using Polly.CircuitBreaker;
 using Polly.Registry;
-using Polly.Retry;
 using StackExchange.Redis;
-using System.Security.Cryptography;
 
 namespace SwiftLink.Infrastructure.CacheProvider;
 
-public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> options, IReadOnlyPolicyRegistry<string> policyRegistry)
+public class RedisCacheService(IDistributedCache cache,
+                               IOptions<AppSettings> options,
+                               //IReadOnlyPolicyRegistry<string> policyRegistry,
+                               ResiliencePipelineProvider<string> resiliencePipeline)
     : ICacheProvider
 {
     private readonly IDistributedCache _cache = cache;
-    private readonly IReadOnlyPolicyRegistry<string> _policyRegistry = policyRegistry;
-
+    private readonly IReadOnlyPolicyRegistry<string> _policyRegistry;
+    private readonly ResiliencePipelineProvider<string> _resiliencePipeline = resiliencePipeline;
     private readonly AppSettings _options = options.Value;
 
     public async Task<bool> Remove(string key)
@@ -69,20 +67,28 @@ public class RedisCacheService(IDistributedCache cache, IOptions<AppSettings> op
 
     public async Task<string> Get(string key)
     {
-        var getCacheCircuitBreaker = _policyRegistry.Get<AsyncCircuitBreakerPolicy<string>>(nameof(RedisCashServiceResiliencyKey.GetCircuitBreaker));
-        return getCacheCircuitBreaker.CircuitState is CircuitState.Open
-            ? null
-            : await getCacheCircuitBreaker.ExecuteAsync(async () =>
-                {
-                    try
-                    {
-                        return await _cache.GetStringAsync(key);
-                    }
-                    catch (RedisConnectionException)
-                    {
-                        return null;
-                    }
-                });
+        var pipeline = _resiliencePipeline.GetPipeline<string>("my-key");
+        var outcome = await pipeline.ExecuteOutcomeAsync(async (ctx, state) =>
+        {
+            return Outcome.FromResult(await _cache.GetStringAsync(key));
+        }, ResilienceContextPool.Shared.Get(), "state");
+
+        return outcome.Exception is BrokenCircuitException ? null : outcome.Result;
+
+        //    var getCacheCircuitBreaker = _policyRegistry.Get<AsyncCircuitBreakerPolicy<string>>(nameof(RedisCashServiceResiliencyKey.GetCircuitBreaker));
+        //return getCacheCircuitBreaker.CircuitState is CircuitState.Open
+        //    ? null
+        //    : await getCacheCircuitBreaker.ExecuteAsync(async () =>
+        //        {
+        //            try
+        //            {
+        //                return await _cache.GetStringAsync(key);
+        //            }
+        //            catch (RedisConnectionException)
+        //            {
+        //                return null;
+        //            }
+        //        });
     }
 }
 

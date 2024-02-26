@@ -2,6 +2,7 @@ using Asp.Versioning;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
+using Polly;
 using Prometheus;
 using Serilog;
 using SwiftLink.Application;
@@ -17,8 +18,11 @@ using SwiftLink.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Services.AddPolicyRegistry()
-                    .AddPolicies();
+    //builder.Services.AddPolicyRegistry()
+    //                .AddPolicies();
+
+
+    builder.Services.AddPollyPipelines();
 
     builder.Services.AddScoped<IUser, CurrentUser>();
     builder.Services.AddHttpContextAccessor();

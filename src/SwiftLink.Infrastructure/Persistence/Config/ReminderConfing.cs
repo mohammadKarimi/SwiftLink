@@ -12,7 +12,7 @@ public class ReminderConfing : IEntityTypeConfiguration<Reminder>
         builder.HasKey(r => r.Id)
             .HasName("PK_Base_Reminder");
 
-        builder.Property(r => r.RemindTime)
+        builder.Property(r => r.RemindDate)
             .IsRequired();
 
         builder.Property(r => r.IsDeleted)

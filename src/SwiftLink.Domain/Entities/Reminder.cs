@@ -11,5 +11,5 @@ public class Reminder: IEntity
     public Link Link { get; set; }
     public byte TryCount { get; set; } = 0;
     public bool IsDeleted { get; set; } = false;
-    public DateTime RemindTime { get; set; }
+    public DateTime RemindDate { get; set; }
 }

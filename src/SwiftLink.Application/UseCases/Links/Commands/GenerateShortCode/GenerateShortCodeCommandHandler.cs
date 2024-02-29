@@ -41,7 +41,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
             Reminder reminder = new()
             {
                 Link = link,
-                RemindTime = request.RemindDate.Value
+                RemindDate = request.RemindDate.Value
             };
 
             reminderTable.Add(reminder);

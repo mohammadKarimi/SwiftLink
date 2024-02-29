@@ -1,6 +1,6 @@
 ﻿using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Dtos;
-using SwiftLink.Domain.Entities.Link;
+
 
 namespace SwiftLink.Application.UseCases.Links.Queries;
 

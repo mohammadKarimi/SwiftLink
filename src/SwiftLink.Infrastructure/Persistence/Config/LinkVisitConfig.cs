@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SwiftLink.Domain.Entities.Link;
+
 
 namespace SwiftLink.Infrastructure.Persistence.Config;
 

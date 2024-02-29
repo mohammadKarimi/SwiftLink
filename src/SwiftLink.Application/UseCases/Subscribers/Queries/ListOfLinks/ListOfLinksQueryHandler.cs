@@ -1,7 +1,7 @@
 ﻿using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Dtos;
 using SwiftLink.Application.UseCases.Subscribers.Queries;
-using SwiftLink.Domain.Entities.Link;
+
 
 namespace SwiftLink.Application.UseCases.Links.Queries;
 

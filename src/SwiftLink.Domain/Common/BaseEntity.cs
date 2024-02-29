@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SwiftLink.Domain.Common;
-public abstract class BaseEntity<T>
-{
-    public T Id { get; set; }
 
+public abstract class BaseEntity
+{
     private readonly List<BaseEvent> _domainEvents = [];
 
+    public int Id { get; set; }
+   
     [NotMapped]
     public IReadOnlyCollection<BaseEvent> DomainEvents
         => _domainEvents.AsReadOnly();

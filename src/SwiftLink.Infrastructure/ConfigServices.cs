@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SwiftLink.Infrastructure.CacheProvider;
@@ -14,9 +15,12 @@ public static class ConfigureServices
     public static IServiceCollection RegisterInfrastructureServices(this IServiceCollection services,
         IConfiguration configuration)
     {
+        var connectionString = configuration.GetConnectionString(nameof(ApplicationDbContext));
+        ArgumentException.ThrowIfNullOrEmpty(connectionString);
+
         services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(opt =>
         {
-            opt.UseSqlServer(configuration.GetConnectionString(nameof(ApplicationDbContext)),
+            opt.UseSqlServer(connectionString,
                 (db) => { db.MigrationsHistoryTable("MigrationHistory"); })
 #if DEBUG
             .LogTo(Console.WriteLine, LogLevel.Information)

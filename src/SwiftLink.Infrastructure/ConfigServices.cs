@@ -1,4 +1,5 @@
 ﻿using System;
+using Ardalis.GuardClauses;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -16,7 +17,8 @@ public static class ConfigureServices
         IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString(nameof(ApplicationDbContext));
-        ArgumentException.ThrowIfNullOrEmpty(connectionString);
+
+        Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
 
         services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(opt =>
         {

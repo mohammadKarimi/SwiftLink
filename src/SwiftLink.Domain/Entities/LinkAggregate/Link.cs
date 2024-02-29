@@ -18,7 +18,7 @@ public class Link : IEntity
     public bool IsDisabled { get; private set; }
     public string Password { get; set; }
     public string GroupName { get; set; }
-    public List<Tags> Tags { get; set; }
+    public ICollection<Tag> Tags { get; private set; } = [];
     public ICollection<LinkVisit> LinkVisits { get; set; }
     public ICollection<Reminder> Reminders { get; set; }
 
@@ -27,10 +27,13 @@ public class Link : IEntity
 
     public void Disable()
         => IsDisabled = true;
-}
 
-public class Tags
-{
-    public string Title { get; set; }
-    public byte Order { get; set; }
+    public void AddTag(string title, int order)
+        => Tags.Add(Tag.Create(title, order));
+
+    public void AddTags(IReadOnlyList<Tag> tags)
+    {
+        foreach (var item in tags)
+            AddTag(item.Title, item.Order);
+    }
 }

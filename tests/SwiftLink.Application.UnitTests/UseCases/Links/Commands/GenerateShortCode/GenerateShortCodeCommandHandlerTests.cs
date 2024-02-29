@@ -7,6 +7,7 @@ using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Dtos;
 using SwiftLink.Application.UseCases.Links.Commands;
 using SwiftLink.Domain.Entities;
+using SwiftLink.Domain.Entities.Link;
 using SwiftLink.Shared;
 using Xunit;
 

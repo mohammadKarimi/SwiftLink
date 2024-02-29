@@ -7,7 +7,7 @@ using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.UseCases.Links.Queries;
-using SwiftLink.Domain.Entities;
+using SwiftLink.Domain.Entities.Link;
 using Xunit;
 
 namespace SwiftLink.Application.UnitTests.UseCases.Links.Queries;

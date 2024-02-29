@@ -7,9 +7,8 @@ public class GetLinkByGroupNameQueryHandler(IApplicationDbContext dbContext) : I
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
 
-    public async Task<Result<IEnumerable<LinksDto>>> Handle(GetLinkByGroupNameQuery request, CancellationToken cancellationToken)
-    {
-        IEnumerable<LinksDto> result = await _dbContext.Set<Link>()
+    public async Task<Result<IEnumerable<LinksDto>>> Handle(GetLinkByGroupNameQuery request, CancellationToken cancellationToken) =>
+     await Result<IEnumerable<LinksDto>>.Validation(async ()=> await  _dbContext.Set<Link>()
                                .Where(x => x.GroupName == request.GroupName)
                                .AsNoTracking()
                                .Select(x => new LinksDto
@@ -23,7 +22,5 @@ public class GetLinkByGroupNameQueryHandler(IApplicationDbContext dbContext) : I
                                    IsDisabled = x.IsDisabled,
                                    LinkdId = x.Id
                                })
-                               .ToListAsync(cancellationToken);
-        return Result.Success(result);
-    }
+                               .ToListAsync(cancellationToken));
 }

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace SwiftLink.Shared;
 
@@ -45,4 +46,17 @@ public class Result<T> : Result
 
     public static new Result<T> Failure(Error error) 
         => new(false, default!, error);
+
+    public static async Task<Result<T>> Validation(Func<Task<T>> func)
+    {
+        try
+        {
+            var result = await func();
+            return Success(result);
+        }
+        catch (Exception ex)
+        {
+            return Failure(Error.Exception(ErrorType.None.ToString(), ex.Message));
+        }
+    }
 }

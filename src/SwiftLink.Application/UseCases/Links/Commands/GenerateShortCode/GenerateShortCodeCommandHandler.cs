@@ -34,9 +34,22 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
         };
 
         linkTable.Add(link);
-        var dbResult = await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return dbResult.IsFailure
+        if (request.RemindDate is not null)
+        {
+            var reminderTable = _dbContext.Set<Reminder>();
+            Reminder reminder = new()
+            {
+                Link = link,
+                RemindTime = request.RemindDate.Value
+            };
+
+            reminderTable.Add(reminder);
+        }
+
+        var saveChangesResult = await _dbContext.SaveChangesAsync(cancellationToken);
+
+        return saveChangesResult.IsFailure
             ? Result.Failure<LinksDto>(CommonMessages.Database.InsertFailed)
             : Result.Success(new LinksDto()
             {

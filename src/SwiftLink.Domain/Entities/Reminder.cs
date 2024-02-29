@@ -9,7 +9,7 @@ public class Reminder: IEntity
     public int Id { get; set; }
     public int LinkId { get; set; }
     public Link Link { get; set; }
-    public byte TryCount { get; set; }
-    public bool IsDeleted { get; set; }
+    public byte TryCount { get; set; } = 0;
+    public bool IsDeleted { get; set; } = false;
     public DateTime RemindTime { get; set; }
 }

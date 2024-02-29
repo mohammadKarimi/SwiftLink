@@ -20,7 +20,7 @@ public class Link : IEntity
     public string GroupName { get; set; }
     public ICollection<Tag> Tags { get; private set; } = [];
     public ICollection<LinkVisit> LinkVisits { get; set; }
-    public ICollection<Reminder> Reminders { get; set; }
+    public ICollection<Reminder> Reminders { get; private set; } = [];
 
     public void Enable()
         => IsDisabled = false;
@@ -36,4 +36,12 @@ public class Link : IEntity
         foreach (var item in tags)
             AddTag(item.Title, item.Order);
     }
+
+    public void AddReminder(DateTime reminderDate)
+        => Reminders.Add(new Reminder
+        {
+            Link = this,
+            RemindDate = reminderDate,
+            TryCount = 0,
+        });
 }

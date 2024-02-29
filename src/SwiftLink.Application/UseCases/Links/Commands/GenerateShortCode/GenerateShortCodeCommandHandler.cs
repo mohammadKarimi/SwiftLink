@@ -32,20 +32,10 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
             GroupName = request.GroupName
         };
         link.AddTags(request.Tags);
-        linkTable.Add(link);
-
         if (request.RemindDate is not null)
-        {
-            var reminderTable = _dbContext.Set<Reminder>();
-            Reminder reminder = new()
-            {
-                Link = link,
-                RemindDate = request.RemindDate.Value
-            };
+            link.AddReminder(request.RemindDate.Value);
 
-            reminderTable.Add(reminder);
-        }
-
+        linkTable.Add(link);
         var saveChangesResult = await _dbContext.SaveChangesAsync(cancellationToken);
 
         return saveChangesResult.IsFailure

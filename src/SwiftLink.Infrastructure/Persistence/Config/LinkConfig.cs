@@ -39,9 +39,11 @@ public class LinkConfig : IEntityTypeConfiguration<Link>
             .HasPrincipalKey(x => x.Id)
             .HasForeignKey(r => r.LinkId);
 
-        builder.OwnsMany(x => x.Tags, nb =>
+        builder.OwnsMany(p => p.Tags, a =>
         {
-            nb.ToJson();
+            a.WithOwner().HasForeignKey("LinkId");
+            a.Property<int>("Id").ValueGeneratedOnAdd();
+            a.HasKey("Id");
         });
 
         builder.Property(x => x.Title)

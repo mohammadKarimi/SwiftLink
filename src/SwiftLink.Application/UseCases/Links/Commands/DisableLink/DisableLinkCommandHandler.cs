@@ -1,5 +1,6 @@
 ﻿using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
+using SwiftLink.Domain.Entities.Link;
 
 namespace SwiftLink.Application.UseCases.Links.Commands;
 

@@ -29,10 +29,9 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
             ExpirationDate = request.ExpirationDate ?? DateTime.Now.AddDays(_options.Value.DefaultExpirationTimeInDays),
             Password = request.Password?.Hash(request.Url),
             Title = request.Title,
-            Tags = request.Tags?.ToList(),
             GroupName = request.GroupName
         };
-
+        link.AddTags(request.Tags);
         linkTable.Add(link);
 
         if (request.RemindDate is not null)

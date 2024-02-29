@@ -1,4 +1,5 @@
 ﻿using SwiftLink.Application.Common.Interfaces;
+using SwiftLink.Domain.Entities.Link;
 
 namespace SwiftLink.Application.UseCases.Links.Queries;
 public class InquiryBackHalfHanlder(IApplicationDbContext dbContext) : IRequestHandler<InquiryBackHalfQuery, Result<bool>>

@@ -21,7 +21,16 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
             .MustAsync(BeAValidBackHalf).WithMessage(LinkMessages.BackHalfIsExist.Message);
 
         RuleFor(x => x.ExpirationDate)
-           .Must(BeAValidExpirationDate).WithMessage(LinkMessages.ExpirationDateMustBeMoreThanTomorrow.Message);
+            .Must(BeAValidExpirationDate)
+            .WithMessage(LinkMessages.ExpirationDateMustBeMoreThanTomorrow.Message)
+             .NotNull()
+             .When(x => x.RemindDate is not null)
+             .WithMessage(LinkMessages.ExpirationDateIsRequiredToSetReminder.Message);
+
+        RuleFor(x => new { x.RemindDate, x.ExpirationDate })
+            .Must(x => BeInRightInterval(x.RemindDate.Value, x.ExpirationDate.Value))
+            .WithMessage(LinkMessages.InvalidReminderDate.Message)
+            .When(x => x.RemindDate is not null);
     }
 
     private bool BeAValidUrl(string url)
@@ -32,6 +41,10 @@ public class GenerateShortCodeValidator : AbstractValidator<GenerateShortCodeCom
 
     private bool BeAValidExpirationDate(DateTime? date)
         => date is null || date.Value > DateTime.Now;
+
+    private bool BeInRightInterval(DateTime remindDate, DateTime expirationDate)
+        => DateTime.Now < remindDate &&
+           remindDate < expirationDate;
 
     private async Task<bool> BeAValidBackHalf(string backHalf, CancellationToken cancellationToken)
         => backHalf is null || !await _dbContext.Set<Link>().AnyAsync(x => x.ShortCode == backHalf, cancellationToken);

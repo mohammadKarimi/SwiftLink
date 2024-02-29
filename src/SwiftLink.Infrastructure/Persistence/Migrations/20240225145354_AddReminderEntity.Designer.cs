@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SwiftLink.Infrastructure.Persistence.Context;
 
@@ -11,9 +12,11 @@ using SwiftLink.Infrastructure.Persistence.Context;
 namespace SwiftLink.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240225145354_AddReminderEntity")]
+    partial class AddReminderEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,7 +142,7 @@ namespace SwiftLink.Infrastructure.Migrations
                     b.Property<int>("LinkId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("RemindDate")
+                    b.Property<DateTime>("RemindTime")
                         .HasColumnType("datetime2");
 
                     b.Property<byte>("TryCount")

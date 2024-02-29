@@ -20,6 +20,7 @@ public class Link : IEntity
     public string GroupName { get; set; }
     public List<Tags> Tags { get; set; }
     public ICollection<LinkVisit> LinkVisits { get; set; }
+    public ICollection<Reminder> Reminders { get; set; }
 
     public void Enable()
         => IsDisabled = false;

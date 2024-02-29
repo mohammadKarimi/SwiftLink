@@ -34,6 +34,11 @@ public class LinkConfig : IEntityTypeConfiguration<Link>
             .HasPrincipalKey(x => x.Id)
             .HasForeignKey(x => x.LinkId);
 
+        builder.HasMany(x => x.Reminders)
+            .WithOne(r => r.Link)
+            .HasPrincipalKey(x => x.Id)
+            .HasForeignKey(r => r.LinkId);
+
         builder.OwnsMany(x => x.Tags, nb =>
         {
             nb.ToJson();

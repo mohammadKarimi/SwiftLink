@@ -8,16 +8,13 @@
 
     <PackageVersion Include="FluentValidation" Version="11.9.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
-    <PackageVersion Include="MediatR" Version="12.2.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
     <PackageVersion Include="Serilog" Version="3.1.1" />
-
+  
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.2" />
     <PackageVersion Include="Polly" Version="8.3.0" />
     <PackageVersion Include="Polly.Extensions" Version="8.3.0" />
-    <PackageVersion Include="Ardalis.GuardClauses" Version="4.2.0" />
 
     <PackageVersion Include="Asp.Versioning.Http" Version="8.0.0" />
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.0.0" />
@@ -32,7 +29,6 @@
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageVersion Include="prometheus-net" Version="8.2.1" />
     <PackageVersion Include="prometheus-net.AspNetCore" Version="8.2.1" />
-    <PackageVersion Include="Serilog" Version="3.1.1" />
     <PackageVersion Include="Serilog.AspNetCore" Version="8.0.1" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 

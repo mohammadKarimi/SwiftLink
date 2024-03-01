@@ -3,8 +3,4 @@
     <ItemGroup>
         <PackageReference Include="MediatR" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Events\" />
-    </ItemGroup>
 </Project>

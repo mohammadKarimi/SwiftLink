@@ -23,7 +23,7 @@ public static class ConfigServices
                 config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         });
 
-        services.AddScoped<IShortCodeGenerator, HashBasedShortCodeGenerator>();
+        services.AddTransient<IShortCodeGenerator, HashBasedShortCodeGenerator>();
         services.AddScoped<ISharedContext, SharedContext>();
         return services;
     }

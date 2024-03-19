@@ -18,7 +18,7 @@ using SwiftLink.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-   
+
     builder.Services.AddPollyPipelines();
 
     builder.Services.AddScoped<IUser, CurrentUser>();
@@ -113,3 +113,5 @@ var app = builder.Build();
 
     app.Run();
 }
+
+

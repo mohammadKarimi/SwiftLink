@@ -37,7 +37,7 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
 
         linkTable.Add(link);
         var saveChangesResult = await _dbContext.SaveChangesAsync(cancellationToken);
-
+        
         return saveChangesResult.IsFailure
             ? Result.Failure<LinksDto>(CommonMessages.Database.InsertFailed)
             : Result.Success(new LinksDto()

@@ -28,11 +28,13 @@ public class Link : IEntity
     public void Disable()
         => IsDisabled = true;
 
-    public void AddTag(string title, int order)
+    private void AddTag(string title, int order)
         => Tags.Add(Tag.Create(title, order));
 
     public void AddTags(IReadOnlyList<Tag> tags)
     {
+        if (tags is null)
+            return;
         foreach (var item in tags)
             AddTag(item.Title, item.Order);
     }

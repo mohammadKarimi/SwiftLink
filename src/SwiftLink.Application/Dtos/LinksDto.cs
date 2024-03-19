@@ -1,5 +1,5 @@
 ﻿namespace SwiftLink.Application.Dtos;
-public record struct LinksDto
+public record LinksDto
 {
     public int LinkdId { get; set; }
     public string ShortCode { get; set; }

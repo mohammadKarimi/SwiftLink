@@ -12,6 +12,6 @@ public enum ErrorType
     [Description("Not Found")]
     NotFound = 404,
 
-    [Description("Internal Server Error")]
+    [Description("No Warning and Error")]
     None = 100
 }

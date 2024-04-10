@@ -31,12 +31,19 @@ Welcome to the SwiftLink project, a .NET 8 application designed to streamline li
 
 ## Core Features
 Link Shortening: Allows users to generate shortened URLs from longer ones, making them easier to share and manage.
+
 Customizable Shortened Paths: Through the Back-Half Option feature, users can customize the path or identifier that follows the base URL of a shortened link.
+
 Link Resolution and Visiting: The application handles the resolution of shortened URLs to their original URLs and tracks visits.
+
 Analytics: Tracks and provides insights into the number of users who click on a shortened link via the LinkVisit entity.
+
 Resilience and Transient-Fault-Handling: Utilizes Polly for resilience strategies, ensuring the application can handle and recover from transient faults effectively.
+
 Authentication for Subscribers: Implements an authentication mechanism for subscribers, allowing for the creation and management of subscriber accounts.
+
 Link Management: Users can create, disable, enable, and manage links, including setting expiration dates and adding tags for organization.
+
 Subscriber Management: Allows for the creation and management of subscriber accounts, including activation and deactivation of accounts.
 
 ## Technical Features

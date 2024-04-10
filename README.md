@@ -34,6 +34,14 @@ Welcome to the SwiftLink project, a .NET 8 application designed to streamline li
 
 **Customizable Shortened Paths:** Through the **Back-Half Option feature**, users can customize the path or identifier that follows the base URL of a shortened link.
 
+**Tagging for Shortened Links**
+The tagging feature in SwiftLink allows users to add multiple tags to a shortened link for better identification and organization. This feature enhances the usability of the system by enabling users to categorize and manage their links more effectively. Tags are simple yet powerful identifiers that help users classify their shortened links based on various criteria such as project names, link types, urgency levels, or any other categorization scheme the user finds useful. By attaching tags to links, users can easily filter and locate their links within the SwiftLink dashboard or through API queries.
+- Benefits
+Enhanced Organization: Users can categorize their links in a way that makes sense for their personal or organizational needs.
+Improved Searchability: Tags make it easier to search for and filter links, especially when dealing with a large number of shortened URLs.
+Customization: The ability to define custom tags provides flexibility, allowing users to tailor the system to their specific use cases.
+
+
 **Link Resolution and Visiting:** The application handles the resolution of shortened URLs to their original URLs and tracks visits.
 
 **Analytics:** Tracks and provides insights into the number of users who click on a shortened link via the LinkVisit entity.

@@ -29,6 +29,35 @@ Welcome to the SwiftLink project, a .NET 8 application designed to streamline li
 
 ![Architecture](https://github.com/mohammadKarimi/SwiftLink/blob/main/docs/architecture.png) 
 
+## Core Features
+Link Shortening: Allows users to generate shortened URLs from longer ones, making them easier to share and manage.
+Customizable Shortened Paths: Through the Back-Half Option feature, users can customize the path or identifier that follows the base URL of a shortened link.
+Link Resolution and Visiting: The application handles the resolution of shortened URLs to their original URLs and tracks visits.
+Analytics: Tracks and provides insights into the number of users who click on a shortened link via the LinkVisit entity.
+Resilience and Transient-Fault-Handling: Utilizes Polly for resilience strategies, ensuring the application can handle and recover from transient faults effectively.
+Authentication for Subscribers: Implements an authentication mechanism for subscribers, allowing for the creation and management of subscriber accounts.
+Link Management: Users can create, disable, enable, and manage links, including setting expiration dates and adding tags for organization.
+Subscriber Management: Allows for the creation and management of subscriber accounts, including activation and deactivation of accounts.
+
+## Technical Features
+Clean Architecture: The project is structured using Clean Architecture principles, separating concerns and making the codebase more maintainable.
+Domain-Driven Design (DDD): Implements DDD principles in the domain layer, organizing the code around the business domain and its logic.
+Caching with Redis: Utilizes Redis for caching, enhancing performance and scalability.
+Resilience with Polly: Integrates Polly for advanced resilience policies, including retries and circuit breakers.
+API Documentation: Provides Swagger integration for API documentation and testing.
+Global Exception Handling: Implements global exception handling for centralized error management.
+Validation: Uses FluentValidation for input validation, ensuring data integrity and providing meaningful error messages.
+Logging and Monitoring: Incorporates logging and potentially monitoring mechanisms to track the application's health and usage.
+Dependency Injection: Utilizes dependency injection for managing dependencies, improving code modularity and testability.
+Entity Framework Core: Leverages EF Core for data access and management, including support for migrations.
+Docker Support: Includes instructions for setting up a Redis container via Docker, indicating support for containerization.
+
+## Development and Deployment Features
+.NET 8 Application: Built with .NET 8, ensuring modern features and performance optimizations.
+Database Migration Support: Offers guidance on database migration, facilitating deployment and updates.
+Docker Integration: Provides instructions for using Docker, particularly for Redis, which suggests the application is designed with containerization in mind.
+This summary encapsulates the features and capabilities of the SwiftLink application as inferred from the provided documentation and code structure.
+
 ## 💾 Getting Started
 
 ### Prerequisites

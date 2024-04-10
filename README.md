@@ -41,6 +41,11 @@ Enhanced Organization: Users can categorize their links in a way that makes sens
 Improved Searchability: Tags make it easier to search for and filter links, especially when dealing with a large number of shortened URLs.
 Customization: The ability to define custom tags provides flexibility, allowing users to tailor the system to their specific use cases.
 
+**Password Protection for Shortened Links**
+The password protection feature in SwiftLink allows users to set a password for a shortened link. This ensures that only individuals with the password can access the original URL linked to the shortened link. This feature is particularly useful for securing direct access to files or sensitive content.
+- Benefits
+Enhanced Security: Password protection adds an extra layer of security, ensuring that only authorized users can access the content linked to the shortened URL.
+Flexibility: By allowing the password to be nullable, the system offers flexibility in how links are secured, catering to both sensitive and non-sensitive content.
 
 **Link Resolution and Visiting:** The application handles the resolution of shortened URLs to their original URLs and tracks visits.
 

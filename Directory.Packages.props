@@ -26,7 +26,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3" />
 
     <PackageVersion Include="Microsoft.Extensions.Http.Polly" Version="8.0.3" />
-    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
     <PackageVersion Include="prometheus-net" Version="8.2.1" />
     <PackageVersion Include="prometheus-net.AspNetCore" Version="8.2.1" />
     <PackageVersion Include="Serilog.AspNetCore" Version="8.0.1" />

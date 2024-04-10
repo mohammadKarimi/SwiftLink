@@ -47,6 +47,13 @@ The password protection feature in SwiftLink allows users to set a password for 
 Enhanced Security: Password protection adds an extra layer of security, ensuring that only authorized users can access the content linked to the shortened URL.
 Flexibility: By allowing the password to be nullable, the system offers flexibility in how links are secured, catering to both sensitive and non-sensitive content.
 
+**Link Expiration Reminder**
+The SwiftLink system includes a feature that allows users to set reminders for their shortened links. This feature is designed to notify users via email when their links are approaching expiration.
+- Benefits
+Proactive Notifications: Users are proactively notified about the expiration of their links, allowing them to take necessary actions, such as extending the link's life or notifying their audience.
+Enhanced User Experience: By ensuring users are aware of link expirations, SwiftLink improves the overall user experience, making link management more efficient and less prone to oversight.
+Customizable Reminders: Users can set reminders based on their specific needs, offering flexibility in how they manage their links.
+
 **Link Resolution and Visiting:** The application handles the resolution of shortened URLs to their original URLs and tracks visits.
 
 **Analytics:** Tracks and provides insights into the number of users who click on a shortened link via the LinkVisit entity.

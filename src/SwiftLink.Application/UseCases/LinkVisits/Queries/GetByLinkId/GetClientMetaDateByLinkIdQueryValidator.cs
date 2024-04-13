@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace SwiftLink.Application.UseCases.LinkVisits.Queries;
 
-namespace SwiftLink.Application.UseCases.LinkVisits.Queries.GetByLinkId;
-internal class GetClientMetaDateByLinkIdQueryValidator
+public class GetClientMetaDateByLinkIdQueryValidator : AbstractValidator<GetClientMetaDataByLinkIdQuery>
 {
+    public GetClientMetaDateByLinkIdQueryValidator()
+
+    {
+        RuleFor(x => x.LinkId)
+            .NotNull().WithMessage(LinkVisitMessages.LinkIdMustBeSent.Message);
+    }
 }

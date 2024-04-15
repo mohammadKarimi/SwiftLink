@@ -1,6 +1,5 @@
-﻿using FluentValidation;
+﻿namespace SwiftLink.Application.UseCases.Links.Queries.GetByGroupName;
 
-namespace SwiftLink.Application.UseCases.Links.Queries.GetByGroupName;
 public class GetLinkByGroupNameQueryValidator : AbstractValidator<GetLinkByGroupNameQuery>
 {
     public GetLinkByGroupNameQueryValidator()

@@ -1,8 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using SwiftLink.Application.UseCases.Subscribers.Commands;
-
-namespace SwiftLink.Presentation.Controllers.V1;
+﻿namespace SwiftLink.Presentation.Controllers.V1;
 
 public class SubscriberController(ISender sender) : BaseController(sender)
 {

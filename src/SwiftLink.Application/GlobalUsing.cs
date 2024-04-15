@@ -1,4 +1,5 @@
 ﻿global using MediatR;
-global using Microsoft.EntityFrameworkCore;
-global using SwiftLink.Domain.Entities;
 global using SwiftLink.Shared;
+global using FluentValidation;
+global using SwiftLink.Domain.Entities;
+global using Microsoft.EntityFrameworkCore;

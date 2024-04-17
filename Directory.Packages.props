@@ -38,6 +38,6 @@
     <PackageVersion Include="NSubstitute" Version="5.1.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="xunit" Version="2.7.0" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.7" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.8" />
   </ItemGroup>
 </Project>

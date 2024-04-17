@@ -1,4 +1,6 @@
 using Asp.Versioning;
+using Elastic.Apm.Api;
+using FluentValidation;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
@@ -71,6 +73,7 @@ var builder = WebApplication.CreateBuilder(args);
 
         options.OperationFilter<SwaggerAuthenticationFilter>();
     });
+
 }
 
 var app = builder.Build();

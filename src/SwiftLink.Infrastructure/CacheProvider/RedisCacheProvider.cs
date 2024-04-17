@@ -15,8 +15,7 @@ public class RedisCacheService(IDistributedCache cache,
     private readonly IDistributedCache _cache = cache;
     private readonly ResiliencePipelineProvider<string> _resiliencePipeline = resiliencePipeline;
     private readonly AppSettings _options = options.Value;
-
-    #region Not Important
+ 
     public async Task<bool> Remove(string key)
     {
         var pipeline = _resiliencePipeline.GetPipeline<bool>(nameof(RedisCashServiceResiliencyKey.SetOrRemoveCircuitBreaker));
@@ -55,12 +54,8 @@ public class RedisCacheService(IDistributedCache cache,
         return outcome.Exception is not BrokenCircuitException && outcome.Result;
     }
 
-    #endregion
-
     public async Task<string> Get(string key)
     {
-
-        // return await _cache.GetStringAsync(key);
         var pipeline = _resiliencePipeline.GetPipeline<string>(
             nameof(RedisCashServiceResiliencyKey.GetCircuitBreaker));
 

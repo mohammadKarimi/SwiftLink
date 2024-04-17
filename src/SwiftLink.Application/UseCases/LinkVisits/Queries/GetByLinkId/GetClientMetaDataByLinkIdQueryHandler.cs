@@ -10,12 +10,15 @@ public class GetClientMetaDataByLinkIdQueryHandler(IApplicationDbContext dbConte
     {
         IEnumerable<LinkVisitDto> result = await _dbContext.Set<LinkVisit>()
                                      .Where(x => x.LinkId == request.LinkId)
+                                     .Skip(100)
+                                     .OrderByDescending(x => x.Id)
                                      .AsNoTracking()
                                      .Select(x => new LinkVisitDto
                                      {
                                          ClientMetaDate = x.ClientMetaData,
                                          Date = x.Date
-                                     }).ToListAsync(cancellationToken);
+                                     })
+                                     .ToListAsync(cancellationToken);
         return Result.Success(result);
     }
 }

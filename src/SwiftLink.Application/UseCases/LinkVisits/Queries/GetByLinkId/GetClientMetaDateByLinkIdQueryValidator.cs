@@ -1,4 +1,6 @@
-﻿namespace SwiftLink.Application.UseCases.LinkVisits.Queries;
+﻿using FluentValidation;
+
+namespace SwiftLink.Application.UseCases.LinkVisits.Queries;
 
 public class GetClientMetaDateByLinkIdQueryValidator : AbstractValidator<GetClientMetaDataByLinkIdQuery>
 {

@@ -1,12 +1,4 @@
-﻿using System.Reflection;
-using FluentValidation;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using SwiftLink.Application.Behaviors;
-using SwiftLink.Application.Common;
-using SwiftLink.Application.Common.Interfaces;
-
-namespace SwiftLink.Application;
+﻿namespace SwiftLink.Application;
 
 public static class ConfigServices
 {

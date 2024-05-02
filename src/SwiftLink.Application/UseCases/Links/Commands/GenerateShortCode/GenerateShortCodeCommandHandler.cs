@@ -1,10 +1,4 @@
-﻿using System.Net;
-using Microsoft.Extensions.Options;
-using SwiftLink.Application.Common;
-using SwiftLink.Application.Common.Interfaces;
-using SwiftLink.Application.Dtos;
-
-namespace SwiftLink.Application.UseCases.Links.Commands;
+﻿namespace SwiftLink.Application.UseCases.Links.Commands;
 
 public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
                                              IShortCodeGenerator codeGenerator,

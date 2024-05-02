@@ -9,3 +9,5 @@ global using Microsoft.Extensions.DependencyInjection;
 global using SwiftLink.Application.Behaviors;
 global using SwiftLink.Application.Common;
 global using SwiftLink.Application.Common.Interfaces;
+global using Microsoft.Extensions.Options;
+global using SwiftLink.Application.Dtos;

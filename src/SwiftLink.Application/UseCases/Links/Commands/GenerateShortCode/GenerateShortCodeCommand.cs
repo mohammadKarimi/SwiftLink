@@ -1,6 +1,4 @@
-﻿using SwiftLink.Application.Dtos;
-
-namespace SwiftLink.Application.UseCases.Links.Commands;
+﻿namespace SwiftLink.Application.UseCases.Links.Commands;
 
 public record GenerateShortCodeCommand : IRequest<Result<LinksDto>>
 {

@@ -1,8 +1,4 @@
-﻿using SwiftLink.Application.Common;
-using SwiftLink.Application.Common.Interfaces;
-
-
-namespace SwiftLink.Application.UseCases.Links.Commands;
+﻿namespace SwiftLink.Application.UseCases.Links.Commands;
 
 public class DisableLinkCommandHandler(IApplicationDbContext dbContext) : IRequestHandler<DisableLinkCommand, Result<bool>>
 {

@@ -1,9 +1,4 @@
-﻿using System.Text.Json;
-using SwiftLink.Application.Common;
-using SwiftLink.Application.Common.Interfaces;
-
-
-namespace SwiftLink.Application.UseCases.Links.Commands;
+﻿namespace SwiftLink.Application.UseCases.Links.Commands;
 
 public class UpdateLinkCommandHandler(IApplicationDbContext dbContext,
                                       ISharedContext sharedContext,

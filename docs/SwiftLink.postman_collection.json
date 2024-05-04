@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "7d5221d9-9f13-4261-88ae-7fb9fba1fcb7",
+		"name": "SwiftLink",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11366910"
+	},
+	"item": [
+		{
+			"name": "Link",
+			"item": [
+				{
+					"name": "Shorten",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true,
+							"user-agent": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Url\": \"https://github.com/mohammadKarimi/SwiftLink\",\r\n    \"Description\": \".Net8 URL Shortener\",\r\n    \"ExpirationDate\": \"2024-04-05\",\r\n    \"Title\": \"SwiftLink Github\",\r\n    \"GroupName\": \"iCodeNext\",\r\n    \"Tags\": [\r\n        {\r\n            \"Title\": \".Net\",\r\n            \"Order\": 1\r\n        },\r\n        {\r\n            \"Title\": \"URL Shorter\",\r\n            \"Order\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/api/v1.0/link/Shorten",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"link",
+								"Shorten"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Visit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/link/ACxYb5QaE9DE5101",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"link",
+								"ACxYb5QaE9DE5101"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUrl}}/api/v1.0/link/list?count=10",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"link",
+								"list"
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Count",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUrl}}/api/v1.0/link/count?linkId=55922",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"link",
+								"count"
+							],
+							"query": [
+								{
+									"key": "linkId",
+									"value": "55922"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetByGroupName",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:7257/api/v1.0/link/GetByGroupName?GroupName=AVA",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7257",
+							"path": [
+								"api",
+								"v1.0",
+								"link",
+								"GetByGroupName"
+							],
+							"query": [
+								{
+									"key": "GroupName",
+									"value": "AVA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InqueryBackHalfText",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUrl}}/api/v1.0/Link/inquery?backHalfText=Jayze2",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"Link",
+								"inquery"
+							],
+							"query": [
+								{
+									"key": "backHalfText",
+									"value": "Jayze2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subscriber",
+			"item": [
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"m.karimi@gmail.com\",\r\n    \"name\": \"Mohammad Karimi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/api/v1.0/Subscriber/Add",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"Subscriber",
+								"Add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HealthCheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/Health",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"Health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "metrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5678/metrics",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5678",
+					"path": [
+						"metrics"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

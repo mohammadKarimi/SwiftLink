@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using Microsoft.Extensions.Logging;
 using SwiftLink.Domain.Common;
 using SwiftLink.Infrastructure.Persistence.Consts;

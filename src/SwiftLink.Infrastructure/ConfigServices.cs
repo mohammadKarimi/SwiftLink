@@ -23,11 +23,7 @@ public static class ConfigureServices
         services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(opt =>
         {
             opt.UseSqlServer(connectionString,
-                (db) => { db.MigrationsHistoryTable("MigrationHistory"); })
-#if DEBUG
-            .LogTo(Console.WriteLine, LogLevel.Information)
-            .EnableSensitiveDataLogging();
-#endif
+                (db) => { db.MigrationsHistoryTable("MigrationHistory"); });
         });
 
         services.AddScoped<ApplicationDbContextInitializer>();

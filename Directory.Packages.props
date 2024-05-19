@@ -7,7 +7,7 @@
     <PackageVersion Include="MediatR" Version="12.2.0" />
 
     <PackageVersion Include="FluentValidation" Version="11.9.1" />
-    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.1" />
     <PackageVersion Include="Serilog" Version="3.1.1" />
   
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />

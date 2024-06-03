@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System.Net;
+using Microsoft.Extensions.Options;
 using SwiftLink.Application.Common;
 using SwiftLink.Application.Common.Interfaces;
 using SwiftLink.Application.Dtos;
@@ -37,7 +38,8 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
 
         linkTable.Add(link);
         var saveChangesResult = await _dbContext.SaveChangesAsync(cancellationToken);
-        
+
+
         return saveChangesResult.IsFailure
             ? Result.Failure<LinksDto>(CommonMessages.Database.InsertFailed)
             : Result.Success(new LinksDto()

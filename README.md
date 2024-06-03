@@ -24,7 +24,7 @@ Welcome to the SwiftLink project, a .NET 8 application designed to streamline li
 
 **For More Information, Please Read <a href="https://github.com/mohammadKarimi/SwiftLink/blob/main/docs.md">Our Documentation</a>**
 
-![Architecture](https://github.com/mohammadKarimi/SwiftLink/blob/main/docs/architecture.png) 
+![Architecture](https://github.com/mohammadKarimi/SwiftLink/blob/main/docs/c.png) 
 
 ## Core Features
 **Link Shortening:** Allows users to generate shortened URLs from longer ones, making them easier to share and manage.

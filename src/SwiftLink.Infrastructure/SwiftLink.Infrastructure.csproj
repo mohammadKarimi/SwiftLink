@@ -10,6 +10,7 @@
         <PackageReference Include="Polly" />
         <PackageReference Include="Polly.Extensions" />
         <PackageReference Include="Ardalis.GuardClauses" />
+        <PackageReference Include="ErrorOr" />
     </ItemGroup>
 
     <ItemGroup>

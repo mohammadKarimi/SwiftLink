@@ -16,6 +16,7 @@
     <PackageReference Include="AspNetCore.HealthChecks.UI" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" />
     <PackageReference Include="Elastic.Apm.NetCoreAll" />
+    <PackageReference Include="ErrorOr" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
       <PrivateAssets>all</PrivateAssets>

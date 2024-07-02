@@ -5,6 +5,7 @@
         <PackageReference Include="MediatR"  />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"  />
         <PackageReference Include="Serilog"  />
+        <PackageReference Include="ErrorOr" />
     </ItemGroup>
 
     <ItemGroup>

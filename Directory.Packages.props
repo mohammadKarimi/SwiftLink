@@ -13,7 +13,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8" />
     <PackageVersion Include="Polly" Version="8.4.1" />
-    <PackageVersion Include="Polly.Extensions" Version="8.4.0" />
+    <PackageVersion Include="Polly.Extensions" Version="8.4.1" />
     <PackageVersion Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
     <PackageVersion Include="Asp.Versioning.Http" Version="8.1.0" />
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />

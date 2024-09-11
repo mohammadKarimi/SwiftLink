@@ -19,7 +19,7 @@
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.Redis" Version="8.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.SqlServer" Version="8.0.2" />
-    <PackageVersion Include="AspNetCore.HealthChecks.UI" Version="8.0.0" />
+    <PackageVersion Include="AspNetCore.HealthChecks.UI" Version="8.0.2" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.1" />
     <PackageVersion Include="Elastic.Apm.NetCoreAll" Version="1.28.4" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8" />

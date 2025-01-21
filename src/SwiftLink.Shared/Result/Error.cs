@@ -25,7 +25,7 @@ public record Error
         => new(code, message, ErrorType.Failure);
 
     public static Error Failure(string code, string message)
-        => new(code, message, ErrorType.None);
+        => new(code, message, ErrorType.Failure);
 
     public static Error Validation(string code, string message)
         => new(code, message, ErrorType.Validation);

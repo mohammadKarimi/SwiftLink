@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿#nullable enable
+
+using MediatR;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using SwiftLink.Domain.Common;
 

@@ -9,7 +9,7 @@
     <PackageVersion Include="FluentValidation" Version="11.10.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
     <PackageVersion Include="Serilog" Version="4.2.0" />
-    <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.1" />
     <PackageVersion Include="Polly" Version="8.4.2" />

@@ -53,10 +53,10 @@ public class ExpirationNotifierJob : IJob
                         LinkId = link.Id,
                         SubscriberEmail = link.Subscriber.Email
                     }, context.CancellationToken);
+                    link.MarkNotificationAsSent();
                 });
 
                 await Task.WhenAll(tasks);
-                links.ForEach(link => link.MarkNotificationAsSent());
 
                 /**sequencial Mode Processing/
                 //foreach (var link in links)

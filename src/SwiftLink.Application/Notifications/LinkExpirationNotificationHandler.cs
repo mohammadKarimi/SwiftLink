@@ -1,5 +1,4 @@
 ﻿using SwiftLink.Application.Services.ExpirationNotifiers;
-using SwiftLink.Domain.Entities;
 
 namespace SwiftLink.Application.Notifications;
 public record LinkExpirationNotification : INotification

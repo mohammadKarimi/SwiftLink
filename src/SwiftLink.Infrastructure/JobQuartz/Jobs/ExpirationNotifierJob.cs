@@ -5,23 +5,19 @@ using SwiftLink.Application.Notifications;
 using SwiftLink.Application.Services.ExpirationNotifiers;
 
 namespace SwiftLink.Infrastructure.JobQuartz.Jobs;
-public class ExpirationNotifierJob : IJob
-{
-    private readonly IApplicationDbContext appDbContext;
-    private readonly IExpirationNotifierComponent notifier;
-    private readonly IMediator mediator;
-    private readonly ILogger<ExpirationNotifierJob> logger;
 
-    public ExpirationNotifierJob(IApplicationDbContext applicationDbContext,
-        IExpirationNotifierComponent notificationDecorator,
-        IMediator mediator,
-        ILogger<ExpirationNotifierJob> logger)
-    {
-        this.appDbContext = applicationDbContext;
-        this.notifier = notificationDecorator;
-        this.mediator = mediator;
-        this.logger = logger;
-    }
+//If a job takes a long time, the next trigger can create another instance of the job.
+//That's why we use [DisallowConcurrentExecution].
+[DisallowConcurrentExecution]
+public class ExpirationNotifierJob(IApplicationDbContext applicationDbContext,
+    IExpirationNotifierComponent notificationDecorator,
+    IMediator mediator,
+    ILogger<ExpirationNotifierJob> logger) : IJob
+{
+    private readonly IApplicationDbContext appDbContext = applicationDbContext;
+    private readonly IExpirationNotifierComponent notifier = notificationDecorator;
+    private readonly IMediator mediator = mediator;
+    private readonly ILogger<ExpirationNotifierJob> logger = logger;
 
     public async Task Execute(IJobExecutionContext context)
     {

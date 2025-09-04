@@ -50,7 +50,7 @@ public static class ConfigureServices
 
         if (jobConfigs == null || jobConfigs.Configurations == null) return services;
 
-        var notifierJob = jobConfigs.Configurations.FirstOrDefault(p => p.Name == nameof(ExpirationNotifierJob));
+        var notifierJob = jobConfigs.Configurations.FirstOrDefault(p =>p.IsEnabled && p.Name == nameof(ExpirationNotifierJob));
 
         if (notifierJob!=null)
         {

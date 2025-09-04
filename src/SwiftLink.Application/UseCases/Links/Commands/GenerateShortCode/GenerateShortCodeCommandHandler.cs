@@ -26,7 +26,8 @@ public class GenerateShortCodeCommandHandler(IApplicationDbContext dbContext,
             Title = request.Title,
             GroupName = request.GroupName
         };
-        link.AddTags(request.Tags);
+        if (request.Tags is not null)
+            link.AddTags(request.Tags);
         if (request.RemindDate is not null)
             link.AddReminder(request.RemindDate.Value);
 

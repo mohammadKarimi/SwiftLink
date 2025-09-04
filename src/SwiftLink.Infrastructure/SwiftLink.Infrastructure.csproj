@@ -2,15 +2,17 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" >
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
         <PackageReference Include="Polly" />
         <PackageReference Include="Polly.Extensions" />
         <PackageReference Include="Ardalis.GuardClauses" />
         <PackageReference Include="ErrorOr" />
+        <PackageReference Include="Quartz.AspNetCore" />
     </ItemGroup>
 
     <ItemGroup>

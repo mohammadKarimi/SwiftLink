@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.Extensions.Logging;
 using SwiftLink.Domain.Common;
 using SwiftLink.Infrastructure.Persistence.Consts;
@@ -11,7 +10,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     : DbContext(options), IApplicationDbContext
 {
     private readonly ILogger<ApplicationDbContext> _logger = logger;
-    
+
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         configurationBuilder.Properties<string>().HaveMaxLength(200);
@@ -25,7 +24,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
-            relationship.DeleteBehavior = DeleteBehavior.NoAction;
+        {
+            //when we defines owned and owner with ownsmany or ownsone,default behavior is Cascade
+            //and we check them by below if
+            if (!relationship.IsOwnership)
+                relationship.DeleteBehavior = DeleteBehavior.NoAction;
+        }
     }
 
     public new async Task<Result> SaveChangesAsync(CancellationToken cancellationToken = default)

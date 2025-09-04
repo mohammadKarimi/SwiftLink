@@ -1,11 +1,12 @@
-﻿using System;
-using Ardalis.GuardClauses;
+﻿using Ardalis.GuardClauses;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Quartz;
+using SwiftLink.Application.Services.ExpirationNotifiers;
 using SwiftLink.Infrastructure.CacheProvider;
+using SwiftLink.Infrastructure.JobQuartz;
+using SwiftLink.Infrastructure.JobQuartz.Jobs;
 using SwiftLink.Infrastructure.Persistence.Context;
-
 namespace SwiftLink.Infrastructure;
 
 /// <summary>
@@ -33,6 +34,45 @@ public static class ConfigureServices
         {
             opt.Configuration = configuration["AppSettings:Redis:RedisCacheUrl"];
         });
+
+        return services;
+    }
+
+    public static IServiceCollection AddNotifierServices(this IServiceCollection services)
+    {
+        services.AddSingleton<IExpirationNotifierComponent>(sp =>
+        {
+            return new EmailNotifier();
+        });
+
+        return services;
+    }
+
+    public static IServiceCollection AddJobs(this IServiceCollection services, IConfiguration configuration)
+    {
+        var jobConfigs = configuration.GetSection(nameof(JobConfigurations)).Get<JobConfigurations>();
+
+        if (jobConfigs == null || jobConfigs.Configurations == null) return services;
+
+        var notifierJob = jobConfigs.Configurations.FirstOrDefault(p => p.Name == nameof(ExpirationNotifierJob));
+
+        if (notifierJob == null) return services;
+
+        services.AddQuartz(q =>
+        {
+            var jobKey = new JobKey(nameof(ExpirationNotifierJob));
+            q.AddJob<ExpirationNotifierJob>(opts => opts.WithIdentity(jobKey));
+
+            q.AddTrigger(opts => opts
+                .ForJob(jobKey)
+                .WithIdentity($"{nameof(ExpirationNotifierJob)}-trigger")
+                .StartAt(DateTimeOffset.UtcNow.AddMinutes(notifierJob.StartDelay.TotalMinutes))
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInMinutes((int)notifierJob.Interval.TotalMinutes)
+                    .RepeatForever()));
+        });
+
+        services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
         return services;
     }

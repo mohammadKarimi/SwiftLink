@@ -1,10 +1,7 @@
 using Asp.Versioning;
-using Elastic.Apm.Api;
-using FluentValidation;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
-using Polly;
 using Prometheus;
 using Serilog;
 using SwiftLink.Application;
@@ -13,7 +10,6 @@ using SwiftLink.Infrastructure;
 using SwiftLink.Infrastructure.CacheProvider;
 using SwiftLink.Infrastructure.Persistence.Context;
 using SwiftLink.Presentation.Extensions;
-using SwiftLink.Presentation.Filters;
 using SwiftLink.Presentation.Middleware;
 using SwiftLink.Presentation.Services;
 using SwiftLink.Shared;
@@ -35,6 +31,9 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.RegisterApplicationServices(builder.Configuration)
         .RegisterInfrastructureServices(builder.Configuration);
+
+    builder.Services.AddNotifierServices();
+    builder.Services.AddJobs(builder.Configuration);
 
     builder.Services.AddApiVersioning(options =>
     {

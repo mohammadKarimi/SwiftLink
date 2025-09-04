@@ -21,7 +21,7 @@ public class Link : IEntity
     public ICollection<Tag> Tags { get; private set; } = [];
     public ICollection<LinkVisit> LinkVisits { get; set; }
     public ICollection<Reminder> Reminders { get; private set; } = [];
-
+    public bool ExpirationNotificationSent { get; private set; }
     public void Enable()
         => IsDisabled = false;
 
@@ -41,4 +41,9 @@ public class Link : IEntity
             RemindDate = reminderDate,
             TryCount = 0,
         });
+
+    public void MarkNotificationAsSent()
+    {
+        this.ExpirationNotificationSent = true;
+    }
 }

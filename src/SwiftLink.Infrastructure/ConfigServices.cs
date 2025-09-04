@@ -40,11 +40,7 @@ public static class ConfigureServices
 
     public static IServiceCollection AddNotifierServices(this IServiceCollection services)
     {
-        services.AddSingleton<IExpirationNotifierComponent>(sp =>
-        {
-            return new EmailNotifier();
-        });
-
+        services.AddSingleton<IExpirationNotifierComponent, EmailNotifier>();
         return services;
     }
 
@@ -56,23 +52,24 @@ public static class ConfigureServices
 
         var notifierJob = jobConfigs.Configurations.FirstOrDefault(p => p.Name == nameof(ExpirationNotifierJob));
 
-        if (notifierJob == null) return services;
-
-        services.AddQuartz(q =>
+        if (notifierJob!=null)
         {
-            var jobKey = new JobKey(nameof(ExpirationNotifierJob));
-            q.AddJob<ExpirationNotifierJob>(opts => opts.WithIdentity(jobKey));
+            services.AddQuartz(q =>
+            {
+                var jobKey = new JobKey(nameof(ExpirationNotifierJob));
+                q.AddJob<ExpirationNotifierJob>(opts => opts.WithIdentity(jobKey));
 
-            q.AddTrigger(opts => opts
-                .ForJob(jobKey)
-                .WithIdentity($"{nameof(ExpirationNotifierJob)}-trigger")
-                .StartAt(DateTimeOffset.UtcNow.AddMinutes(notifierJob.StartDelay.TotalMinutes))
-                .WithSimpleSchedule(x => x
-                    .WithIntervalInMinutes((int)notifierJob.Interval.TotalMinutes)
-                    .RepeatForever()));
-        });
+                q.AddTrigger(opts => opts
+                    .ForJob(jobKey)
+                    .WithIdentity($"{nameof(ExpirationNotifierJob)}-trigger")
+                    .StartAt(DateTimeOffset.UtcNow.AddMinutes(notifierJob.StartDelay.TotalMinutes))
+                    .WithSimpleSchedule(x => x
+                        .WithIntervalInMinutes((int)notifierJob.Interval.TotalMinutes)
+                        .RepeatForever()));
+            });
 
-        services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+            services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+        }
 
         return services;
     }

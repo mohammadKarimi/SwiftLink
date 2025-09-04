@@ -55,10 +55,10 @@ public class ExpirationNotifierJob : IJob
                     }, context.CancellationToken);
                 });
 
-                links.ForEach(link => link.MarkNotificationAsSent());
                 await Task.WhenAll(tasks);
+                links.ForEach(link => link.MarkNotificationAsSent());
 
-                /** Sync Mode Processing/
+                /**sequencial Mode Processing/
                 //foreach (var link in links)
                 //{
                 //    await mediator.Publish(new LinkExpirationNotification
